@@ -85,6 +85,15 @@ jobs:
     inputs:
       command: 'install'
 
+  # Prepare Analysis Configuration for Sonar Cloud 
+  - task: SonarCloudPrepare@1
+    inputs:
+      SonarCloud: 'fixit-sonarcloud'
+      organization: 'fixit'
+      scannerMode: 'MSBuild'
+      projectKey: 'fixit-app_FixitCommonDataStore'
+      projectName: 'FixitCommonDataStore'
+  
   # Run Unit Tests
   - task: Npm@1
     displayName: 'Run Unit Tests'
@@ -125,3 +134,11 @@ jobs:
       command: 'publish'
       publishRegistry: 'useFeed'
       publishFeed: '$(projectName)/$(feedName)'
+
+  # Run Sonar Cloud Code Analysis
+  - task: SonarCloudAnalyze@1
+  
+  # Publish Sonar Cloud Quality Gate Result
+  - task: SonarCloudPublish@1
+    inputs:
+      pollingTimeoutSec: '300'
