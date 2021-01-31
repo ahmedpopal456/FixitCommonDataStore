@@ -90,10 +90,12 @@ jobs:
     inputs:
       SonarCloud: 'fixit-sonarcloud'
       organization: 'fixit'
-      scannerMode: 'MSBuild'
-      projectKey: 'fixit-app_FixitCommonDataStore'
-      projectName: 'FixitCommonDataStore'
-  
+      scannerMode: 'CLI'
+      configMode: 'manual'
+      cliProjectKey: 'fixit-app_FixitCommonDataStore'
+      cliProjectName: 'FixitCommonDataStore'
+      cliSources: '$(Build.SourcesDirectory)'
+
   # Run Unit Tests
   - task: Npm@1
     displayName: 'Run Unit Tests'
