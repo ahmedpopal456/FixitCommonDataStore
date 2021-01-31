@@ -95,6 +95,7 @@ jobs:
       cliProjectKey: 'fixit-app_FixitCommonDataStore'
       cliProjectName: 'FixitCommonDataStore'
       cliSources: '$(Build.SourcesDirectory)'
+      extraProperties: 'sonar.language=ts'
 
   # Run Unit Tests
   - task: Npm@1
