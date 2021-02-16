@@ -1,27 +1,32 @@
-import { createStore, applyMiddleware, Action } from 'redux';
-import thunk, { ThunkDispatch } from 'redux-thunk';
-import rootReducer, { RootState } from './reducer';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider, connect } from 'react-redux';
 import ConfigFactory from './config/factory/configFactory';
-import initUserActions from './store/slices/user/userActions';
-import UserService from './services/userService';
 import * as persistentActions from './storage/persistentActions';
 import { persistentStore, persistentStorePersistor } from './storage/persistentStore';
 import ApplicationTypesEnum from './models/config/applicationTypesEnum';
+import NativeAuthService from './services/native/nativeAuthService';
+import * as B2CTypes from './models/auth/B2CTypes';
+import { ConfigModel } from './models/config/configModel';
+import { PersistentStateModel } from './models/persistentStore/persistentStateModel';
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware<ThunkDispatch<RootState, undefined, Action<any>>, RootState>(thunk),
-);
+const nativeServices = {
+  NativeAuthService,
+};
 
-export default {
-  store,
+export {
+  B2CTypes,
   ConfigFactory,
-  UserService,
-  initUserActions,
   persistentStore,
   persistentStorePersistor,
   persistentActions,
   ApplicationTypesEnum,
+  nativeServices,
+  PersistGate,
+  Provider,
+  connect,
 };
 
-export type { Config } from './models/config/config';
+export type {
+  ConfigModel as Config,
+  PersistentStateModel as PersistentState,
+};

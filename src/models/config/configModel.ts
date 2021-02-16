@@ -1,4 +1,4 @@
-export interface Config {
+export interface ConfigModel {
   production: boolean;
   userApiBaseUrl: string;
   fixApiBaseUrl: string;
