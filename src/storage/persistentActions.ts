@@ -1,10 +1,12 @@
-import PersistentActionTypes from '../models/persistentStore/persistentActionTypes';
-import { PersistentAction } from '../models/persistentStore/persistentAction';
+import PersistentActionTypesModel from '../models/persistentStore/persistentActionTypesModel';
+import { SetAuthStatusActionModel } from '../models/persistentStore/persistentActionModel';
 
-export const setLightModePreference = (): PersistentAction => ({
-  type: PersistentActionTypes.SET_LIGHT_MODE_PREFERENCE,
+const setAuthStatus = (authStatus : boolean, token : string): SetAuthStatusActionModel => ({
+  type: PersistentActionTypesModel.SET_AUTH_STATUS,
+  payload: {
+    isAuthenticated: authStatus,
+    authToken: token,
+  },
 });
 
-export const setDarkModePreference = (): PersistentAction => ({
-  type: PersistentActionTypes.SET_DARK_MODE_PREFERENCE,
-});
+export default setAuthStatus;

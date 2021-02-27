@@ -1,23 +1,24 @@
-import PersistentActionTypes from '../models/persistentStore/persistentActionTypes';
-import { PersistentState } from '../models/persistentStore/persistentState';
-import { PersistentAction } from '../models/persistentStore/persistentAction';
+import { AnyAction } from 'redux';
+import PersistentActionTypesModel from '../models/persistentStore/persistentActionTypesModel';
+import { PersistentStateModel } from '../models/persistentStore/persistentStateModel';
 
-const initialState: PersistentState = {
-  darkMode: false,
+const initialState: PersistentStateModel = {
+  user: {
+    isAuthenticated: false,
+    authToken: undefined,
+  },
 };
 
-export default function persistentReducer(state = initialState, action: PersistentAction)
-: PersistentState {
+export default function persistentReducer(state = initialState, action: AnyAction) // NOSONAR
+: PersistentStateModel {
   switch (action.type) {
-    case PersistentActionTypes.SET_LIGHT_MODE_PREFERENCE:
+    case PersistentActionTypesModel.SET_AUTH_STATUS:
       return {
         ...state,
-        darkMode: false,
-      };
-    case PersistentActionTypes.SET_DARK_MODE_PREFERENCE:
-      return {
-        ...state,
-        darkMode: true,
+        user: {
+          isAuthenticated: action.payload.isAuthenticated,
+          authToken: action.payload.authToken,
+        },
       };
     default:
       return state;

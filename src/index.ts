@@ -1,27 +1,37 @@
-import { createStore, applyMiddleware, Action } from 'redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { applyMiddleware, createStore, Action } from 'redux';
 import thunk, { ThunkDispatch } from 'redux-thunk';
-import rootReducer, { RootState } from './reducer';
+import { Provider, connect } from 'react-redux';
 import ConfigFactory from './config/factory/configFactory';
-import initUserActions from './store/slices/user/userActions';
-import UserService from './services/userService';
 import * as persistentActions from './storage/persistentActions';
 import { persistentStore, persistentStorePersistor } from './storage/persistentStore';
 import ApplicationTypesEnum from './models/config/applicationTypesEnum';
+import { ConfigModel } from './models/config/configModel';
+import { PersistentStateModel } from './models/persistentStore/persistentStateModel';
+import rootReducer, { RootState } from './reducer';
+import ProfileService from './services/profileService';
+import RatingsService from './services/ratingsService';
 
 const store = createStore(
   rootReducer,
   applyMiddleware<ThunkDispatch<RootState, undefined, Action<any>>, RootState>(thunk),
 );
 
-export default {
-  store,
+export {
   ConfigFactory,
-  UserService,
-  initUserActions,
   persistentStore,
   persistentStorePersistor,
   persistentActions,
+  ProfileService,
+  RatingsService,
+  store,
   ApplicationTypesEnum,
+  PersistGate,
+  Provider,
+  connect,
 };
 
-export type { Config } from './models/config/config';
+export type {
+  ConfigModel as Config,
+  PersistentStateModel as PersistentState,
+};
