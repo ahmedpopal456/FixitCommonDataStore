@@ -1,5 +1,5 @@
 import AccountActionTypesModel from '../../models/account/accountActionTypesModel';
-import { SetAccountInfoActionModel } from '../../models/account/accountActionModel';
+import {SetAccountInfoActionModel} from '../../models/account/accountActionModel';
 
 const setAccountInfo = (userId: string, email: string, password: string): SetAccountInfoActionModel => ({
   type: AccountActionTypesModel.SET_ACCOUNT_INFO,

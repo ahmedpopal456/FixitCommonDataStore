@@ -1,3 +1,4 @@
+import React from 'react';
 import { createStore } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,3 +14,4 @@ const persistedReducer = persistReducer(persistConfig, persistentReducer);
 
 export const persistentStore = createStore(persistedReducer);
 export const persistentStorePersistor = persistStore(persistentStore);
+export const persistentContext = React.createContext("persistentContext");

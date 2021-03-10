@@ -4,6 +4,8 @@
   "main": "src/index.ts",
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.13.4",
+    "@react-native-firebase/app": "^11.0.0",
+    "@react-native-firebase/messaging": "^11.0.0",
     "@types/node": "12.19.8",
     "axios": "^0.21.1",
     "react-native": "^0.63.4",
@@ -13,7 +15,7 @@
     "redux-thunk": "2.3.0"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --all --coverage",
     "eslint": "eslint . --ext .js,.ts",
     "eslint:fix": "eslint . --ext .js,.ts --fix",
     "tsc": "tsc"

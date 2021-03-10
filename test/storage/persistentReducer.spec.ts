@@ -3,12 +3,13 @@ import persistentReducer from '../../src/storage/persistentReducer';
 
 describe('persistent reducer', () => {
   it('should return the initial state', () => {
-    expect(persistentReducer(undefined, { type: '' })).toEqual(
+    expect(persistentReducer(undefined, {type: ''})).toEqual(
       {
         user: {
           isAuthenticated: false,
           authToken: undefined,
         },
+        pushChannelToken: undefined,
       },
     );
   });
@@ -27,6 +28,24 @@ describe('persistent reducer', () => {
         authToken: 'my token',
         isAuthenticated: true,
       },
+      pushChannelToken: undefined,
+    });
+  });
+
+  it('should handle SET_NOTIFICATION_TOKEN', () => {
+    expect(
+      persistentReducer(undefined, {
+        type: PersistentActionTypesModel.SET_NOTIFICATION_TOKEN,
+        payload: {
+          pushChannelToken: 'my token',
+        },
+      })
+    ).toEqual({
+      user: {
+        authToken: undefined,
+        isAuthenticated: false,
+      },
+      pushChannelToken: 'my token',
     });
   });
 });

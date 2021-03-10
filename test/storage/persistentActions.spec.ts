@@ -1,5 +1,5 @@
 import PersistentActionTypesModel from '../../src/models/persistentStore/persistentActionTypesModel';
-import setAuthStatus from '../../src/storage/persistentActions';
+import persistentActions from '../../src/storage/persistentActions';
 
 describe('actions', () => {
   it('should create an action to set the auth status', () => {
@@ -10,6 +10,18 @@ describe('actions', () => {
         authToken: 'my token',
       },
     };
-    expect(setAuthStatus(true, 'my token')).toEqual(expectedAction);
+    expect(persistentActions.setAuthStatus(true, 'my token')).toEqual(expectedAction);
+  });
+
+  it('should create an action to set the push channel token', () => {
+    const expectedAction = {
+      type: PersistentActionTypesModel.SET_NOTIFICATION_TOKEN,
+      payload: {
+        pushChannelToken: 'my token',
+      },
+    };
+    expect(persistentActions.setPushChannelToken('my token')).toEqual(
+      expectedAction
+    );
   });
 });

@@ -3,7 +3,7 @@ import profileReducer from '../../../src/store/profile/profileReducer';
 
 describe('profile reducer', () => {
   it('should return the inital state of profile', () => {
-    expect(profileReducer(undefined, { type: '' })).toEqual({
+    expect(profileReducer(undefined, {type: ''})).toEqual({
       profile: {
         firstName: '',
         lastName: '',

@@ -1,7 +1,7 @@
 import PersistentActionTypesModel from '../models/persistentStore/persistentActionTypesModel';
-import { SetAuthStatusActionModel } from '../models/persistentStore/persistentActionModel';
+import {SetAuthStatusActionModel, SetPushChannelTokenActionModel} from '../models/persistentStore/persistentActionModel';
 
-const setAuthStatus = (authStatus : boolean, token : string): SetAuthStatusActionModel => ({
+const setAuthStatus = (authStatus: boolean, token: string): SetAuthStatusActionModel => ({
   type: PersistentActionTypesModel.SET_AUTH_STATUS,
   payload: {
     isAuthenticated: authStatus,
@@ -9,4 +9,14 @@ const setAuthStatus = (authStatus : boolean, token : string): SetAuthStatusActio
   },
 });
 
-export default setAuthStatus;
+const setPushChannelToken = (pushChannelToken: string): SetPushChannelTokenActionModel => ({
+  type: PersistentActionTypesModel.SET_NOTIFICATION_TOKEN,
+  payload: {
+    pushChannelToken: pushChannelToken,
+  },
+});
+
+export default {
+  setAuthStatus,
+  setPushChannelToken,
+};
