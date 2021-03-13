@@ -21,7 +21,7 @@ describe('actions', () => {
       },
     };
     expect(persistentActions.setPushChannelToken('my token')).toEqual(
-      expectedAction
+      expectedAction,
     );
   });
 });

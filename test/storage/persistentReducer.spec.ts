@@ -3,7 +3,7 @@ import persistentReducer from '../../src/storage/persistentReducer';
 
 describe('persistent reducer', () => {
   it('should return the initial state', () => {
-    expect(persistentReducer(undefined, {type: ''})).toEqual(
+    expect(persistentReducer(undefined, { type: '' })).toEqual(
       {
         user: {
           isAuthenticated: false,
@@ -39,7 +39,7 @@ describe('persistent reducer', () => {
         payload: {
           pushChannelToken: 'my token',
         },
-      })
+      }),
     ).toEqual({
       user: {
         authToken: undefined,

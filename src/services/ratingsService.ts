@@ -14,7 +14,13 @@ export default class RatingsService {
     return (axios.get(`http://localhost:7071/api/users/${userId}/account/ratings`)
       .then((response) => {
         store.dispatch(
-          setRatingsInfo(response.data.ratings.id, response.data.ratings.averageRating, response.data.ratings.ratings, response.data.ratings.ratingsOfUser));
+          setRatingsInfo(
+            response.data.ratings.id,
+            response.data.ratings.averageRating,
+            response.data.ratings.ratings,
+            response.data.ratings.ratingsOfUser,
+          ),
+        );
         return response.data;
       })
       .catch((error) => console.error(error))

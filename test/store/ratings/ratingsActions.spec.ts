@@ -9,9 +9,9 @@ describe('ratings action', () => {
         ratingsId: '123',
         averageRating: 5,
         ratings: [],
-        ratingsOfUser: {}
-      }
+        ratingsOfUser: {},
+      },
     };
     expect(setRatingsInfo('123', 5, [], {})).toEqual(expectedAction);
-  })
-})
+  });
+});

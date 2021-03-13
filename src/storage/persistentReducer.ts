@@ -1,6 +1,6 @@
-import {AnyAction} from 'redux';
+import { AnyAction } from 'redux';
 import PersistentActionTypesModel from '../models/persistentStore/persistentActionTypesModel';
-import {PersistentStateModel} from '../models/persistentStore/persistentStateModel';
+import { PersistentStateModel } from '../models/persistentStore/persistentStateModel';
 
 const initialState: PersistentStateModel = {
   user: {

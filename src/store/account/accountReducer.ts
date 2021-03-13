@@ -7,11 +7,11 @@ const initialState: AccountStateModel = {
     userId: '',
     email: '',
     password: '',
-  }
+  },
 };
 
 export default function accountReducer(state = initialState, action: AnyAction) : AccountStateModel { // NOSONAR
-  switch(action.type) { // NOSONAR
+  switch (action.type) { // NOSONAR
     case AccountActionTypesModel.SET_ACCOUNT_INFO:
       return {
         ...state,
@@ -19,7 +19,7 @@ export default function accountReducer(state = initialState, action: AnyAction) 
           userId: action.payload.userId,
           email: action.payload.email,
           password: action.payload.password,
-        }
+        },
       };
     default:
       return state;

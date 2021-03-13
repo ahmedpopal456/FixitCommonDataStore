@@ -8,11 +8,11 @@ const initialState: ProfileStateModel = {
     lastName: '',
     address: {},
     profilePictureUrl: '',
-  }
+  },
 };
 
 export default function profileReducer(state = initialState, action: AnyAction) : ProfileStateModel { // NOSONAR
-  switch(action.type) { // NOSONAR
+  switch (action.type) { // NOSONAR
     case ProfileActionTypesModel.SET_PROFILE_INFO:
       return {
         ...state,
@@ -21,7 +21,7 @@ export default function profileReducer(state = initialState, action: AnyAction) 
           lastName: action.payload.lastName,
           address: action.payload.address,
           profilePictureUrl: action.payload.profilePictureUrl,
-        }
+        },
       };
     default:
       return state;

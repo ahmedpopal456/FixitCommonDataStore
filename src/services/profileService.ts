@@ -14,11 +14,16 @@ export default class ProfileService {
     return (axios.get(`http://localhost:7071/api/${userId}/account/profile`)
       .then((response) => {
         store.dispatch(
-          setProfileInfo(response.data.firstName, response.data.lastName, response.data.address, response.data.profilePictureUrl));
+          setProfileInfo(
+            response.data.firstName,
+            response.data.lastName,
+            response.data.address,
+            response.data.profilePictureUrl,
+          ),
+        );
         return response.data;
       })
       .catch((error) => console.error(error))
     );
   }
-
 }

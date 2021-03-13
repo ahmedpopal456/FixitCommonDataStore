@@ -1,32 +1,32 @@
 import notificationReducer from '../../../src/store/notifications/notificationsReducer';
 import NotificationActionTypesModel from '../../../src/models/notifications/notificationActionsTypes';
-import {NotificationStateModel} from '../../../src/models/notifications/notificationState';
+import { NotificationStateModel } from '../../../src/models/notifications/notificationState';
 
-describe("root reducer", () => {
-  it("should return the initial state", () => {
+describe('root reducer', () => {
+  it('should return the initial state', () => {
     const expected = {
       messages: [],
     };
     expect(
-      notificationReducer(undefined, {type: "", payload: undefined})
+      notificationReducer(undefined, { type: '', payload: undefined }),
     ).toEqual(expected);
   });
 
-  it("should handle DISPLAY_NOTIFICATION", () => {
+  it('should handle DISPLAY_NOTIFICATION', () => {
     const payload = {
       message: {
-        messageId: "id-1",
+        messageId: 'id-1',
         notification: {
-          title: "test-1",
+          title: 'test-1',
         },
-      }
+      },
     };
     const expected = {
       messages: [
         {
-          messageId: "id-1",
+          messageId: 'id-1',
           notification: {
-            title: "test-1",
+            title: 'test-1',
           },
         },
       ],
@@ -35,23 +35,23 @@ describe("root reducer", () => {
       notificationReducer(undefined, {
         type: NotificationActionTypesModel.DISPLAY_NOTIFICATION,
         payload,
-      })
+      }),
     ).toEqual(expected);
   });
 
-  it("should handle DISMISS_NOTIFICATION", () => {
+  it('should handle DISMISS_NOTIFICATION', () => {
     const initialState: NotificationStateModel = {
       messages: [
         {
-          messageId: "id-1",
+          messageId: 'id-1',
           notification: {
-            title: "test-1",
+            title: 'test-1',
           },
         },
         {
-          messageId: "id-2",
+          messageId: 'id-2',
           notification: {
-            title: "test-2",
+            title: 'test-2',
           },
         },
       ],
@@ -60,9 +60,9 @@ describe("root reducer", () => {
     const expected = {
       messages: [
         {
-          messageId: "id-2",
+          messageId: 'id-2',
           notification: {
-            title: "test-2",
+            title: 'test-2',
           },
         },
       ],
@@ -71,10 +71,9 @@ describe("root reducer", () => {
       notificationReducer(initialState, {
         type: NotificationActionTypesModel.DISMISS_NOTIFICATION,
         payload: {
-          messageId: "id-1",
-        }
-      })
+          messageId: 'id-1',
+        },
+      }),
     ).toEqual(expected);
   });
 });
-

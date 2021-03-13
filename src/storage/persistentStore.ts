@@ -14,4 +14,4 @@ const persistedReducer = persistReducer(persistConfig, persistentReducer);
 
 export const persistentStore = createStore(persistedReducer);
 export const persistentStorePersistor = persistStore(persistentStore);
-export const persistentContext = React.createContext("persistentContext");
+export const persistentContext = React.createContext('persistentContext');

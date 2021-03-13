@@ -10,8 +10,8 @@ describe('profile action', () => {
         lastName: 'Tato',
         address: {},
         profilePictureUrl: 'something/something.png',
-      }
+      },
     };
     expect(setProfileInfo('Po', 'Tato', {}, 'something/something.png')).toEqual(expectedAction);
-  })
+  });
 });

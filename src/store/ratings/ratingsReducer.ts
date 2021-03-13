@@ -8,11 +8,11 @@ const initialState: RatingsStateModel = {
     averageRating: 0,
     ratings: [],
     ratingsOfUser: {},
-  }
+  },
 };
 
 export default function ratingsReducer(state = initialState, action: AnyAction) : RatingsStateModel { // NOSONAR
-  switch(action.type) { // NOSONAR
+  switch (action.type) { // NOSONAR
     case RatingActionTypesModel.SET_RATINGS_INFO:
       return {
         ...state,
@@ -21,7 +21,7 @@ export default function ratingsReducer(state = initialState, action: AnyAction) 
           averageRating: action.payload.averageRating,
           ratings: action.payload.ratings,
           ratingsOfUser: action.payload.ratingsOfUser,
-        }
+        },
       };
     default:
       return state;

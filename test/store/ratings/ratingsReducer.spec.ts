@@ -9,8 +9,8 @@ describe('ratings reducer', () => {
         averageRating: 0,
         ratings: [],
         ratingsOfUser: {},
-      }
-    })
+      },
+    });
   });
 
   it('should handle SET_RATINGS_INFO', () => {
@@ -21,14 +21,14 @@ describe('ratings reducer', () => {
         averageRating: 5,
         ratings: [],
         ratingsOfUser: {},
-      }
+      },
     })).toEqual({
       ratings: {
         ratings: [],
         ratingsId: '123',
         ratingsOfUser: {},
         averageRating: 5,
-      }
-    })
+      },
+    });
   });
 });

@@ -1,4 +1,4 @@
-import {ActionModel} from '../ActionModel';
+import { ActionModel } from '../ActionModel';
 
 export interface SetAuthStatusActionModel extends ActionModel {
   payload: {
