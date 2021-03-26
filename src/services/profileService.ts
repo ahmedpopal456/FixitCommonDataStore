@@ -1,19 +1,21 @@
 import axios from 'axios';
 import setProfileInfo from '../store/profile/profileActions';
 import ConfigFactory from '../config/factory/configFactory';
-import { store } from '../index';
 
 export default class ProfileService {
   configFactory: ConfigFactory;
 
-  constructor(configFactory: ConfigFactory) {
+  store: any;
+
+  constructor(configFactory: ConfigFactory, store: any) {
     this.configFactory = configFactory;
+    this.store = store;
   }
 
-  getUserProfile(userId: string) {
-    return (axios.get(`http://localhost:7071/api/${userId}/account/profile`)
+  getUserProfile(userId: string) : Promise<Record<string, any>> {
+    return (axios.get(`https://fixit-dev-ums-api.azurewebsites.net/api/${userId}/account/profile`)
       .then((response) => {
-        store.dispatch(
+        this.store.dispatch(
           setProfileInfo(
             response.data.firstName,
             response.data.lastName,

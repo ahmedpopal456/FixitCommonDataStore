@@ -11,7 +11,8 @@ const initialState: ProfileStateModel = {
   },
 };
 
-export default function profileReducer(state = initialState, action: AnyAction) : ProfileStateModel { // NOSONAR
+export default function profileReducer(state = initialState, action: AnyAction) // NOSONAR
+: ProfileStateModel {
   switch (action.type) { // NOSONAR
     case ProfileActionTypesModel.SET_PROFILE_INFO:
       return {

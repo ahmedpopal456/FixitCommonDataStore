@@ -1,37 +1,38 @@
 import { ActionModel } from '../ActionModel';
+import { FixesObjModel } from './fixesObjModel';
 
 export interface SetNewFixesActionModel extends ActionModel {
   payload: {
-    newFixes: [],
+    newFixes: Array<FixesObjModel>,
   }
 }
 
 export interface SetPendingFixesActionModel extends ActionModel {
   payload: {
-    pendingFixes: [],
+    pendingFixes: Array<FixesObjModel>,
   }
 }
 
 export interface SetInProgressFixesActionModel extends ActionModel {
   payload: {
-    inProgressFixes: [],
+    inProgressFixes: Array<FixesObjModel>,
   }
 }
 
 export interface SetInReviewFixesActionModel extends ActionModel {
   payload: {
-    inReviewFixes: [],
+    inReviewFixes: Array<FixesObjModel>,
   }
 }
 
 export interface SetCompletedFixesActionModel extends ActionModel {
   payload: {
-    completedFixes: [],
+    completedFixes: Array<FixesObjModel>,
   }
 }
 
 export interface SetTerminatedFixesActionModel extends ActionModel {
   payload: {
-    terminatedFixes: [],
+    terminatedFixes: Array<FixesObjModel>,
   }
 }

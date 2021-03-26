@@ -7,7 +7,8 @@ const initialState: NotificationStateModel = {
   messages: [],
 };
 
-export default function notificationReducer(state = initialState, action: AnyAction): NotificationStateModel { // NOSONAR
+export default function notificationReducer(state = initialState, action: AnyAction) // NOSONAR
+: NotificationStateModel {
   switch (action.type) { // NOSONAR
     case NotificationActionTypesModel.DISPLAY_NOTIFICATION: {
       return {

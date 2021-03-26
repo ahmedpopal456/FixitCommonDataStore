@@ -4,24 +4,12 @@ import fixesReducer from '../../../src/store/fixes/fixesReducer';
 describe('fixes reducer', () => {
   it('should return the initla state of the fixes', () => {
     expect(fixesReducer(undefined, { type: '' })).toEqual({
-      newFixes: {
-        newFixes: [],
-      },
-      pendingFixes: {
-        pendingFixes: [],
-      },
-      inProgressFixes: {
-        inProgressFixes: [],
-      },
-      inReviewFixes: {
-        inReviewFixes: [],
-      },
-      completedFixes: {
-        completedFixes: [],
-      },
-      terminatedFixes: {
-        terminatedFixes: [],
-      },
+      newFixes: [],
+      pendingFixes: [],
+      inProgressFixes: [],
+      inReviewFixes: [],
+      completedFixes: [],
+      terminatedFixes: [],
     });
   });
 
@@ -35,27 +23,15 @@ describe('fixes reducer', () => {
         }],
       },
     })).toEqual({
-      newFixes: {
-        newFixes: [{
-          id: '123',
-          status: 0,
-        }],
-      },
-      pendingFixes: {
-        pendingFixes: [],
-      },
-      inProgressFixes: {
-        inProgressFixes: [],
-      },
-      inReviewFixes: {
-        inReviewFixes: [],
-      },
-      completedFixes: {
-        completedFixes: [],
-      },
-      terminatedFixes: {
-        terminatedFixes: [],
-      },
+      newFixes: [{
+        id: '123',
+        status: 0,
+      }],
+      pendingFixes: [],
+      inProgressFixes: [],
+      inReviewFixes: [],
+      completedFixes: [],
+      terminatedFixes: [],
     });
   });
 
@@ -69,27 +45,15 @@ describe('fixes reducer', () => {
         }],
       },
     })).toEqual({
-      pendingFixes: {
-        pendingFixes: [{
-          status: 1,
-          id: '123',
-        }],
-      },
-      newFixes: {
-        newFixes: [],
-      },
-      inProgressFixes: {
-        inProgressFixes: [],
-      },
-      inReviewFixes: {
-        inReviewFixes: [],
-      },
-      completedFixes: {
-        completedFixes: [],
-      },
-      terminatedFixes: {
-        terminatedFixes: [],
-      },
+      pendingFixes: [{
+        status: 1,
+        id: '123',
+      }],
+      newFixes: [],
+      inProgressFixes: [],
+      inReviewFixes: [],
+      completedFixes: [],
+      terminatedFixes: [],
     });
   });
 
@@ -103,27 +67,15 @@ describe('fixes reducer', () => {
         }],
       },
     })).toEqual({
-      inProgressFixes: {
-        inProgressFixes: [{
-          status: 2,
-          id: '123',
-        }],
-      },
-      newFixes: {
-        newFixes: [],
-      },
-      pendingFixes: {
-        pendingFixes: [],
-      },
-      inReviewFixes: {
-        inReviewFixes: [],
-      },
-      completedFixes: {
-        completedFixes: [],
-      },
-      terminatedFixes: {
-        terminatedFixes: [],
-      },
+      inProgressFixes: [{
+        status: 2,
+        id: '123',
+      }],
+      newFixes: [],
+      pendingFixes: [],
+      inReviewFixes: [],
+      completedFixes: [],
+      terminatedFixes: [],
     });
   });
 
@@ -137,27 +89,15 @@ describe('fixes reducer', () => {
         }],
       },
     })).toEqual({
-      inReviewFixes: {
-        inReviewFixes: [{
-          status: 3,
-          id: '123',
-        }],
-      },
-      newFixes: {
-        newFixes: [],
-      },
-      pendingFixes: {
-        pendingFixes: [],
-      },
-      inProgressFixes: {
-        inProgressFixes: [],
-      },
-      completedFixes: {
-        completedFixes: [],
-      },
-      terminatedFixes: {
-        terminatedFixes: [],
-      },
+      inReviewFixes: [{
+        status: 3,
+        id: '123',
+      }],
+      newFixes: [],
+      pendingFixes: [],
+      inProgressFixes: [],
+      completedFixes: [],
+      terminatedFixes: [],
     });
   });
 
@@ -171,27 +111,15 @@ describe('fixes reducer', () => {
         }],
       },
     })).toEqual({
-      completedFixes: {
-        completedFixes: [{
-          status: 4,
-          id: '123',
-        }],
-      },
-      newFixes: {
-        newFixes: [],
-      },
-      pendingFixes: {
-        pendingFixes: [],
-      },
-      inProgressFixes: {
-        inProgressFixes: [],
-      },
-      inReviewFixes: {
-        inReviewFixes: [],
-      },
-      terminatedFixes: {
-        terminatedFixes: [],
-      },
+      completedFixes: [{
+        status: 4,
+        id: '123',
+      }],
+      newFixes: [],
+      pendingFixes: [],
+      inProgressFixes: [],
+      inReviewFixes: [],
+      terminatedFixes: [],
     });
   });
 
@@ -205,27 +133,15 @@ describe('fixes reducer', () => {
         }],
       },
     })).toEqual({
-      terminatedFixes: {
-        terminatedFixes: [{
-          status: 5,
-          id: '123',
-        }],
-      },
-      newFixes: {
-        newFixes: [],
-      },
-      pendingFixes: {
-        pendingFixes: [],
-      },
-      inProgressFixes: {
-        inProgressFixes: [],
-      },
-      inReviewFixes: {
-        inReviewFixes: [],
-      },
-      completedFixes: {
-        completedFixes: [],
-      },
+      terminatedFixes: [{
+        status: 5,
+        id: '123',
+      }],
+      newFixes: [],
+      pendingFixes: [],
+      inProgressFixes: [],
+      inReviewFixes: [],
+      completedFixes: [],
     });
   });
 });

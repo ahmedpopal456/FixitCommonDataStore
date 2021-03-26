@@ -8,6 +8,8 @@ const initialState: PersistentStateModel = {
     authToken: undefined,
   },
   pushChannelToken: undefined,
+  notificationList: { arr: [] },
+  unseenNotificationsNumber: 0,
 };
 
 export default function persistentReducer(state = initialState, action: AnyAction) // NOSONAR
@@ -25,6 +27,12 @@ export default function persistentReducer(state = initialState, action: AnyActio
       return {
         ...state,
         pushChannelToken: action.payload.pushChannelToken,
+      };
+    case PersistentActionTypesModel.SET_NOTIFICATION_LIST:
+      return {
+        ...state,
+        notificationList: action.payload.notificationList,
+        unseenNotificationsNumber: action.payload.unseenNotificationsNumber,
       };
     default:
       return state;

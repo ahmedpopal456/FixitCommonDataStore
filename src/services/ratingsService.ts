@@ -1,19 +1,21 @@
 import axios from 'axios';
 import setRatingsInfo from '../store/ratings/ratingsActions';
 import ConfigFactory from '../config/factory/configFactory';
-import { store } from '../index';
 
 export default class RatingsService {
   configFactory: ConfigFactory;
 
-  constructor(configFactory: ConfigFactory) {
+  store: any;
+
+  constructor(configFactory: ConfigFactory, store: any) {
     this.configFactory = configFactory;
+    this.store = store;
   }
 
-  getUserRatingsAverage(userId: string) {
-    return (axios.get(`http://localhost:7071/api/users/${userId}/account/ratings`)
+  getUserRatingsAverage(userId: string) : Promise<Record<string, any>> {
+    return (axios.get(`https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/account/ratings`)
       .then((response) => {
-        store.dispatch(
+        this.store.dispatch(
           setRatingsInfo(
             response.data.ratings.id,
             response.data.ratings.averageRating,

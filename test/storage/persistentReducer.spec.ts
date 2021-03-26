@@ -10,6 +10,8 @@ describe('persistent reducer', () => {
           authToken: undefined,
         },
         pushChannelToken: undefined,
+        notificationList: { arr: [] },
+        unseenNotificationsNumber: 0,
       },
     );
   });
@@ -29,6 +31,8 @@ describe('persistent reducer', () => {
         isAuthenticated: true,
       },
       pushChannelToken: undefined,
+      notificationList: { arr: [] },
+      unseenNotificationsNumber: 0,
     });
   });
 
@@ -46,6 +50,28 @@ describe('persistent reducer', () => {
         isAuthenticated: false,
       },
       pushChannelToken: 'my token',
+      notificationList: { arr: [] },
+      unseenNotificationsNumber: 0,
+    });
+  });
+
+  it('should handle SET_NOTIFICATION_LIST', () => {
+    expect(
+      persistentReducer(undefined, {
+        type: PersistentActionTypesModel.SET_NOTIFICATION_LIST,
+        payload: {
+          notificationList: {},
+          unseenNotificationsNumber: 0,
+        },
+      }),
+    ).toEqual({
+      user: {
+        authToken: undefined,
+        isAuthenticated: false,
+      },
+      pushChannelToken: undefined,
+      notificationList: {},
+      unseenNotificationsNumber: 0,
     });
   });
 });

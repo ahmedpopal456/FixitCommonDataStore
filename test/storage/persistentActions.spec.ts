@@ -24,4 +24,15 @@ describe('actions', () => {
       expectedAction,
     );
   });
+
+  it('should create an action to set the notifications', () => {
+    const expectedAction = {
+      type: PersistentActionTypesModel.SET_NOTIFICATION_LIST,
+      payload: {
+        notificationList: {},
+        unseenNotificationsNumber: 0,
+      },
+    };
+    expect(persistentActions.setNotificationList({}, 0)).toEqual(expectedAction);
+  });
 });

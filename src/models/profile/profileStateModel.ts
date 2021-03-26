@@ -1,8 +1,10 @@
+import { AddressObjModel } from './addressObjModel';
+
 export interface ProfileStateModel {
   readonly profile: {
     firstName: string,
     lastName: string,
-    address: {},
+    address: Record<string, AddressObjModel>,
     profilePictureUrl: string,
   }
 }

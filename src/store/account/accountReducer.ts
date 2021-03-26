@@ -10,7 +10,8 @@ const initialState: AccountStateModel = {
   },
 };
 
-export default function accountReducer(state = initialState, action: AnyAction) : AccountStateModel { // NOSONAR
+export default function accountReducer(state = initialState, action: AnyAction) // NOSONAR
+: AccountStateModel {
   switch (action.type) { // NOSONAR
     case AccountActionTypesModel.SET_ACCOUNT_INFO:
       return {

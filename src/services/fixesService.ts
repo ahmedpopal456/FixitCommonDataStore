@@ -8,75 +8,78 @@ import {
   setTerminatedFixes,
 } from '../store/fixes/fixesActions';
 import ConfigFactory from '../config/factory/configFactory';
-import { store } from '../index';
+import { FixesObjModel } from '../models/fixes/fixesObjModel';
 
 export default class FixesService {
   configFactory: ConfigFactory;
 
-  constructor(configFactory: ConfigFactory) {
+  store: any;
+
+  constructor(configFactory: ConfigFactory, store: any) {
     this.configFactory = configFactory;
+    this.store = store;
   }
 
-  getNewFixes(userId: string) {
+  getNewFixes(userId: string) : Promise<Array<FixesObjModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=0`)
         .then((response) => {
-          store.dispatch(setNewFixes(response.data));
+          this.store.dispatch(setNewFixes(response.data));
           return response.data;
         })
         .catch((error) => console.error(error))
     );
   }
 
-  getPendingFixes(userId: string) {
+  getPendingFixes(userId: string) : Promise<Array<FixesObjModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=1`)
         .then((response) => {
-          store.dispatch(setPendingFixes(response.data));
+          this.store.dispatch(setPendingFixes(response.data));
           return response.data;
         })
         .catch((error) => console.error(error))
     );
   }
 
-  getInProgressFixes(userId: string) {
+  getInProgressFixes(userId: string) : Promise<Array<FixesObjModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=2`)
         .then((response) => {
-          store.dispatch(setInProgressFixes(response.data));
+          this.store.dispatch(setInProgressFixes(response.data));
           return response.data;
         })
         .catch((error) => console.error(error))
     );
   }
 
-  getInReviewFixes(userId: string) {
+  getInReviewFixes(userId: string) : Promise<Array<FixesObjModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=3`)
         .then((response) => {
-          store.dispatch(setInReviewFixes(response.data));
+          this.store.dispatch(setInReviewFixes(response.data));
           return response.data;
         })
         .catch((error) => console.error(error))
     );
   }
 
-  getCompletedFixes(userId: string) {
+  getCompletedFixes(userId: string) : Promise<Array<FixesObjModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=4`)
         .then((response) => {
-          store.dispatch(setCompletedFixes(response.data));
+          this.store.dispatch(setCompletedFixes(response.data));
           return response.data;
         })
         .catch((error) => console.error(error))
     );
   }
 
-  getTerminatedFixes(userId: string) {
+  getTerminatedFixes(userId: string) : Promise<Array<FixesObjModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=5`)
         .then((response) => {
-          store.dispatch(setTerminatedFixes(response.data));
+          this.store.dispatch(setTerminatedFixes(response.data));
           return response.data;
         })
         .catch((error) => console.error(error))

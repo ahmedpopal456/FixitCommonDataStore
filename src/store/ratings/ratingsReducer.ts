@@ -11,7 +11,8 @@ const initialState: RatingsStateModel = {
   },
 };
 
-export default function ratingsReducer(state = initialState, action: AnyAction) : RatingsStateModel { // NOSONAR
+export default function ratingsReducer(state = initialState, action: AnyAction) // NOSONAR
+: RatingsStateModel {
   switch (action.type) { // NOSONAR
     case RatingActionTypesModel.SET_RATINGS_INFO:
       return {
