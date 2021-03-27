@@ -18,6 +18,7 @@ import NotificationModel from './models/persistentStore/notificationModel';
 import { ProfileModel } from './models/profile/profileModel';
 import { RatingsModel } from './models/ratings/ratingsModel';
 import { FixesModel } from './models/fixes/fixesModel';
+import { UserStatusModel } from './models/persistentStore/userStatusModel';
 
 const store = createStore(
   rootReducer,
@@ -49,4 +50,5 @@ export type {
   ProfileModel,
   RatingsModel,
   FixesModel,
+  UserStatusModel,
 };

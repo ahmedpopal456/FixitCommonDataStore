@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { AddressModel } from 'src/models/profile/profileModel';
+import { AddressModel } from '../../models/profile/profileModel';
 import ProfileActionTypesModel from '../../models/profile/profileActionTypesModel';
 import { ProfileStateModel } from '../../models/profile/profileStateModel';
 

@@ -1,10 +1,24 @@
 import { ActionModel } from '../ActionModel';
 import NotificationModel from './notificationModel';
+import { UserStatusModel } from './userStatusModel';
 
 export interface SetAuthStatusActionModel extends ActionModel {
   payload: {
     isAuthenticated: boolean,
     authToken: string | undefined,
+    userId: string | undefined,
+    firstName: string | undefined,
+    lastName: string | undefined,
+  };
+}
+
+export interface SetUserInfoActionModel extends ActionModel {
+  payload: {
+    userId: string | undefined,
+    firstName: string | undefined,
+    lastName: string | undefined,
+    role: number | undefined,
+    status: UserStatusModel | undefined,
   };
 }
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ProfileModel } from 'src/models/profile/profileModel';
+import { ProfileModel } from '../models/profile/profileModel';
 import setProfileInfo from '../store/profile/profileActions';
 import ConfigFactory from '../config/factory/configFactory';
 

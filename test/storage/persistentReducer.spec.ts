@@ -8,6 +8,11 @@ describe('persistent reducer', () => {
         user: {
           isAuthenticated: false,
           authToken: undefined,
+          userId: undefined,
+          firstName: undefined,
+          lastName: undefined,
+          role: undefined,
+          status: undefined,
         },
         pushChannelToken: undefined,
         notificationList: { notifications: [] },
@@ -23,12 +28,46 @@ describe('persistent reducer', () => {
         payload: {
           isAuthenticated: true,
           authToken: 'my token',
+          userId: 'someId',
+          firstName: 'Po',
+          lastName: 'Tato',
         },
       }),
     ).toEqual({
       user: {
+        userId: 'someId',
         authToken: 'my token',
+        firstName: 'Po',
         isAuthenticated: true,
+        lastName: 'Tato',
+      },
+      pushChannelToken: undefined,
+      notificationList: { notifications: [] },
+      unseenNotificationsNumber: 0,
+    });
+  });
+
+  it('should handle SET_USER_INFO', () => {
+    expect(
+      persistentReducer(undefined, {
+        type: PersistentActionTypesModel.SET_USER_INFO,
+        payload: {
+          userId: 'someId',
+          firstName: 'Po',
+          lastName: 'Tato',
+          role: 0,
+          status: { status: 0, lastSeenTimestampUtc: 0 },
+        },
+      }),
+    ).toEqual({
+      user: {
+        isAuthenticated: false,
+        authToken: undefined,
+        firstName: 'Po',
+        status: { status: 0, lastSeenTimestampUtc: 0 },
+        role: 0,
+        userId: 'someId',
+        lastName: 'Tato',
       },
       pushChannelToken: undefined,
       notificationList: { notifications: [] },

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { RatingsModel } from 'src/models/ratings/ratingsModel';
+import { RatingsModel } from '../models/ratings/ratingsModel';
 import setRatingsInfo from '../store/ratings/ratingsActions';
 import ConfigFactory from '../config/factory/configFactory';
 

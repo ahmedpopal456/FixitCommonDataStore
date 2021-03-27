@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { RatingsOfUserModel } from 'src/models/ratings/ratingsModel';
+import { RatingsOfUserModel } from '../../models/ratings/ratingsModel';
 import RatingActionTypesModel from '../../models/ratings/ratingsActionTypesModel';
 import { RatingsStateModel } from '../../models/ratings/ratingsStateModel';
 

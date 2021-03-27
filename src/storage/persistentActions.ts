@@ -1,16 +1,44 @@
+import { UserStatusModel } from '../models/persistentStore/userStatusModel';
 import PersistentActionTypesModel from '../models/persistentStore/persistentActionTypesModel';
 import {
   SetAuthStatusActionModel,
   SetPushChannelTokenActionModel,
   SetNotificationListActionModel,
+  SetUserInfoActionModel,
 } from '../models/persistentStore/persistentActionModel';
 import NotificationModel from '../models/persistentStore/notificationModel';
 
-const setAuthStatus = (authStatus: boolean, token: string): SetAuthStatusActionModel => ({
+const setAuthStatus = (
+  authStatus: boolean,
+  token: string,
+  userId:string,
+  firstName: string,
+  lastName: string,
+) : SetAuthStatusActionModel => ({
   type: PersistentActionTypesModel.SET_AUTH_STATUS,
   payload: {
     isAuthenticated: authStatus,
     authToken: token,
+    userId,
+    firstName,
+    lastName,
+  },
+});
+
+const setUserInfo = (
+  userId: string,
+  firstName: string,
+  lastName: string,
+  role: number,
+  status: UserStatusModel,
+) : SetUserInfoActionModel => ({
+  type: PersistentActionTypesModel.SET_USER_INFO,
+  payload: {
+    userId,
+    firstName,
+    lastName,
+    role,
+    status,
   },
 });
 
@@ -34,6 +62,7 @@ const setNotificationList = (
 
 export default {
   setAuthStatus,
+  setUserInfo,
   setPushChannelToken,
   setNotificationList,
 };

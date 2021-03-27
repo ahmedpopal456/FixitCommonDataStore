@@ -8,9 +8,30 @@ describe('actions', () => {
       payload: {
         isAuthenticated: true,
         authToken: 'my token',
+        userId: 'someId',
+        firstName: 'Po',
+        lastName: 'Tato',
       },
     };
-    expect(persistentActions.setAuthStatus(true, 'my token')).toEqual(expectedAction);
+    expect(persistentActions.setAuthStatus(
+      true, 'my token', 'someId', 'Po', 'Tato',
+    )).toEqual(expectedAction);
+  });
+
+  it('should create an action to set the set user info', () => {
+    const expectedAction = {
+      type: PersistentActionTypesModel.SET_USER_INFO,
+      payload: {
+        userId: 'someId',
+        firstName: 'Po',
+        lastName: 'Tato',
+        role: 0,
+        status: { status: 0, lastSeenTimestampUtc: 0 },
+      },
+    };
+    expect(persistentActions.setUserInfo(
+      'someId', 'Po', 'Tato', 0, { status: 0, lastSeenTimestampUtc: 0 },
+    )).toEqual(expectedAction);
   });
 
   it('should create an action to set the push channel token', () => {
