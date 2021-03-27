@@ -20,7 +20,8 @@ export default function notificationReducer(state = initialState, action: AnyAct
       return {
         ...state,
         messages: state.messages.filter(
-          (message: FirebaseMessagingTypes.RemoteMessage) => message.messageId !== action.payload.messageId,
+          (message: FirebaseMessagingTypes.RemoteMessage) => message
+            .messageId !== action.payload.messageId,
         ),
       };
     }

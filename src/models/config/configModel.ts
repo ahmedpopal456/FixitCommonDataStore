@@ -5,4 +5,5 @@ export interface ConfigModel {
   getUserAccountRoute: string;
   getUserProfileRoute: string;
   getUserRatingsRoute: string;
+  fixRequestBaseUrl: string;
 }

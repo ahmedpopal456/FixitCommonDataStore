@@ -7,6 +7,7 @@ const mockConfig = {
   production: false,
   userApiBaseUrl: 'userurl',
   fixApiBaseUrl: 'fixurl',
+  fixRequestBaseUrl: 'fixRequesturl',
   getUserAccountRoute: 'userAccountRoute',
   getUserProfileRoute: 'userProfileRoute',
   getUserRatingsRoute: 'userRatingsRoute',

@@ -31,6 +31,10 @@ export default abstract class BaseConfigProvider {
     return this.config.getUserRatingsRoute;
   }
 
+  public getFixRequestBaseUrl(): string {
+    return this.config.fixRequestBaseUrl;
+  }
+
   public get rawConfig(): ConfigModel {
     return this.config;
   }

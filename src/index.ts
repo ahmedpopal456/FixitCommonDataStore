@@ -14,6 +14,9 @@ import ProfileService from './services/profileService';
 import RatingsService from './services/ratingsService';
 import FixesService from './services/fixesService';
 import * as notificationActions from './store/notifications/notificationActions';
+import * as fixRequestActions from './store/fixRequest/fixRequestActions';
+import FixRequestService from './services/fixRequestService';
+import { FixRequestObjModel } from './models/fixRequest/fixRequestObjModel';
 import NotificationModel from './models/persistentStore/notificationModel';
 import { ProfileModel } from './models/profile/profileModel';
 import { RatingsModel } from './models/ratings/ratingsModel';
@@ -42,10 +45,14 @@ export {
   PersistGate,
   Provider,
   connect,
+  fixRequestActions,
+  FixRequestService,
 };
 export type {
   ConfigModel as Config,
   PersistentStateModel as PersistentState,
+  RootState as StoreState,
+  FixRequestObjModel,
   NotificationModel,
   ProfileModel,
   RatingsModel,
