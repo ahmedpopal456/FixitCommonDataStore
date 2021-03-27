@@ -1,11 +1,11 @@
 import { ActionModel } from '../ActionModel';
-import { AddressObjModel } from './addressObjModel';
+import { AddressModel } from './profileModel';
 
 export interface SetProfileInfoActionModel extends ActionModel {
   payload: {
     firstName: string,
     lastName: string,
-    address: Record<string, AddressObjModel>,
+    address: AddressModel,
     profilePictureUrl: string,
   }
 }

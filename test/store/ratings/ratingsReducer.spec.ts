@@ -4,12 +4,10 @@ import ratingsReducer from '../../../src/store/ratings/ratingsReducer';
 describe('ratings reducer', () => {
   it('should return the initial state of ratings', () => {
     expect(ratingsReducer(undefined, { type: '' })).toEqual({
-      ratings: {
-        ratingsId: '',
-        averageRating: 0,
-        ratings: [],
-        ratingsOfUser: {},
-      },
+      ratingsId: '',
+      averageRating: 0,
+      ratings: [],
+      ratingsOfUser: {},
     });
   });
 
@@ -23,12 +21,10 @@ describe('ratings reducer', () => {
         ratingsOfUser: {},
       },
     })).toEqual({
-      ratings: {
-        ratings: [],
-        ratingsId: '123',
-        ratingsOfUser: {},
-        averageRating: 5,
-      },
+      ratings: [],
+      ratingsId: '123',
+      ratingsOfUser: {},
+      averageRating: 5,
     });
   });
 });

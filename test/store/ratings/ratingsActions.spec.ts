@@ -1,4 +1,5 @@
 import RatingsActionTypesModel from '../../../src/models/ratings/ratingsActionTypesModel';
+import { RatingsOfUserModel } from '../../../src/models/ratings/ratingsModel';
 import setRatingsInfo from '../../../src/store/ratings/ratingsActions';
 
 describe('ratings action', () => {
@@ -12,6 +13,6 @@ describe('ratings action', () => {
         ratingsOfUser: {},
       },
     };
-    expect(setRatingsInfo('123', 5, [], {})).toEqual(expectedAction);
+    expect(setRatingsInfo('123', 5, [], {} as RatingsOfUserModel)).toEqual(expectedAction);
   });
 });

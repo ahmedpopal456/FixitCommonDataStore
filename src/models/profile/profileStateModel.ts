@@ -1,10 +1,3 @@
-import { AddressObjModel } from './addressObjModel';
+import { ProfileModel } from './profileModel';
 
-export interface ProfileStateModel {
-  readonly profile: {
-    firstName: string,
-    lastName: string,
-    address: Record<string, AddressObjModel>,
-    profilePictureUrl: string,
-  }
-}
+export type ProfileStateModel = ProfileModel

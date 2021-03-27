@@ -1,4 +1,4 @@
-import NotificationListObjModel from './notificationListObjModel';
+import NotificationModel from './notificationModel';
 
 export interface PersistentStateModel {
   readonly user: {
@@ -6,6 +6,6 @@ export interface PersistentStateModel {
     authToken: string | undefined,
   };
   readonly pushChannelToken: string | undefined;
-  readonly notificationList: Record<string, Array<NotificationListObjModel>>;
+  readonly notificationList: Record<string, Array<NotificationModel>>;
   readonly unseenNotificationsNumber: number,
 }

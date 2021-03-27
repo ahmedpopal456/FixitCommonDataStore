@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { RatingsModel } from 'src/models/ratings/ratingsModel';
 import setRatingsInfo from '../store/ratings/ratingsActions';
 import ConfigFactory from '../config/factory/configFactory';
 
@@ -12,7 +13,7 @@ export default class RatingsService {
     this.store = store;
   }
 
-  getUserRatingsAverage(userId: string) : Promise<Record<string, any>> {
+  getUserRatingsAverage(userId: string) : Promise<RatingsModel> {
     return (axios.get(`https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/account/ratings`)
       .then((response) => {
         this.store.dispatch(

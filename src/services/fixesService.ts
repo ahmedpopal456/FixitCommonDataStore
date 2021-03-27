@@ -8,7 +8,7 @@ import {
   setTerminatedFixes,
 } from '../store/fixes/fixesActions';
 import ConfigFactory from '../config/factory/configFactory';
-import { FixesObjModel } from '../models/fixes/fixesObjModel';
+import { FixesModel } from '../models/fixes/fixesModel';
 
 export default class FixesService {
   configFactory: ConfigFactory;
@@ -20,7 +20,7 @@ export default class FixesService {
     this.store = store;
   }
 
-  getNewFixes(userId: string) : Promise<Array<FixesObjModel>> {
+  getNewFixes(userId: string) : Promise<Array<FixesModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=0`)
         .then((response) => {
@@ -31,7 +31,7 @@ export default class FixesService {
     );
   }
 
-  getPendingFixes(userId: string) : Promise<Array<FixesObjModel>> {
+  getPendingFixes(userId: string) : Promise<Array<FixesModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=1`)
         .then((response) => {
@@ -42,7 +42,7 @@ export default class FixesService {
     );
   }
 
-  getInProgressFixes(userId: string) : Promise<Array<FixesObjModel>> {
+  getInProgressFixes(userId: string) : Promise<Array<FixesModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=2`)
         .then((response) => {
@@ -53,7 +53,7 @@ export default class FixesService {
     );
   }
 
-  getInReviewFixes(userId: string) : Promise<Array<FixesObjModel>> {
+  getInReviewFixes(userId: string) : Promise<Array<FixesModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=3`)
         .then((response) => {
@@ -64,7 +64,7 @@ export default class FixesService {
     );
   }
 
-  getCompletedFixes(userId: string) : Promise<Array<FixesObjModel>> {
+  getCompletedFixes(userId: string) : Promise<Array<FixesModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=4`)
         .then((response) => {
@@ -75,7 +75,7 @@ export default class FixesService {
     );
   }
 
-  getTerminatedFixes(userId: string) : Promise<Array<FixesObjModel>> {
+  getTerminatedFixes(userId: string) : Promise<Array<FixesModel>> {
     return (
       axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=5`)
         .then((response) => {

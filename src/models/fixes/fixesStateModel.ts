@@ -1,10 +1,10 @@
-import { FixesObjModel } from './fixesObjModel';
+import { FixesModel } from './fixesModel';
 
 export interface FixesStateModel {
-  readonly newFixes: Array<FixesObjModel>,
-  readonly pendingFixes: Array<FixesObjModel>,
-  readonly inProgressFixes: Array<FixesObjModel>,
-  readonly inReviewFixes: Array<FixesObjModel>,
-  readonly completedFixes: Array<FixesObjModel>,
-  readonly terminatedFixes: Array<FixesObjModel>,
+  readonly newFixes: Array<FixesModel>,
+  readonly pendingFixes: Array<FixesModel>,
+  readonly inProgressFixes: Array<FixesModel>,
+  readonly inReviewFixes: Array<FixesModel>,
+  readonly completedFixes: Array<FixesModel>,
+  readonly terminatedFixes: Array<FixesModel>,
 }

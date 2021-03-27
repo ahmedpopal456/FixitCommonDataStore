@@ -1,4 +1,5 @@
 import ProfileActionTypesModel from '../../../src/models/profile/profileActionTypesModel';
+import { AddressModel } from '../../../src/models/profile/profileModel';
 import setProfileInfo from '../../../src/store/profile/profileActions';
 
 describe('profile action', () => {
@@ -12,6 +13,6 @@ describe('profile action', () => {
         profilePictureUrl: 'something/something.png',
       },
     };
-    expect(setProfileInfo('Po', 'Tato', {}, 'something/something.png')).toEqual(expectedAction);
+    expect(setProfileInfo('Po', 'Tato', {} as AddressModel, 'something/something.png')).toEqual(expectedAction);
   });
 });

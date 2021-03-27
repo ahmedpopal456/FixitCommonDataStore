@@ -31,7 +31,7 @@ interface Tags {
   Key: string,
   Value: string,
 }
-export interface FixesObjModel {
+export interface FixesModel {
   activityHistoryId: string,
   assignedToCraftsman: AssignedToCraftsman,
   billingActivityId: string,

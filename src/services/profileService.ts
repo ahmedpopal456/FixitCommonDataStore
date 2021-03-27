@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ProfileModel } from 'src/models/profile/profileModel';
 import setProfileInfo from '../store/profile/profileActions';
 import ConfigFactory from '../config/factory/configFactory';
 
@@ -12,7 +13,7 @@ export default class ProfileService {
     this.store = store;
   }
 
-  getUserProfile(userId: string) : Promise<Record<string, any>> {
+  getUserProfile(userId: string) : Promise<ProfileModel> {
     return (axios.get(`https://fixit-dev-ums-api.azurewebsites.net/api/${userId}/account/profile`)
       .then((response) => {
         this.store.dispatch(

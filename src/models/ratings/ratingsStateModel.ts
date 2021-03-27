@@ -1,10 +1,3 @@
-import { RatingsOfUserModel } from './ratingsOfUserModel';
+import { RatingsModel } from './ratingsModel';
 
-export interface RatingsStateModel {
-  readonly ratings: {
-    ratingsId: string,
-    averageRating: number,
-    ratings: [],
-    ratingsOfUser: Record<string, RatingsOfUserModel>,
-  }
-}
+export type RatingsStateModel = RatingsModel

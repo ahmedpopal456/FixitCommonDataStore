@@ -4,7 +4,7 @@ import {
   SetPushChannelTokenActionModel,
   SetNotificationListActionModel,
 } from '../models/persistentStore/persistentActionModel';
-import NotificationListObjModel from '../models/persistentStore/notificationListObjModel';
+import NotificationModel from '../models/persistentStore/notificationModel';
 
 const setAuthStatus = (authStatus: boolean, token: string): SetAuthStatusActionModel => ({
   type: PersistentActionTypesModel.SET_AUTH_STATUS,
@@ -22,7 +22,7 @@ const setPushChannelToken = (pushChannelToken: string): SetPushChannelTokenActio
 });
 
 const setNotificationList = (
-  notificationList: Record<string, Array<NotificationListObjModel>>,
+  notificationList: Record<string, Array<NotificationModel>>,
   unseenNotificationsNumber: number,
 ) : SetNotificationListActionModel => ({
   type: PersistentActionTypesModel.SET_NOTIFICATION_LIST,

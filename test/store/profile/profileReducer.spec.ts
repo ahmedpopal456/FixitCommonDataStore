@@ -4,12 +4,10 @@ import profileReducer from '../../../src/store/profile/profileReducer';
 describe('profile reducer', () => {
   it('should return the inital state of profile', () => {
     expect(profileReducer(undefined, { type: '' })).toEqual({
-      profile: {
-        firstName: '',
-        lastName: '',
-        address: {},
-        profilePictureUrl: '',
-      },
+      firstName: '',
+      lastName: '',
+      address: {},
+      profilePictureUrl: '',
     });
   });
 
@@ -23,12 +21,10 @@ describe('profile reducer', () => {
         profilePictureUrl: 'someUrl',
       },
     })).toEqual({
-      profile: {
-        address: {},
-        lastName: 'Tato',
-        profilePictureUrl: 'someUrl',
-        firstName: 'Po',
-      },
+      address: {},
+      lastName: 'Tato',
+      profilePictureUrl: 'someUrl',
+      firstName: 'Po',
     });
   });
 });

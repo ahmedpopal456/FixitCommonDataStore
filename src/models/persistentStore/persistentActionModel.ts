@@ -1,5 +1,5 @@
 import { ActionModel } from '../ActionModel';
-import NotificationListObjModel from './notificationListObjModel';
+import NotificationModel from './notificationModel';
 
 export interface SetAuthStatusActionModel extends ActionModel {
   payload: {
@@ -16,7 +16,7 @@ export interface SetPushChannelTokenActionModel extends ActionModel {
 
 export interface SetNotificationListActionModel extends ActionModel {
   payload: {
-    notificationList: Record<string, Array<NotificationListObjModel>>,
+    notificationList: Record<string, Array<NotificationModel>>,
     unseenNotificationsNumber: number,
   };
 }

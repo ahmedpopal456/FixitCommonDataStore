@@ -1,11 +1,11 @@
 import ProfileActionTypesModel from '../../models/profile/profileActionTypesModel';
 import { SetProfileInfoActionModel } from '../../models/profile/profileActionModel';
-import { AddressObjModel } from '../../models/profile/addressObjModel';
+import { AddressModel } from '../../models/profile/profileModel';
 
 const setProfileInfo = (
   firstName: string,
   lastName: string,
-  address: Record<string, AddressObjModel>,
+  address: AddressModel,
   profilePictureUrl: string,
 ) : SetProfileInfoActionModel => ({
   type: ProfileActionTypesModel.SET_PROFILE_INFO,

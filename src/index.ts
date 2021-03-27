@@ -14,7 +14,7 @@ import ProfileService from './services/profileService';
 import RatingsService from './services/ratingsService';
 import FixesService from './services/fixesService';
 import * as notificationActions from './store/notifications/notificationActions';
-import NotificationListObjModel from './models/persistentStore/notificationListObjModel';
+import NotificationModel from './models/persistentStore/notificationModel';
 
 const store = createStore(
   rootReducer,
@@ -42,5 +42,5 @@ export {
 export type {
   ConfigModel as Config,
   PersistentStateModel as PersistentState,
-  NotificationListObjModel,
+  NotificationModel,
 };

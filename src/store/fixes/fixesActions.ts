@@ -1,4 +1,4 @@
-import { FixesObjModel } from '../../models/fixes/fixesObjModel';
+import { FixesModel } from '../../models/fixes/fixesModel';
 import FixesActionTypesModel from '../../models/fixes/fixesActionTypesMode';
 import {
   SetNewFixesActionModel,
@@ -9,21 +9,21 @@ import {
   SetTerminatedFixesActionModel,
 } from '../../models/fixes/fixesActionModel';
 
-const setNewFixes = (newFixes: Array<FixesObjModel>): SetNewFixesActionModel => ({
+const setNewFixes = (newFixes: Array<FixesModel>): SetNewFixesActionModel => ({
   type: FixesActionTypesModel.SET_NEW_FIXES,
   payload: {
     newFixes,
   },
 });
 
-const setPendingFixes = (pendingFixes: Array<FixesObjModel>): SetPendingFixesActionModel => ({
+const setPendingFixes = (pendingFixes: Array<FixesModel>): SetPendingFixesActionModel => ({
   type: FixesActionTypesModel.SET_PENDING_FIXES,
   payload: {
     pendingFixes,
   },
 });
 
-const setInProgressFixes = (inProgressFixes: Array<FixesObjModel>)
+const setInProgressFixes = (inProgressFixes: Array<FixesModel>)
 : SetInProgressFixesActionModel => ({
   type: FixesActionTypesModel.SET_IN_PROGRESS_FIXES,
   payload: {
@@ -31,21 +31,21 @@ const setInProgressFixes = (inProgressFixes: Array<FixesObjModel>)
   },
 });
 
-const setInReviewFixes = (inReviewFixes: Array<FixesObjModel>): SetInReviewFixesActionModel => ({
+const setInReviewFixes = (inReviewFixes: Array<FixesModel>): SetInReviewFixesActionModel => ({
   type: FixesActionTypesModel.SET_IN_REVIEW_FIXES,
   payload: {
     inReviewFixes,
   },
 });
 
-const setCompletedFixes = (completedFixes: Array<FixesObjModel>): SetCompletedFixesActionModel => ({
+const setCompletedFixes = (completedFixes: Array<FixesModel>): SetCompletedFixesActionModel => ({
   type: FixesActionTypesModel.SET_COMPLETED_FIXES,
   payload: {
     completedFixes,
   },
 });
 
-const setTerminatedFixes = (terminatedFixes: Array<FixesObjModel>)
+const setTerminatedFixes = (terminatedFixes: Array<FixesModel>)
 : SetTerminatedFixesActionModel => ({
   type: FixesActionTypesModel.SET_TERMINATED_FIXES,
   payload: {

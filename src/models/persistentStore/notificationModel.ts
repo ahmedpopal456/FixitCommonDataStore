@@ -22,7 +22,7 @@ interface RequestSummary {
   CreatedTimestampUtc: number,
   Retries: number,
 }
-export default interface NotificationListObjModel {
+export default interface NotificationModel {
   collapseKey: string,
   from: string,
   notification: {

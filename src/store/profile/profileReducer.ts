@@ -1,14 +1,13 @@
 import { AnyAction } from 'redux';
+import { AddressModel } from 'src/models/profile/profileModel';
 import ProfileActionTypesModel from '../../models/profile/profileActionTypesModel';
 import { ProfileStateModel } from '../../models/profile/profileStateModel';
 
 const initialState: ProfileStateModel = {
-  profile: {
-    firstName: '',
-    lastName: '',
-    address: {},
-    profilePictureUrl: '',
-  },
+  firstName: '',
+  lastName: '',
+  address: {} as AddressModel,
+  profilePictureUrl: '',
 };
 
 export default function profileReducer(state = initialState, action: AnyAction) // NOSONAR
@@ -17,12 +16,10 @@ export default function profileReducer(state = initialState, action: AnyAction) 
     case ProfileActionTypesModel.SET_PROFILE_INFO:
       return {
         ...state,
-        profile: {
-          firstName: action.payload.firstName,
-          lastName: action.payload.lastName,
-          address: action.payload.address,
-          profilePictureUrl: action.payload.profilePictureUrl,
-        },
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        address: action.payload.address,
+        profilePictureUrl: action.payload.profilePictureUrl,
       };
     default:
       return state;
