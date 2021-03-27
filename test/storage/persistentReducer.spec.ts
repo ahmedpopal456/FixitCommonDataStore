@@ -10,7 +10,7 @@ describe('persistent reducer', () => {
           authToken: undefined,
         },
         pushChannelToken: undefined,
-        notificationList: { arr: [] },
+        notificationList: { notifications: [] },
         unseenNotificationsNumber: 0,
       },
     );
@@ -31,7 +31,7 @@ describe('persistent reducer', () => {
         isAuthenticated: true,
       },
       pushChannelToken: undefined,
-      notificationList: { arr: [] },
+      notificationList: { notifications: [] },
       unseenNotificationsNumber: 0,
     });
   });
@@ -50,7 +50,7 @@ describe('persistent reducer', () => {
         isAuthenticated: false,
       },
       pushChannelToken: 'my token',
-      notificationList: { arr: [] },
+      notificationList: { notifications: [] },
       unseenNotificationsNumber: 0,
     });
   });

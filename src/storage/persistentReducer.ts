@@ -8,7 +8,7 @@ const initialState: PersistentStateModel = {
     authToken: undefined,
   },
   pushChannelToken: undefined,
-  notificationList: { arr: [] },
+  notificationList: { notifications: [] },
   unseenNotificationsNumber: 0,
 };
 
