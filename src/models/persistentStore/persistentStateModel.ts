@@ -8,6 +8,7 @@ export interface PersistentStateModel {
     userId: string | undefined,
     firstName: string | undefined,
     lastName: string | undefined,
+    email: string | undefined,
     role: number | undefined,
     status: UserStatusModel | undefined,
   };

@@ -29,6 +29,7 @@ const setUserInfo = (
   userId: string,
   firstName: string,
   lastName: string,
+  email: string,
   role: number,
   status: UserStatusModel,
 ) : SetUserInfoActionModel => ({
@@ -37,6 +38,7 @@ const setUserInfo = (
     userId,
     firstName,
     lastName,
+    email,
     role,
     status,
   },

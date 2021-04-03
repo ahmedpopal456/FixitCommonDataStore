@@ -25,12 +25,13 @@ describe('actions', () => {
         userId: 'someId',
         firstName: 'Po',
         lastName: 'Tato',
+        email: 'asd@email.com',
         role: 0,
         status: { status: 0, lastSeenTimestampUtc: 0 },
       },
     };
     expect(persistentActions.setUserInfo(
-      'someId', 'Po', 'Tato', 0, { status: 0, lastSeenTimestampUtc: 0 },
+      'someId', 'Po', 'Tato', 'asd@email.com', 0, { status: 0, lastSeenTimestampUtc: 0 },
     )).toEqual(expectedAction);
   });
 
