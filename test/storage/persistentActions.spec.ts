@@ -8,14 +8,9 @@ describe('actions', () => {
       payload: {
         isAuthenticated: true,
         authToken: 'my token',
-        userId: 'someId',
-        firstName: 'Po',
-        lastName: 'Tato',
       },
     };
-    expect(persistentActions.setAuthStatus(
-      true, 'my token', 'someId', 'Po', 'Tato',
-    )).toEqual(expectedAction);
+    expect(persistentActions.setAuthStatus(true, 'my token')).toEqual(expectedAction);
   });
 
   it('should create an action to set the set user info', () => {

@@ -6,9 +6,6 @@ export interface SetAuthStatusActionModel extends ActionModel {
   payload: {
     isAuthenticated: boolean,
     authToken: string | undefined,
-    userId: string | undefined,
-    firstName: string | undefined,
-    lastName: string | undefined,
   };
 }
 
@@ -18,7 +15,7 @@ export interface SetUserInfoActionModel extends ActionModel {
     firstName: string | undefined,
     lastName: string | undefined,
     email: string | undefined,
-    role: number | undefined,
+    role: number,
     status: UserStatusModel | undefined,
   };
 }

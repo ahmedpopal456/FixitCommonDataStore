@@ -11,36 +11,30 @@ import NotificationModel from '../models/persistentStore/notificationModel';
 const setAuthStatus = (
   authStatus: boolean,
   token: string,
-  userId:string,
-  firstName: string,
-  lastName: string,
 ) : SetAuthStatusActionModel => ({
   type: PersistentActionTypesModel.SET_AUTH_STATUS,
   payload: {
     isAuthenticated: authStatus,
     authToken: token,
-    userId,
-    firstName,
-    lastName,
   },
 });
 
 const setUserInfo = (
-  userId: string,
-  firstName: string,
-  lastName: string,
-  email: string,
-  role: number,
-  status: UserStatusModel,
+  id: string,
+  userFirstName: string,
+  userLastName: string,
+  userEmail: string,
+  userRole: number,
+  userStatus: UserStatusModel,
 ) : SetUserInfoActionModel => ({
   type: PersistentActionTypesModel.SET_USER_INFO,
   payload: {
-    userId,
-    firstName,
-    lastName,
-    email,
-    role,
-    status,
+    userId: id,
+    firstName: userFirstName,
+    lastName: userLastName,
+    email: userEmail,
+    role: userRole,
+    status: userStatus,
   },
 });
 

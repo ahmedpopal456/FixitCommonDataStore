@@ -9,7 +9,7 @@ export interface PersistentStateModel {
     firstName: string | undefined,
     lastName: string | undefined,
     email: string | undefined,
-    role: number | undefined,
+    role: number,
     status: UserStatusModel | undefined,
   };
   readonly pushChannelToken: string | undefined;
