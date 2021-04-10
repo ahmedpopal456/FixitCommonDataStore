@@ -8,11 +8,12 @@ export interface FixRequestObjModel{
       Description:string,
       Category:string,
       Type:string,
-      sections:{
-          name:string,
-          details:{
-              name:string,
-              value:string,
+      Unit?: string,
+      Sections:{
+          Name:string,
+          Details:{
+              Name:string,
+              Value:string,
           }[]
       }[]
   }[],

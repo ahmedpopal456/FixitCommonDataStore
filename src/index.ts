@@ -22,6 +22,7 @@ import { ProfileModel } from './models/profile/profileModel';
 import { RatingsModel } from './models/ratings/ratingsModel';
 import { FixesModel } from './models/fixes/fixesModel';
 import { UserStatusModel } from './models/persistentStore/userStatusModel';
+import { FixTemplateObjectModel } from './models/fixRequest/fixTemplateObjectModel';
 
 const store = createStore(
   rootReducer,
@@ -58,4 +59,5 @@ export type {
   RatingsModel,
   FixesModel,
   UserStatusModel,
+  FixTemplateObjectModel,
 };

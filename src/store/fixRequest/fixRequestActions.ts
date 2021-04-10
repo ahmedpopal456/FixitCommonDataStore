@@ -20,7 +20,10 @@ import {
   SetFixEndDate,
   SetFixRequestTags,
   SetFixPostalCode,
+  SetFixUnit,
+  SetFixTemplateId,
 } from '../../models/fixRequest/fixRequestActionModel';
+import { ActionModel } from '../../models/ActionModel';
 
 const setNumberOfSteps = (totalSteps:number): SetNumberOfSteps => ({
   type: FixRequestActionTypesModel.SET_NUMBER_OF_STEPS,
@@ -80,12 +83,12 @@ const setFixSectionTitle = (title:string, index:number) : SetFixSectionTitle => 
   },
 });
 
-const setFixSectionDetails = (details: {name:string, value:string}[], index:number)
+const setFixSectionDetails = (Details: {Name:string, Value:string}[], index:number)
 : SetFixSectionDetails => ({
   type: FixRequestActionTypesModel.SET_FIX_SECTION_DETAILS,
   payload: {
     index,
-    details,
+    Details,
   },
 });
 
@@ -129,6 +132,20 @@ const setFixEndDate = (timestamp:number) : SetFixEndDate => ({
   payload: timestamp,
 });
 
+const setFixUnit = (unit:string) : SetFixUnit => ({
+  type: FixRequestActionTypesModel.SET_FIX_UNIT,
+  payload: unit,
+});
+
+const setFixTemplateId = (id:string) : SetFixTemplateId => ({
+  type: FixRequestActionTypesModel.SET_FIX_TEMPLATE_ID,
+  payload: id,
+});
+
+const clearData = () : ActionModel => ({
+  type: FixRequestActionTypesModel.CLEAR_DATA,
+});
+
 export {
   setNumberOfSteps,
   addFixStepsDynamicRoute,
@@ -150,4 +167,7 @@ export {
   setClientMaxEstimatedCost,
   setFixStartDate,
   setFixEndDate,
+  setFixUnit,
+  setFixTemplateId,
+  clearData,
 };

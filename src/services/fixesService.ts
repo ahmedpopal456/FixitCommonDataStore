@@ -85,4 +85,12 @@ export default class FixesService {
         .catch((error) => console.error(error))
     );
   }
+
+  getFix(fixId: string): Promise<FixesModel> {
+    return (
+      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/${fixId}`)
+        .then((response) => response.data)
+        .catch((error) => console.error(error))
+    );
+  }
 }

@@ -19,6 +19,9 @@ const FixRequestActionTypesModel = {
   SET_CLIENT_MAX_ESTIMATED_COST: 'fixRequest/SET_CLIENT_MAX_ESTIMATED_COST',
   SET_FIX_START_DATE: 'fixRequest/SET_FIX_START_DATE',
   SET_FIX_END_DATE: 'fixRequest/SET_FIX_END_DATE',
+  SET_FIX_UNIT: 'fixRequest/SET_FIX_UNIT',
+  SET_FIX_TEMPLATE_ID: 'fixRequest/SET_FIX_TEMPLATE_ID',
+  CLEAR_DATA: 'fixRequest/CLEAR_DATA',
 };
 
 export default FixRequestActionTypesModel;

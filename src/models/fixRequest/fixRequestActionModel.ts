@@ -50,9 +50,9 @@ export interface SetFixSectionTitle extends ActionModel {
 export interface SetFixSectionDetails extends ActionModel {
   payload: {
     index: number,
-    details: {
-      name:string,
-      value:string,
+    Details: {
+      Name:string,
+      Value:string,
     }[]
   }
 }
@@ -87,4 +87,12 @@ export interface SetFixStartDate extends ActionModel {
 
 export interface SetFixEndDate extends ActionModel {
   payload: number
+}
+
+export interface SetFixUnit extends ActionModel {
+  payload: string
+}
+
+export interface SetFixTemplateId extends ActionModel {
+  payload: string
 }

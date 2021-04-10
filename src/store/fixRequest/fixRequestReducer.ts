@@ -6,14 +6,23 @@ const initialState: FixRequestStateModel = {
   numberOfSteps: 4,
   fixStepsCurrentRouteIndex: 0,
   fixStepsDynamicRoutes: [],
+  fixTemplateId: '',
   fixRequestObj: {
     Tags: [],
     Details: [{
       Name: '',
       Description: '',
-      Category: '',
-      Type: '',
-      sections: [],
+      Category: '0940d933-9029-4793-aa35-1915fe79025c',
+      Type: '8dd08c6e-3b81-4cb4-8763-8f774937f09e',
+      Sections: [{
+        Name: '',
+        Details: [{
+          Name: '',
+          Value: '',
+        }],
+      },
+      ],
+      Unit: '5381d225-2a5e-4911-922c-2070ea93c284',
     }],
     Location: {
       Address: '',
@@ -30,12 +39,12 @@ const initialState: FixRequestStateModel = {
       MinimumCost: 0,
     },
     CreatedByClient: {
-      FirstName: 'Hugh',
-      LastName: 'Mungus',
+      FirstName: '',
+      LastName: '',
     },
     UpdatedByUser: {
-      FirstName: 'Hugh',
-      LastName: 'Mungus',
+      FirstName: '',
+      LastName: '',
     },
     Status: 0,
   },
@@ -43,13 +52,18 @@ const initialState: FixRequestStateModel = {
 
 export default function fixRequestReducer(state = initialState, action: AnyAction)
 : FixRequestStateModel { // NOSONAR
-  const fixSections = [...state.fixRequestObj.Details[0].sections];
+  const fixSections = [...state.fixRequestObj.Details[0].Sections];
   const fixSchedule = [...state.fixRequestObj.Schedule];
   switch (action.type) { // NOSONAR
     case FixRequestActionTypesModel.SET_NUMBER_OF_STEPS:
       return {
         ...state,
         numberOfSteps: action.payload,
+      };
+    case FixRequestActionTypesModel.SET_FIX_TEMPLATE_ID:
+      return {
+        ...state,
+        fixTemplateId: action.payload,
       };
     case FixRequestActionTypesModel.ADD_FIX_STEPS_DYNAMIC_ROUTE:
       return {
@@ -91,8 +105,9 @@ export default function fixRequestReducer(state = initialState, action: AnyActio
             Description: state.fixRequestObj.Details[0].Description,
             Category: state.fixRequestObj.Details[0].Category,
             Type: state.fixRequestObj.Details[0].Type,
-            sections: [
-              ...state.fixRequestObj.Details[0].sections,
+            Unit: state.fixRequestObj.Details[0].Unit,
+            Sections: [
+              ...state.fixRequestObj.Details[0].Sections,
             ],
           },
           ],
@@ -108,8 +123,9 @@ export default function fixRequestReducer(state = initialState, action: AnyActio
             Description: state.fixRequestObj.Details[0].Description,
             Category: action.payload,
             Type: state.fixRequestObj.Details[0].Type,
-            sections: [
-              ...state.fixRequestObj.Details[0].sections,
+            Unit: state.fixRequestObj.Details[0].Unit,
+            Sections: [
+              ...state.fixRequestObj.Details[0].Sections,
             ],
           },
           ],
@@ -125,8 +141,9 @@ export default function fixRequestReducer(state = initialState, action: AnyActio
             Description: state.fixRequestObj.Details[0].Description,
             Category: state.fixRequestObj.Details[0].Category,
             Type: action.payload,
-            sections: [
-              ...state.fixRequestObj.Details[0].sections,
+            Unit: state.fixRequestObj.Details[0].Unit,
+            Sections: [
+              ...state.fixRequestObj.Details[0].Sections,
             ],
           },
           ],
@@ -142,8 +159,27 @@ export default function fixRequestReducer(state = initialState, action: AnyActio
             Description: action.payload,
             Category: state.fixRequestObj.Details[0].Category,
             Type: state.fixRequestObj.Details[0].Type,
-            sections: [
-              ...state.fixRequestObj.Details[0].sections,
+            Unit: state.fixRequestObj.Details[0].Unit,
+            Sections: [
+              ...state.fixRequestObj.Details[0].Sections,
+            ],
+          },
+          ],
+        },
+      };
+    case FixRequestActionTypesModel.SET_FIX_UNIT:
+      return {
+        ...state,
+        fixRequestObj: {
+          ...state.fixRequestObj,
+          Details: [{
+            Name: state.fixRequestObj.Details[0].Name,
+            Description: state.fixRequestObj.Details[0].Description,
+            Category: state.fixRequestObj.Details[0].Category,
+            Type: state.fixRequestObj.Details[0].Type,
+            Unit: action.payload,
+            Sections: [
+              ...state.fixRequestObj.Details[0].Sections,
             ],
           },
           ],
@@ -152,13 +188,13 @@ export default function fixRequestReducer(state = initialState, action: AnyActio
     case FixRequestActionTypesModel.SET_FIX_SECTION_TITLE:
       if (fixSections[action.payload.index]) {
         fixSections[action.payload.index] = {
-          name: action.payload.title,
-          details: [...fixSections[action.payload.index].details],
+          Name: action.payload.title,
+          Details: [...fixSections[action.payload.index].Details],
         };
       } else {
         fixSections[action.payload.index] = {
-          name: action.payload.title,
-          details: [],
+          Name: action.payload.title,
+          Details: [],
         };
       }
       return {
@@ -170,15 +206,16 @@ export default function fixRequestReducer(state = initialState, action: AnyActio
             Description: state.fixRequestObj.Details[0].Description,
             Category: state.fixRequestObj.Details[0].Category,
             Type: state.fixRequestObj.Details[0].Type,
-            sections: fixSections,
+            Unit: state.fixRequestObj.Details[0].Unit,
+            Sections: fixSections,
           },
           ],
         },
       };
     case FixRequestActionTypesModel.SET_FIX_SECTION_DETAILS:
       fixSections[action.payload.index] = {
-        name: (fixSections[action.payload.index]) ? fixSections[action.payload.index].name : '',
-        details: action.payload.details,
+        Name: (fixSections[action.payload.index]) ? fixSections[action.payload.index].Name : '',
+        Details: action.payload.Details,
       };
       return {
         ...state,
@@ -189,7 +226,8 @@ export default function fixRequestReducer(state = initialState, action: AnyActio
             Description: state.fixRequestObj.Details[0].Description,
             Category: state.fixRequestObj.Details[0].Category,
             Type: state.fixRequestObj.Details[0].Type,
-            sections: fixSections,
+            Unit: state.fixRequestObj.Details[0].Unit,
+            Sections: fixSections,
           },
           ],
         },
@@ -286,6 +324,8 @@ export default function fixRequestReducer(state = initialState, action: AnyActio
           Schedule: fixSchedule,
         },
       };
+    case FixRequestActionTypesModel.CLEAR_DATA:
+      return initialState;
     default:
       return state;
   }
