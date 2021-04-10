@@ -12,8 +12,8 @@ const initialState: FixRequestStateModel = {
     Details: [{
       Name: '',
       Description: '',
-      Category: '0940d933-9029-4793-aa35-1915fe79025c',
-      Type: '8dd08c6e-3b81-4cb4-8763-8f774937f09e',
+      Category: 'Foundation',
+      Type: 'Quick Fix',
       Sections: [{
         Name: '',
         Details: [{
@@ -22,7 +22,7 @@ const initialState: FixRequestStateModel = {
         }],
       },
       ],
-      Unit: '5381d225-2a5e-4911-922c-2070ea93c284',
+      Unit: 'Front Yard',
     }],
     Location: {
       Address: '',

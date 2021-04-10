@@ -87,11 +87,11 @@ export default class FixRequestService {
         });
 
         this.store.dispatch(setFixTemplateId(response.data.id));
-        this.store.dispatch(setFixUnit(response.data.fixUnit.id));
+        this.store.dispatch(setFixUnit(response.data.fixUnit.name));
         this.store.dispatch(setFixRequestTags(tags));
         this.store.dispatch(setFixTemplateName(response.data.name));
-        this.store.dispatch(setFixTemplateCategory(response.data.workCategory.id));
-        this.store.dispatch(setFixTemplateType(response.data.workType.id));
+        this.store.dispatch(setFixTemplateCategory(response.data.workCategory.name));
+        this.store.dispatch(setFixTemplateType(response.data.workType.name));
         this.store.dispatch(setFixDescription(response.data.description));
 
         response.data.sections.forEach((section:{
