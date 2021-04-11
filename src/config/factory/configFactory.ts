@@ -6,13 +6,9 @@ export default class ConfigFactory {
   private configProvider!: MobileConfigProvider;
 
   public init(type: ApplicationTypesEnum, config: ConfigModel): void {
-    switch (type) {
-      case 'mobile':
-        this.configProvider = new MobileConfigProvider();
-        break;
-      default:
-        this.configProvider = null;
-        break;
+    if(type === ApplicationTypesEnum.MOBILE)
+    {
+      this.configProvider = new MobileConfigProvider();
     }
     this.configProvider.defineConfig(config);
   }
