@@ -11,7 +11,7 @@ export default class ConfigFactory {
         this.configProvider = new MobileConfigProvider();
         break;
       default:
-        this.configProvider = new MobileConfigProvider();
+        this.configProvider = null;
         break;
     }
     this.configProvider.defineConfig(config);
