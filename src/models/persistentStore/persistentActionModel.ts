@@ -1,24 +1,5 @@
-import { ActionModel } from '../ActionModel';
-import NotificationModel from './notificationModel';
-import { UserStatusModel } from './userStatusModel';
-
-export interface SetAuthStatusActionModel extends ActionModel {
-  payload: {
-    isAuthenticated: boolean,
-    authToken: string | undefined,
-  };
-}
-
-export interface SetUserInfoActionModel extends ActionModel {
-  payload: {
-    userId: string | undefined,
-    firstName: string | undefined,
-    lastName: string | undefined,
-    email: string | undefined,
-    role: number,
-    status: UserStatusModel | undefined,
-  };
-}
+import { ActionModel } from '../actionModel';
+import NotificationModel from '../notification/notificationModel';
 
 export interface SetPushChannelTokenActionModel extends ActionModel {
   payload: {

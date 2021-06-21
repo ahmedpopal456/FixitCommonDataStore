@@ -1,19 +1,9 @@
-import RatingsActionTypesModel from '../../../src/models/ratings/ratingsActionTypesModel';
-import ratingsReducer from '../../../src/store/ratings/ratingsReducer';
+import ratingsReducer from '../../../src/slices/ratingSlice';
 
 describe('ratings reducer', () => {
-  it('should return the initial state of ratings', () => {
-    expect(ratingsReducer(undefined, { type: '' })).toEqual({
-      ratingsId: '',
-      averageRating: 0,
-      ratings: [],
-      ratingsOfUser: {},
-    });
-  });
-
-  it('should handle SET_RATINGS_INFO', () => {
+  it('should handle FETCH_USERRATINGS_BEGIN', () => {
     expect(ratingsReducer(undefined, {
-      type: RatingsActionTypesModel.SET_RATINGS_INFO,
+      type: 'rating/FETCH_USERRATINGS_BEGIN',
       payload: {
         ratingsId: '123',
         averageRating: 5,
@@ -21,10 +11,12 @@ describe('ratings reducer', () => {
         ratingsOfUser: {},
       },
     })).toEqual({
+      isLoading: true,
+      error: null,
       ratings: [],
-      ratingsId: '123',
+      ratingsId: '',
       ratingsOfUser: {},
-      averageRating: 5,
+      averageRating: 0,
     });
   });
 });

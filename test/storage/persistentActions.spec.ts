@@ -1,33 +1,28 @@
 import PersistentActionTypesModel from '../../src/models/persistentStore/persistentActionTypesModel';
 import persistentActions from '../../src/storage/persistentActions';
+import {
+  UPDATE_AUTH_STATUS,
+  FETCH_USERINFO_BEGIN,
+} from '../../src/slices/userSlice';
 
 describe('actions', () => {
   it('should create an action to set the auth status', () => {
     const expectedAction = {
-      type: PersistentActionTypesModel.SET_AUTH_STATUS,
+      type: 'user/UPDATE_AUTH_STATUS',
       payload: {
         isAuthenticated: true,
         authToken: 'my token',
       },
     };
-    expect(persistentActions.setAuthStatus(true, 'my token')).toEqual(expectedAction);
+    expect(UPDATE_AUTH_STATUS({ isAuthenticated: true, authToken: 'my token' })).toEqual(expectedAction);
   });
 
-  it('should create an action to set the set user info', () => {
+  it('should create an action to begin fetching the set user info', () => {
     const expectedAction = {
-      type: PersistentActionTypesModel.SET_USER_INFO,
-      payload: {
-        userId: 'someId',
-        firstName: 'Po',
-        lastName: 'Tato',
-        email: 'asd@email.com',
-        role: 0,
-        status: { status: 0, lastSeenTimestampUtc: 0 },
-      },
+      type: 'user/FETCH_USERINFO_BEGIN',
+      payload: undefined,
     };
-    expect(persistentActions.setUserInfo(
-      'someId', 'Po', 'Tato', 'asd@email.com', 0, { status: 0, lastSeenTimestampUtc: 0 },
-    )).toEqual(expectedAction);
+    expect(FETCH_USERINFO_BEGIN()).toEqual(expectedAction);
   });
 
   it('should create an action to set the push channel token', () => {

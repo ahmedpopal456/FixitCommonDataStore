@@ -1,6 +1,4 @@
-import notificationReducer from '../../../src/store/notifications/notificationsReducer';
-import NotificationActionTypesModel from '../../../src/models/notifications/notificationActionsTypes';
-import { NotificationStateModel } from '../../../src/models/notifications/notificationState';
+import notificationReducer from '../../../src/slices/notificationSlice';
 
 describe('root reducer', () => {
   it('should return the initial state', () => {
@@ -14,12 +12,12 @@ describe('root reducer', () => {
 
   it('should handle DISPLAY_NOTIFICATION', () => {
     const payload = {
-      message: {
+      messages: [{
         messageId: 'id-1',
         notification: {
           title: 'test-1',
         },
-      },
+      }],
     };
     const expected = {
       messages: [
@@ -33,14 +31,14 @@ describe('root reducer', () => {
     };
     expect(
       notificationReducer(undefined, {
-        type: NotificationActionTypesModel.DISPLAY_NOTIFICATION,
+        type: 'notification/displayNotification',
         payload,
       }),
     ).toEqual(expected);
   });
 
   it('should handle DISMISS_NOTIFICATION', () => {
-    const initialState: NotificationStateModel = {
+    const initialState = {
       messages: [
         {
           messageId: 'id-1',
@@ -69,7 +67,7 @@ describe('root reducer', () => {
     };
     expect(
       notificationReducer(initialState, {
-        type: NotificationActionTypesModel.DISMISS_NOTIFICATION,
+        type: 'notification/dismissNotification',
         payload: {
           messageId: 'id-1',
         },

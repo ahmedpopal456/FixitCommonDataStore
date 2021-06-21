@@ -1,71 +1,35 @@
-import FixesActionTypesModel from '../../../src/models/fixes/fixesActionTypesMode';
 import {
-  setNewFixes,
-  setPendingFixes,
-  setInProgressFixes,
-  setInReviewFixes,
-  setCompletedFixes,
-  setTerminatedFixes,
-} from '../../../src/store/fixes/fixesActions';
+  FETCH_NEWFIXES_BEGIN,
+  FETCH_NEWFIXES_SUCCESS,
+  FETCH_NEWFIXES_FAILURE,
+} from '../../../src/slices/fixesSlice';
 
 describe('fixes action', () => {
-  it('should create an action to set new fixes', () => {
+  it('should create an action to begin fetching new fixes', () => {
     const expectedAction = {
-      type: FixesActionTypesModel.SET_NEW_FIXES,
-      payload: {
-        newFixes: [],
-      },
+      type: 'fixes/FETCH_NEWFIXES_BEGIN',
+      payload: undefined,
     };
-    expect(setNewFixes([])).toEqual(expectedAction);
+    expect(FETCH_NEWFIXES_BEGIN()).toEqual(expectedAction);
   });
 
-  it('should create an action to set pending fixes', () => {
+  it('should create an action when successfully finished fetching new fixes', () => {
     const expectedAction = {
-      type: FixesActionTypesModel.SET_PENDING_FIXES,
-      payload: {
-        pendingFixes: [],
-      },
+      type: 'fixes/FETCH_NEWFIXES_SUCCESS',
+      payload: [],
+      error: null,
+      meta: 'empty',
     };
-    expect(setPendingFixes([])).toEqual(expectedAction);
+    expect(FETCH_NEWFIXES_SUCCESS([])).toEqual(expectedAction);
   });
 
-  it('should create an action to set in progress fixes', () => {
+  it('should create an action when failed finished fetching new fixes', () => {
     const expectedAction = {
-      type: FixesActionTypesModel.SET_IN_PROGRESS_FIXES,
-      payload: {
-        inProgressFixes: [],
-      },
+      type: 'fixes/FETCH_NEWFIXES_FAILURE',
+      payload: [],
+      error: 'failure',
+      meta: 'empty',
     };
-    expect(setInProgressFixes([])).toEqual(expectedAction);
-  });
-
-  it('should create an action to set in review fixes', () => {
-    const expectedAction = {
-      type: FixesActionTypesModel.SET_IN_REVIEW_FIXES,
-      payload: {
-        inReviewFixes: [],
-      },
-    };
-    expect(setInReviewFixes([])).toEqual(expectedAction);
-  });
-
-  it('should create an action to set completed fixes', () => {
-    const expectedAction = {
-      type: FixesActionTypesModel.SET_COMPLETED_FIXES,
-      payload: {
-        completedFixes: [],
-      },
-    };
-    expect(setCompletedFixes([])).toEqual(expectedAction);
-  });
-
-  it('should create an action to set terminated fixes', () => {
-    const expectedAction = {
-      type: FixesActionTypesModel.SET_TERMINATED_FIXES,
-      payload: {
-        terminatedFixes: [],
-      },
-    };
-    expect(setTerminatedFixes([])).toEqual(expectedAction);
+    expect(FETCH_NEWFIXES_FAILURE('failure')).toEqual(expectedAction);
   });
 });

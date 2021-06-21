@@ -1,18 +1,13 @@
-import RatingsActionTypesModel from '../../../src/models/ratings/ratingsActionTypesModel';
-import { RatingsOfUserModel } from '../../../src/models/ratings/ratingsModel';
-import setRatingsInfo from '../../../src/store/ratings/ratingsActions';
+import {
+  FETCH_USERRATINGS_BEGIN,
+} from '../../../src/slices/ratingSlice';
 
 describe('ratings action', () => {
-  it('should create an action to set ratings info', () => {
+  it('should create an action to begin fetching ratings info', () => {
     const expectedAction = {
-      type: RatingsActionTypesModel.SET_RATINGS_INFO,
-      payload: {
-        ratingsId: '123',
-        averageRating: 5,
-        ratings: [],
-        ratingsOfUser: {},
-      },
+      type: 'rating/FETCH_USERRATINGS_BEGIN',
+      payload: undefined,
     };
-    expect(setRatingsInfo('123', 5, [], {} as RatingsOfUserModel)).toEqual(expectedAction);
+    expect(FETCH_USERRATINGS_BEGIN()).toEqual(expectedAction);
   });
 });

@@ -1,5 +1,4 @@
-import ProfileActionTypesModel from '../../../src/models/profile/profileActionTypesModel';
-import profileReducer from '../../../src/store/profile/profileReducer';
+import profileReducer from '../../../src/slices/profileSlice';
 
 describe('profile reducer', () => {
   it('should return the inital state of profile', () => {
@@ -8,12 +7,14 @@ describe('profile reducer', () => {
       lastName: '',
       address: {},
       profilePictureUrl: '',
+      isLoading: false,
+      error: null,
     });
   });
 
-  it('should hande SET_PROFILE_INFO', () => {
+  it('should handle FETCH_PROFILEINFO_BEGIN', () => {
     expect(profileReducer(undefined, {
-      type: ProfileActionTypesModel.SET_PROFILE_INFO,
+      type: 'profile/FETCH_PROFILEINFO_BEGIN',
       payload: {
         firstName: 'Po',
         lastName: 'Tato',
@@ -22,9 +23,11 @@ describe('profile reducer', () => {
       },
     })).toEqual({
       address: {},
-      lastName: 'Tato',
-      profilePictureUrl: 'someUrl',
-      firstName: 'Po',
+      lastName: '',
+      profilePictureUrl: '',
+      firstName: '',
+      isLoading: true,
+      error: null,
     });
   });
 });

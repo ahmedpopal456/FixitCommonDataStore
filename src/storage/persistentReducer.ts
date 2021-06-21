@@ -3,16 +3,6 @@ import PersistentActionTypesModel from '../models/persistentStore/persistentActi
 import { PersistentStateModel } from '../models/persistentStore/persistentStateModel';
 
 const initialState: PersistentStateModel = {
-  user: {
-    isAuthenticated: false,
-    authToken: undefined,
-    userId: undefined,
-    firstName: undefined,
-    lastName: undefined,
-    email: undefined,
-    role: 0,
-    status: undefined,
-  },
   pushChannelToken: undefined,
   notificationList: { notifications: [] },
   unseenNotificationsNumber: 0,
@@ -21,34 +11,6 @@ const initialState: PersistentStateModel = {
 export default function persistentReducer(state = initialState, action: AnyAction) // NOSONAR
   : PersistentStateModel {
   switch (action.type) {
-    case PersistentActionTypesModel.SET_AUTH_STATUS:
-      return {
-        ...state,
-        user: {
-          isAuthenticated: action.payload.isAuthenticated,
-          authToken: action.payload.authToken,
-          userId: state.user.userId,
-          firstName: state.user.firstName,
-          lastName: state.user.lastName,
-          email: state.user.email,
-          role: state.user.role,
-          status: state.user.status,
-        },
-      };
-    case PersistentActionTypesModel.SET_USER_INFO:
-      return {
-        ...state,
-        user: {
-          isAuthenticated: state.user.isAuthenticated,
-          authToken: state.user.authToken,
-          userId: action.payload.userId,
-          firstName: action.payload.firstName,
-          lastName: action.payload.lastName,
-          email: action.payload.email,
-          role: action.payload.role,
-          status: action.payload.status,
-        },
-      };
     case PersistentActionTypesModel.SET_NOTIFICATION_TOKEN:
       return {
         ...state,

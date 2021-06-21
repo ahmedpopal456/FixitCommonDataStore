@@ -89,11 +89,18 @@ jobs:
 
   steps:
 
-  # Run npm install
-  - task: Npm@1
-    displayName: 'Run npm install'
+  - task: NodeTool@0
+    displayName: Set up NodeJS
     inputs:
-      command: 'install'
+      versionSpec: '14.x' 
+
+  - task: npmAuthenticate@0
+    displayName: NPM authenticate
+    inputs:
+      workingFile: .npmrc
+
+  - script: npm i
+    displayName: Install dependencies
 
   # Prepare Analysis Configuration for Sonar Cloud 
   - task: SonarCloudPrepare@1
@@ -108,11 +115,8 @@ jobs:
       extraProperties: 'sonar.language=ts'
 
   # Run Unit Tests
-  - task: Npm@1
+  - script: npm run test
     displayName: 'Run Unit Tests'
-    inputs:
-      command: 'custom'
-      customCommand: 'run test'
 
   # Publish Test Results
   - task: PublishTestResults@2

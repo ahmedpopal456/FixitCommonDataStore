@@ -1,5 +1,4 @@
-import NotificationActionTypesModel from '../../../src/models/notifications/notificationActionsTypes';
-import notificationReducer from '../../../src/store/notifications/notificationActions';
+import { displayNotification, dismissNotification } from '../../../src/slices/notificationSlice';
 
 describe('notification actions', () => {
   it('should create an action to display a notification', () => {
@@ -10,14 +9,12 @@ describe('notification actions', () => {
       },
     };
     const expectedAction = {
-      type: NotificationActionTypesModel.DISPLAY_NOTIFICATION,
+      type: 'notification/displayNotification',
       payload: {
-        message: {
-          ...notification,
-        },
+        messages: [notification],
       },
     };
-    expect(notificationReducer.displayNotification(notification)).toEqual(
+    expect(displayNotification({ messages: [notification] })).toEqual(
       expectedAction,
     );
   });
@@ -25,10 +22,10 @@ describe('notification actions', () => {
   it('should create an action to dismiss a notification', () => {
     const messageId = 'id-1';
     const expectedAction = {
-      type: NotificationActionTypesModel.DISMISS_NOTIFICATION,
+      type: 'notification/dismissNotification',
       payload: { messageId },
     };
-    expect(notificationReducer.dismissNotification(messageId)).toEqual(
+    expect(dismissNotification({ messageId })).toEqual(
       expectedAction,
     );
   });

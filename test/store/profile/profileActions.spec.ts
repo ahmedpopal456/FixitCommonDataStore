@@ -1,18 +1,13 @@
-import ProfileActionTypesModel from '../../../src/models/profile/profileActionTypesModel';
-import { AddressModel } from '../../../src/models/profile/profileModel';
-import setProfileInfo from '../../../src/store/profile/profileActions';
+import {
+  FETCH_PROFILEINFO_BEGIN,
+} from '../../../src/slices/profileSlice';
 
 describe('profile action', () => {
-  it('should create an action to set profile info', () => {
+  it('should create an action to begin fetching profile info', () => {
     const expectedAction = {
-      type: ProfileActionTypesModel.SET_PROFILE_INFO,
-      payload: {
-        firstName: 'Po',
-        lastName: 'Tato',
-        address: {},
-        profilePictureUrl: 'something/something.png',
-      },
+      type: 'profile/FETCH_PROFILEINFO_BEGIN',
+      payload: undefined,
     };
-    expect(setProfileInfo('Po', 'Tato', {} as AddressModel, 'something/something.png')).toEqual(expectedAction);
+    expect(FETCH_PROFILEINFO_BEGIN()).toEqual(expectedAction);
   });
 });

@@ -1,63 +1,76 @@
-import React from 'react';
+import { Reducer, applyMiddleware, createStore } from 'redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { applyMiddleware, createStore, Action } from 'redux';
-import thunk, { ThunkDispatch } from 'redux-thunk';
-import { Provider, connect } from 'react-redux';
+import { PersistPartial } from 'redux-persist/es/persistReducer';
+import thunk from 'redux-thunk';
+import {
+  Provider, connect, useSelector, useDispatch,
+} from 'react-redux';
+import { persistStore, persistReducer } from 'redux-persist';
 import ConfigFactory from './config/factory/configFactory';
 import * as persistentActions from './storage/persistentActions';
-import { persistentStore, persistentStorePersistor, persistentContext } from './storage/persistentStore';
 import ApplicationTypesEnum from './models/config/applicationTypesEnum';
 import { ConfigModel } from './models/config/configModel';
 import { PersistentStateModel } from './models/persistentStore/persistentStateModel';
-import rootReducer, { RootState } from './reducer';
+import { RootState, rootReducer, persistConfig } from './rootReducer';
 import ProfileService from './services/profileService';
 import RatingsService from './services/ratingsService';
 import FixesService from './services/fixesService';
-import * as notificationActions from './store/notifications/notificationActions';
-import * as fixRequestActions from './store/fixRequest/fixRequestActions';
+import * as notificationActions from './slices/notificationSlice';
+import * as userSlice from './slices/userSlice';
 import FixRequestService from './services/fixRequestService';
-import { FixRequestObjModel } from './models/fixRequest/fixRequestObjModel';
-import NotificationModel from './models/persistentStore/notificationModel';
-import { ProfileModel } from './models/profile/profileModel';
-import { RatingsModel } from './models/ratings/ratingsModel';
-import { FixesModel } from './models/fixes/fixesModel';
-import { UserStatusModel } from './models/persistentStore/userStatusModel';
-import { FixTemplateObjectModel } from './models/fixRequest/fixTemplateObjectModel';
+import * as fixRequestSlice from './slices/fixRequestSlice';
+import { ProfileModel } from './slices/profileSlice';
+import NotificationModel from './models/notification/notificationModel';
+import { FixesModel } from './slices/fixesSlice';
+import { UserSummaryModel } from './models/user/userSummaryModel';
+import { RatingsModel } from './slices/ratingSlice';
+import { AddressModel } from './models/common/addressModel';
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware<ThunkDispatch<RootState, undefined, Action<any>>, RootState>(thunk),
-);
-const rootContext = React.createContext('rootContext');
+const persistedRootReducer: Reducer<RootState & PersistPartial, any> = persistReducer(persistConfig, rootReducer);
+const store = createStore(persistedRootReducer, applyMiddleware(thunk));
+const persistor = persistStore(store);
 
 export {
   ConfigFactory,
-  persistentStore,
-  persistentStorePersistor,
+  Provider,
+  PersistGate,
+  store,
+  persistor,
   persistentActions,
-  persistentContext,
+  notificationActions,
+  fixRequestSlice as fixRequestActions,
+  userSlice as userActions,
   ProfileService,
   RatingsService,
   FixesService,
-  store,
-  notificationActions,
-  rootContext,
-  ApplicationTypesEnum,
-  PersistGate,
-  Provider,
-  connect,
-  fixRequestActions,
   FixRequestService,
+  connect,
+  useSelector,
+  useDispatch,
 };
+
+type UserModel = userSlice.UserModel;
+type FixRequestModel = fixRequestSlice.FixRequestModel;
+type FixTemplateObjectModel = fixRequestSlice.FixTemplateObjectModel;
+type SectionModel = fixRequestSlice.SectionModel;
+type SectionDetailsModel = fixRequestSlice.SectionDetailsModel;
+type TagModel = fixRequestSlice.TagModel;
+
 export type {
   ConfigModel as Config,
   PersistentStateModel as PersistentState,
   RootState as StoreState,
-  FixRequestObjModel,
+  FixRequestModel,
   NotificationModel,
   ProfileModel,
   RatingsModel,
   FixesModel,
-  UserStatusModel,
+  UserModel,
   FixTemplateObjectModel,
+  SectionModel,
+  SectionDetailsModel,
+  TagModel,
+  AddressModel,
+  ApplicationTypesEnum,
+  UserSummaryModel,
 };

@@ -1,147 +1,84 @@
-import FixesActionTypesModel from '../../../src/models/fixes/fixesActionTypesMode';
-import fixesReducer from '../../../src/store/fixes/fixesReducer';
+import fixesReducer from '../../../src/slices/fixesSlice';
 
-describe('fixes reducer', () => {
+describe.only('fixes reducer', () => {
   it('should return the initla state of the fixes', () => {
     expect(fixesReducer(undefined, { type: '' })).toEqual({
-      newFixes: [],
-      pendingFixes: [],
-      inProgressFixes: [],
-      inReviewFixes: [],
-      completedFixes: [],
-      terminatedFixes: [],
+      completedFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
+      inProgressFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
+      inReviewFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
+      newFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
+      pendingFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
+      terminatedFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
     });
   });
 
-  it('should handle SET_NEW_FIXES', () => {
+  it('should handle FETCH_NEWFIXES_SUCCESS', () => {
     expect(fixesReducer(undefined, {
-      type: FixesActionTypesModel.SET_NEW_FIXES,
-      payload: {
-        newFixes: [{
-          id: '123',
-          status: 0,
-        }],
-      },
-    })).toEqual({
-      newFixes: [{
+      type: 'fixes/FETCH_NEWFIXES_SUCCESS',
+      payload: [{
         id: '123',
         status: 0,
       }],
-      pendingFixes: [],
-      inProgressFixes: [],
-      inReviewFixes: [],
-      completedFixes: [],
-      terminatedFixes: [],
-    });
-  });
-
-  it('should handle SET_PENDING_FIXES', () => {
-    expect(fixesReducer(undefined, {
-      type: FixesActionTypesModel.SET_PENDING_FIXES,
-      payload: {
-        pendingFixes: [{
-          id: '123',
-          status: 1,
-        }],
-      },
+      error: null,
+      meta: 'empty',
     })).toEqual({
-      pendingFixes: [{
-        status: 1,
-        id: '123',
-      }],
-      newFixes: [],
-      inProgressFixes: [],
-      inReviewFixes: [],
-      completedFixes: [],
-      terminatedFixes: [],
-    });
-  });
-
-  it('should handle SET_IN_PROGRESS_FIXES', () => {
-    expect(fixesReducer(undefined, {
-      type: FixesActionTypesModel.SET_IN_PROGRESS_FIXES,
-      payload: {
-        inProgressFixes: [{
+      newFixesState: {
+        error: null,
+        fixes: [{
           id: '123',
-          status: 2,
+          status: 0,
         }],
+        isLoading: false,
       },
-    })).toEqual({
-      inProgressFixes: [{
-        status: 2,
-        id: '123',
-      }],
-      newFixes: [],
-      pendingFixes: [],
-      inReviewFixes: [],
-      completedFixes: [],
-      terminatedFixes: [],
-    });
-  });
-
-  it('should handle SET_IN_REVIEW_FIXES', () => {
-    expect(fixesReducer(undefined, {
-      type: FixesActionTypesModel.SET_IN_REVIEW_FIXES,
-      payload: {
-        inReviewFixes: [{
-          id: '123',
-          status: 3,
-        }],
+      completedFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
       },
-    })).toEqual({
-      inReviewFixes: [{
-        status: 3,
-        id: '123',
-      }],
-      newFixes: [],
-      pendingFixes: [],
-      inProgressFixes: [],
-      completedFixes: [],
-      terminatedFixes: [],
-    });
-  });
-
-  it('should handle SET_COMPLETED_FIXES', () => {
-    expect(fixesReducer(undefined, {
-      type: FixesActionTypesModel.SET_COMPLETED_FIXES,
-      payload: {
-        completedFixes: [{
-          id: '123',
-          status: 4,
-        }],
+      inProgressFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
       },
-    })).toEqual({
-      completedFixes: [{
-        status: 4,
-        id: '123',
-      }],
-      newFixes: [],
-      pendingFixes: [],
-      inProgressFixes: [],
-      inReviewFixes: [],
-      terminatedFixes: [],
-    });
-  });
-
-  it('should handle SET_TERMINATED_FIXES', () => {
-    expect(fixesReducer(undefined, {
-      type: FixesActionTypesModel.SET_TERMINATED_FIXES,
-      payload: {
-        terminatedFixes: [{
-          id: '123',
-          status: 5,
-        }],
+      inReviewFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
       },
-    })).toEqual({
-      terminatedFixes: [{
-        status: 5,
-        id: '123',
-      }],
-      newFixes: [],
-      pendingFixes: [],
-      inProgressFixes: [],
-      inReviewFixes: [],
-      completedFixes: [],
+      pendingFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
+      terminatedFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
     });
   });
 });
