@@ -4,14 +4,10 @@ import {
   FixTemplateObjectModel,
   TagModel,
   setFixTemplateId,
-  setFixUnit,
   setFixRequestTags,
-  setFixTemplateName,
-  setFixTemplateCategory,
-  setFixTemplateType,
-  setFixDescription,
   setFixSectionTitle,
   setFixSectionDetails,
+  setFixTemplateBase,
 } from '../slices/fixRequestSlice';
 
 export default class FixRequestService {
@@ -94,14 +90,16 @@ export default class FixRequestService {
         response.data.tags.forEach((tag: string) => {
           tags.push({ name: tag });
         });
-
+        const fixRequestDetails = {
+          description: response.data.description,
+          category: response.data.workCategory.name,
+          name: response.data.name,
+          type: response.data.workType.name,
+          unit: response.data.fixUnit.name,
+        };
+        this.store.dispatch(setFixTemplateBase(fixRequestDetails));
         this.store.dispatch(setFixTemplateId({ fixTemplateId: response.data.id }));
-        this.store.dispatch(setFixUnit({ unit: response.data.fixUnit.name }));
         this.store.dispatch(setFixRequestTags(tags));
-        this.store.dispatch(setFixTemplateName({ name: response.data.name }));
-        this.store.dispatch(setFixTemplateCategory({ category: response.data.workCategory.name }));
-        this.store.dispatch(setFixTemplateType({ type: response.data.workType.name }));
-        this.store.dispatch(setFixDescription({ description: response.data.description }));
 
         response.data.sections.forEach(
           (

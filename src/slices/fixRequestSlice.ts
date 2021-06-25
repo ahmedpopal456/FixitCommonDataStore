@@ -135,11 +135,11 @@ const initialState: FixRequestState = {
 
 type NumberOfStepsPick = Pick<FixRequestState, 'numberOfSteps'>;
 type FixTemplateIdPick = Pick<FixRequestState, 'fixTemplateId'>;
+type FixTemplateBasePick = Pick<Details, 'name' | 'category' | 'unit' | 'description' | 'type'>;
 type DetailsUnitPick = Pick<Details, 'unit'>;
 type DetailsNamePick = Pick<Details, 'name'>;
 type DetailsCategoryPick = Pick<Details, 'category'>;
 type DetailsTypePick = Pick<Details, 'type'>;
-type DetailsDescriptionPick = Pick<Details, 'description'>;
 type CreatedByUserPick = Pick<UserSummaryModel, 'firstName' | 'lastName'>;
 type UpdatedByUserPick = Pick<UserSummaryModel, 'firstName' | 'lastName'>;
 
@@ -167,12 +167,6 @@ const fixRequestSlice = createSlice({
     },
     setFixTemplateType: (state, action: PayloadAction<DetailsTypePick>) => {
       state.fixRequestObj.details.type = action.payload.type;
-    },
-    setFixDescription: (
-      state,
-      action: PayloadAction<DetailsDescriptionPick>,
-    ) => {
-      state.fixRequestObj.details.description = action.payload.description;
     },
     setFixSectionTitle: (
       state,
@@ -221,7 +215,7 @@ const fixRequestSlice = createSlice({
     setFixRequestTags: (state, action: PayloadAction<Array<TagModel>>) => {
       state.fixRequestObj.tags = action.payload;
     },
-    setFixRequestDetails: (state, action: PayloadAction<Details>) => {
+    setFixTemplateBase: (state, action: PayloadAction<FixTemplateBasePick>) => {
       state.fixRequestObj.details.name = action.payload.name;
       state.fixRequestObj.details.category = action.payload.category;
       state.fixRequestObj.details.description = action.payload.description;
@@ -300,7 +294,7 @@ export const {
   setFixRequestClientMaxEstimatedCost,
   setFixRequestClientMinEstimatedCost,
   setFixRequestCreatedByUser,
-  setFixRequestDetails,
+  setFixTemplateBase,
   setFixRequestDetailsSection,
   setFixRequestAddress,
   setFixRequestCity,
@@ -319,7 +313,6 @@ export const {
   setFixTemplateName,
   setFixTemplateCategory,
   setFixTemplateType,
-  setFixDescription,
   setFixSectionTitle,
   setFixSectionDetails,
   clearData,
