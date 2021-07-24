@@ -99,8 +99,10 @@ jobs:
     inputs:
       workingFile: .npmrc
 
-  - script: npm i
-    displayName: Install dependencies
+  - task: Npm@1
+    displayName: 'Npm install'
+    inputs:
+      command: 'install'
 
   # Prepare Analysis Configuration for Sonar Cloud 
   - task: SonarCloudPrepare@1
