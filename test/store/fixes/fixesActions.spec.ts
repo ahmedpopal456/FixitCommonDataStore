@@ -26,7 +26,7 @@ describe('fixes action', () => {
   it('should create an action when failed finished fetching new fixes', () => {
     const expectedAction = {
       type: 'fixes/FETCH_NEWFIXES_FAILURE',
-      payload: [],
+      payload: {},
       error: 'failure',
       meta: 'empty',
     };

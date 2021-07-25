@@ -11,6 +11,7 @@ import fixRequestReducer, { FixRequestState } from './slices/fixRequestSlice';
 import persistentReducer from './storage/persistentReducer';
 
 import { PersistentStateModel } from './models/persistentStore/persistentStateModel';
+import fixTemplateReducer, { FixTemplateState } from './slices/fixTemplateSlice';
 
 export const persistConfig = {
   key: 'root',
@@ -25,6 +26,7 @@ export interface RootState {
   profile: ProfileState,
   ratings: RatingsState,
   fixRequest: FixRequestState,
+  fixTemplate: FixTemplateState,
   fixes: FixesStates,
   notifications: NotificationState
 }
@@ -36,6 +38,7 @@ export const rootReducer: Reducer<CombinedState<RootState>> = combineReducers({
   profile: profileReducer,
   ratings: ratingsReducer,
   fixRequest: fixRequestReducer,
+  fixTemplate: fixTemplateReducer,
   fixes: fixesReducer,
   notifications: notificationsReducer,
 });

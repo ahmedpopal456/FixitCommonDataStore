@@ -33,6 +33,11 @@ describe.only('fixes reducer', () => {
         fixes: [],
         isLoading: false,
       },
+      topFixTagsState: {
+        error: null,
+        isLoading: false,
+        tags: [],
+      },
     });
   });
 
@@ -78,6 +83,11 @@ describe.only('fixes reducer', () => {
         error: null,
         fixes: [],
         isLoading: false,
+      },
+      topFixTagsState: {
+        error: null,
+        isLoading: false,
+        tags: [],
       },
     });
   });

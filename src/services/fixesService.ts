@@ -22,6 +22,10 @@ import {
   FETCH_TERMINATEDFIXES_FAILURE,
   FETCH_NEWFIXES_SUCCESS,
   FETCH_NEWFIXES_FAILURE,
+  FixTagModel,
+  FETCH_POPULARFIXTAGS_BEGIN,
+  FETCH_POPULARFIXTAGS_SUCCESS,
+  FETCH_POPULARFIXTAGS_FAILURE,
 } from '../slices/fixesSlice';
 import ConfigFactory from '../config/factory/configFactory';
 
@@ -112,6 +116,19 @@ export default class FixesService {
         })
         .catch((error) => {
           this.store.dispatch(FETCH_TERMINATEDFIXES_FAILURE(error));
+        }));
+  }
+
+  getPopularFixTags(count: string) : Promise<Array<FixTagModel>> {
+    this.store.dispatch(FETCH_POPULARFIXTAGS_BEGIN());
+    return (
+      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/tags/${count}`)
+        .then((response) => {
+          this.store.dispatch(FETCH_POPULARFIXTAGS_SUCCESS(response.data));
+          return response.data;
+        })
+        .catch((error) => {
+          this.store.dispatch(FETCH_POPULARFIXTAGS_FAILURE(error));
         }));
   }
 

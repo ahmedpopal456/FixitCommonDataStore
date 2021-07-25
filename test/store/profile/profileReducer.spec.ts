@@ -9,6 +9,7 @@ describe('profile reducer', () => {
       profilePictureUrl: '',
       isLoading: false,
       error: null,
+      availability: [],
     });
   });
 
@@ -28,6 +29,7 @@ describe('profile reducer', () => {
       firstName: '',
       isLoading: true,
       error: null,
+      availability: [],
     });
   });
 });

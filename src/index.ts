@@ -17,14 +17,18 @@ import RatingsService from './services/ratingsService';
 import FixesService from './services/fixesService';
 import * as notificationActions from './slices/notificationSlice';
 import * as userSlice from './slices/userSlice';
-import FixRequestService from './services/fixRequestService';
+import { FixRequestService, FixTemplateUpdateRequest, FixTemplateCreateRequest } from './services/fixRequestService';
 import * as fixRequestSlice from './slices/fixRequestSlice';
+import * as fixTemplateSlice from './slices/fixTemplateSlice';
 import { ProfileModel } from './slices/profileSlice';
 import NotificationModel from './models/notification/notificationModel';
-import { FixesModel } from './slices/fixesSlice';
+import { FixesModel, FixTagModel } from './slices/fixesSlice';
 import { UserSummaryModel } from './models/user/userSummaryModel';
 import { RatingsModel } from './slices/ratingSlice';
-import { AddressModel } from './models/common/addressModel';
+import {
+  AddressModel, Category, Type, Unit,
+} from './models/common';
+import Status from './models/common/fixTemplateStatus';
 
 const persistedRootReducer: Reducer<RootState & PersistPartial, any> = persistReducer(persistConfig, rootReducer);
 const store = createStore(persistedRootReducer, applyMiddleware(thunk));
@@ -38,12 +42,14 @@ export {
   persistor,
   persistentActions,
   notificationActions,
+  fixTemplateSlice as fixTemplateActions,
   fixRequestSlice as fixRequestActions,
   userSlice as userActions,
   ProfileService,
   RatingsService,
   FixesService,
   FixRequestService,
+  Status as FixTemplateStatus,
   connect,
   useSelector,
   useDispatch,
@@ -51,10 +57,12 @@ export {
 
 type UserModel = userSlice.UserModel;
 type FixRequestModel = fixRequestSlice.FixRequestModel;
-type FixTemplateObjectModel = fixRequestSlice.FixTemplateObjectModel;
 type SectionModel = fixRequestSlice.SectionModel;
 type SectionDetailsModel = fixRequestSlice.SectionDetailsModel;
 type TagModel = fixRequestSlice.TagModel;
+type FixTemplateModel = fixTemplateSlice.FixTemplateModel;
+type FixTemplateSection = fixTemplateSlice.FixTemplateSection;
+type FixTemplateSectionField = fixTemplateSlice.FixTemplateSectionField;
 
 export type {
   ConfigModel as Config,
@@ -65,12 +73,20 @@ export type {
   ProfileModel,
   RatingsModel,
   FixesModel,
+  FixTagModel,
   UserModel,
-  FixTemplateObjectModel,
+  FixTemplateModel,
+  FixTemplateSection,
   SectionModel,
   SectionDetailsModel,
   TagModel,
   AddressModel,
   ApplicationTypesEnum,
   UserSummaryModel,
+  Category,
+  Type,
+  Unit,
+  FixTemplateSectionField,
+  FixTemplateUpdateRequest,
+  FixTemplateCreateRequest,
 };

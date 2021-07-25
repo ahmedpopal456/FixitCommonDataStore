@@ -54,6 +54,24 @@ interface FixPlanSummaryModel {
   totalPhaseCount: number,
 }
 
+export interface FixTagModel {
+  id: string,
+  groupId: string,
+  name: string,
+  statistics: {
+    createdTimestampUtc: number,
+    updatedTimeStampUtc : number,
+    totalFixesCount : number,
+    completedFixesCount : number,
+    percentageUsage: number
+  }
+}
+export interface FixTagWithAction {
+  tags: Array<FixTagModel>,
+  isLoading : boolean,
+  error: any
+}
+
 export interface FixesModel {
   id: string,
   activityHistoryId: string,
@@ -79,7 +97,6 @@ export interface FixesModel {
   createdTimestampUtc: number,
   updatedTimestampUtc: number,
 }
-
 export interface FixesStateWithAction {
   fixes: Array<FixesModel>,
   isLoading : boolean,
@@ -93,6 +110,8 @@ export interface FixesStates {
   readonly inReviewFixesState: FixesStateWithAction,
   readonly completedFixesState: FixesStateWithAction,
   readonly terminatedFixesState: FixesStateWithAction,
+  readonly topFixTagsState: FixTagWithAction,
+
 }
 
 const initialState: FixesStates = {
@@ -102,20 +121,22 @@ const initialState: FixesStates = {
   inReviewFixesState: { fixes: [], isLoading: false, error: null },
   completedFixesState: { fixes: [], isLoading: false, error: null },
   terminatedFixesState: { fixes: [], isLoading: false, error: null },
+  topFixTagsState: { tags: [], isLoading: false, error: null },
 };
 
-const prepareSuccess = (payload: FixesModel[] = []): FixitAction<FixesModel[]> => ({
+const prepareSuccess = <T> (payload: T) : FixitAction<T> => ({
   payload, type: 'inherit', meta: 'empty', error: null,
 });
 
-const prepareFailure = (error: any | null = null): FixitAction<FixesModel[]> => ({
-  payload: [], type: 'inherit', meta: 'empty', error,
+const prepareFailure = <T> (error: any) : FixitAction<T> => ({
+  payload: {} as T, type: 'inherit', meta: 'empty', error,
 });
 
 const fixesSlice = createSlice({
   name: 'fixes',
   initialState,
   reducers: {
+    RESET_FIXES_SLICE: () => initialState,
     FETCH_NEWFIXES_BEGIN: (state) => {
       state.newFixesState.error = null;
       state.newFixesState.isLoading = true;
@@ -126,14 +147,14 @@ const fixesSlice = createSlice({
         state.newFixesState.isLoading = false;
         state.newFixesState.error = null;
       },
-      prepare: prepareSuccess,
+      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_NEWFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.newFixesState.isLoading = false;
         state.newFixesState.error = action.error;
       },
-      prepare: prepareFailure,
+      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_PENDINGFIXES_BEGIN: (state) => {
       state.pendingFixesState.error = null;
@@ -145,14 +166,14 @@ const fixesSlice = createSlice({
         state.pendingFixesState.isLoading = false;
         state.pendingFixesState.error = null;
       },
-      prepare: prepareSuccess,
+      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_PENDINGFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.pendingFixesState.isLoading = false;
         state.pendingFixesState.error = action.error;
       },
-      prepare: prepareFailure,
+      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_INPROGRESSFIXES_BEGIN: (state) => {
       state.inProgressFixesState.error = null;
@@ -164,14 +185,14 @@ const fixesSlice = createSlice({
         state.inProgressFixesState.isLoading = false;
         state.inProgressFixesState.error = null;
       },
-      prepare: prepareSuccess,
+      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_INPROGRESSFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.inProgressFixesState.isLoading = false;
         state.inProgressFixesState.error = action.error;
       },
-      prepare: prepareFailure,
+      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_INREVIEWFIXES_BEGIN: (state) => {
       state.inReviewFixesState.error = null;
@@ -183,14 +204,14 @@ const fixesSlice = createSlice({
         state.inReviewFixesState.isLoading = false;
         state.inReviewFixesState.error = null;
       },
-      prepare: prepareSuccess,
+      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_INREVIEWFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.inReviewFixesState.isLoading = false;
         state.inReviewFixesState.error = action.error;
       },
-      prepare: prepareFailure,
+      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_COMPLETEDFIXES_BEGIN: (state) => {
       state.completedFixesState.error = null;
@@ -202,14 +223,14 @@ const fixesSlice = createSlice({
         state.completedFixesState.isLoading = false;
         state.completedFixesState.error = null;
       },
-      prepare: prepareSuccess,
+      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_COMPLETEDFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.completedFixesState.isLoading = false;
         state.completedFixesState.error = action.error;
       },
-      prepare: prepareFailure,
+      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_TERMINATEDFIXES_BEGIN: (state) => {
       state.terminatedFixesState.error = null;
@@ -221,14 +242,33 @@ const fixesSlice = createSlice({
         state.terminatedFixesState.isLoading = false;
         state.terminatedFixesState.error = null;
       },
-      prepare: prepareSuccess,
+      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_TERMINATEDFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.terminatedFixesState.isLoading = false;
         state.terminatedFixesState.error = action.error;
       },
-      prepare: prepareFailure,
+      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
+    },
+    FETCH_POPULARFIXTAGS_BEGIN: (state) => {
+      state.topFixTagsState.error = null;
+      state.topFixTagsState.isLoading = true;
+    },
+    FETCH_POPULARFIXTAGS_SUCCESS: {
+      reducer: (state, action: FixitAction<FixTagModel[]>) => {
+        state.topFixTagsState.tags = action.payload;
+        state.topFixTagsState.isLoading = false;
+        state.topFixTagsState.error = null;
+      },
+      prepare: (payload : FixTagModel[]) => prepareSuccess(payload),
+    },
+    FETCH_POPULARFIXTAGS_FAILURE: {
+      reducer: (state, action: FixitAction<FixTagModel[]>) => {
+        state.topFixTagsState.isLoading = false;
+        state.topFixTagsState.error = action.error;
+      },
+      prepare: (error : any) => prepareFailure<FixTagModel[]>(error),
     },
   },
 });
@@ -251,6 +291,10 @@ export const {
   FETCH_TERMINATEDFIXES_BEGIN,
   FETCH_TERMINATEDFIXES_SUCCESS,
   FETCH_TERMINATEDFIXES_FAILURE,
+  FETCH_POPULARFIXTAGS_BEGIN,
+  FETCH_POPULARFIXTAGS_SUCCESS,
+  FETCH_POPULARFIXTAGS_FAILURE,
+  RESET_FIXES_SLICE,
 } = fixesSlice.actions;
 
 export default fixesSlice.reducer;

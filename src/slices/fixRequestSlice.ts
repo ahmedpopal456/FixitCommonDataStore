@@ -9,25 +9,6 @@ export interface TagModel {
   name: string;
 }
 
-export interface FixTemplateObjectModel {
-  Status: string;
-  Name: string;
-  WorkTypeId: string;
-  WorkCategoryId: string;
-  FixUnitId: string | undefined;
-  Description: string;
-  CreatedByUserId: string | undefined;
-  UpdatedByUserId: string | undefined;
-  Tags: Array<TagModel>;
-  Sections: Array<{
-    Name: string;
-    Fields: Array<{
-      Name: string;
-      Values: Array<string>;
-    }>;
-  }>;
-}
-
 export interface SectionDetailsModel {
   name: string;
   value: string;
@@ -75,7 +56,6 @@ interface FixStepsDynamicRoutes {
 export interface FixRequestState {
   numberOfSteps: number;
   fixStepsCurrentRouteIndex: number;
-  fixTemplateId: string;
   fixStepsDynamicRoutes: Array<FixStepsDynamicRoutes>;
   fixRequestObj: FixRequestModel;
 }
@@ -84,7 +64,6 @@ const initialState: FixRequestState = {
   numberOfSteps: 4,
   fixStepsCurrentRouteIndex: 0,
   fixStepsDynamicRoutes: [],
-  fixTemplateId: '',
   fixRequestObj: {
     tags: [],
     details: {
@@ -134,12 +113,7 @@ const initialState: FixRequestState = {
 };
 
 type NumberOfStepsPick = Pick<FixRequestState, 'numberOfSteps'>;
-type FixTemplateIdPick = Pick<FixRequestState, 'fixTemplateId'>;
-type FixTemplateBasePick = Pick<Details, 'name' | 'category' | 'unit' | 'description' | 'type'>;
-type DetailsUnitPick = Pick<Details, 'unit'>;
-type DetailsNamePick = Pick<Details, 'name'>;
-type DetailsCategoryPick = Pick<Details, 'category'>;
-type DetailsTypePick = Pick<Details, 'type'>;
+
 type CreatedByUserPick = Pick<UserSummaryModel, 'firstName' | 'lastName'>;
 type UpdatedByUserPick = Pick<UserSummaryModel, 'firstName' | 'lastName'>;
 
@@ -150,24 +124,7 @@ const fixRequestSlice = createSlice({
     setNumberOfSteps: (state, action: PayloadAction<NumberOfStepsPick>) => {
       state.numberOfSteps = action.payload.numberOfSteps;
     },
-    setFixTemplateId: (state, action: PayloadAction<FixTemplateIdPick>) => {
-      state.fixTemplateId = action.payload.fixTemplateId;
-    },
-    setFixUnit: (state, action: PayloadAction<DetailsUnitPick>) => {
-      state.fixRequestObj.details.unit = action.payload.unit;
-    },
-    setFixTemplateName: (state, action: PayloadAction<DetailsNamePick>) => {
-      state.fixRequestObj.details.name = action.payload.name;
-    },
-    setFixTemplateCategory: (
-      state,
-      action: PayloadAction<DetailsCategoryPick>,
-    ) => {
-      state.fixRequestObj.details.category = action.payload.category;
-    },
-    setFixTemplateType: (state, action: PayloadAction<DetailsTypePick>) => {
-      state.fixRequestObj.details.type = action.payload.type;
-    },
+
     setFixSectionTitle: (
       state,
       action: PayloadAction<{ index: number; sectionName: string }>,
@@ -212,16 +169,7 @@ const fixRequestSlice = createSlice({
     addFixRequestTag: (state, action: PayloadAction<TagModel>) => {
       state.fixRequestObj.tags.push(action.payload);
     },
-    setFixRequestTags: (state, action: PayloadAction<Array<TagModel>>) => {
-      state.fixRequestObj.tags = action.payload;
-    },
-    setFixTemplateBase: (state, action: PayloadAction<FixTemplateBasePick>) => {
-      state.fixRequestObj.details.name = action.payload.name;
-      state.fixRequestObj.details.category = action.payload.category;
-      state.fixRequestObj.details.description = action.payload.description;
-      state.fixRequestObj.details.type = action.payload.type;
-      state.fixRequestObj.details.unit = action.payload.unit;
-    },
+
     setFixRequestAddress: (
       state,
       action: PayloadAction<{ address: string }>,
@@ -294,7 +242,6 @@ export const {
   setFixRequestClientMaxEstimatedCost,
   setFixRequestClientMinEstimatedCost,
   setFixRequestCreatedByUser,
-  setFixTemplateBase,
   setFixRequestDetailsSection,
   setFixRequestAddress,
   setFixRequestCity,
@@ -303,16 +250,10 @@ export const {
   setFixEndDate,
   setFixStartDate,
   setFixRequestUpdatedByUser,
-  setFixTemplateId,
   setNumberOfSteps,
-  setFixRequestTags,
   addFixRequestSchedule,
   addFixRequestTag,
   addFixStepsDynamicRoutes,
-  setFixUnit,
-  setFixTemplateName,
-  setFixTemplateCategory,
-  setFixTemplateType,
   setFixSectionTitle,
   setFixSectionDetails,
   clearData,
