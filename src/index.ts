@@ -29,6 +29,7 @@ import {
   AddressModel, Category, Type, Unit,
 } from './models/common';
 import Status from './models/common/fixTemplateStatus';
+import { Schedule } from './models/common/scheduleModel';
 
 const persistedRootReducer: Reducer<RootState & PersistPartial, any> = persistReducer(persistConfig, rootReducer);
 const store = createStore(persistedRootReducer, applyMiddleware(thunk));
@@ -89,4 +90,5 @@ export type {
   FixTemplateSectionField,
   FixTemplateUpdateRequest,
   FixTemplateCreateRequest,
+  Schedule,
 };

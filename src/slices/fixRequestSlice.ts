@@ -50,20 +50,11 @@ export interface FixRequestModel {
   status: number;
 }
 
-interface FixStepsDynamicRoutes {
-  key: string;
-}
 export interface FixRequestState {
-  numberOfSteps: number;
-  fixStepsCurrentRouteIndex: number;
-  fixStepsDynamicRoutes: Array<FixStepsDynamicRoutes>;
   fixRequestObj: FixRequestModel;
 }
 
 const initialState: FixRequestState = {
-  numberOfSteps: 4,
-  fixStepsCurrentRouteIndex: 0,
-  fixStepsDynamicRoutes: [],
   fixRequestObj: {
     tags: [],
     details: {
@@ -90,12 +81,7 @@ const initialState: FixRequestState = {
       province: '',
       postalCode: '',
     },
-    schedule: [
-      {
-        startTimestampUtc: 0,
-        endTimestampUtc: 0,
-      },
-    ],
+    schedule: [],
     clientEstimatedCost: {
       maximumCost: 0,
       minimumCost: 0,
@@ -112,8 +98,6 @@ const initialState: FixRequestState = {
   },
 };
 
-type NumberOfStepsPick = Pick<FixRequestState, 'numberOfSteps'>;
-
 type CreatedByUserPick = Pick<UserSummaryModel, 'firstName' | 'lastName'>;
 type UpdatedByUserPick = Pick<UserSummaryModel, 'firstName' | 'lastName'>;
 
@@ -121,10 +105,6 @@ const fixRequestSlice = createSlice({
   name: 'fixRequest',
   initialState,
   reducers: {
-    setNumberOfSteps: (state, action: PayloadAction<NumberOfStepsPick>) => {
-      state.numberOfSteps = action.payload.numberOfSteps;
-    },
-
     setFixSectionTitle: (
       state,
       action: PayloadAction<{ index: number; sectionName: string }>,
@@ -154,22 +134,9 @@ const fixRequestSlice = createSlice({
         };
       }
     },
-    addFixStepsDynamicRoutes: (
-      state,
-      action: PayloadAction<FixStepsDynamicRoutes>,
-    ) => {
-      state.fixStepsDynamicRoutes.push(action.payload);
-    },
-    setCurrentFixStepsRouteIndex: (
-      state,
-      action: PayloadAction<{ routeIndex: number }>,
-    ) => {
-      state.fixStepsCurrentRouteIndex = action.payload.routeIndex;
-    },
     addFixRequestTag: (state, action: PayloadAction<TagModel>) => {
       state.fixRequestObj.tags.push(action.payload);
     },
-
     setFixRequestAddress: (
       state,
       action: PayloadAction<{ address: string }>,
@@ -191,17 +158,8 @@ const fixRequestSlice = createSlice({
     ) => {
       state.fixRequestObj.location.postalCode = action.payload.postalCode;
     },
-    setFixStartDate: (
-      state,
-      action: PayloadAction<{ startTimestamp: number }>,
-    ) => {
-      state.fixRequestObj.schedule[0].startTimestampUtc = action.payload.startTimestamp;
-    },
-    setFixEndDate: (state, action: PayloadAction<{ endTimestamp: number }>) => {
-      state.fixRequestObj.schedule[0].endTimestampUtc = action.payload.endTimestamp;
-    },
-    addFixRequestSchedule: (state, action: PayloadAction<Schedule>) => {
-      state.fixRequestObj.schedule.push(action.payload);
+    setFixRequestSchedules: (state, action: PayloadAction<Array<Schedule>>) => {
+      state.fixRequestObj.schedule = action.payload;
     },
     setFixRequestClientMinEstimatedCost: (
       state,
@@ -238,7 +196,6 @@ const fixRequestSlice = createSlice({
 });
 
 export const {
-  setCurrentFixStepsRouteIndex,
   setFixRequestClientMaxEstimatedCost,
   setFixRequestClientMinEstimatedCost,
   setFixRequestCreatedByUser,
@@ -247,13 +204,9 @@ export const {
   setFixRequestCity,
   setFixRequestPostalCode,
   setFixRequestProvince,
-  setFixEndDate,
-  setFixStartDate,
   setFixRequestUpdatedByUser,
-  setNumberOfSteps,
-  addFixRequestSchedule,
+  setFixRequestSchedules,
   addFixRequestTag,
-  addFixStepsDynamicRoutes,
   setFixSectionTitle,
   setFixSectionDetails,
   clearData,
