@@ -1,9 +1,6 @@
 import PersistentActionTypesModel from '../../src/models/persistentStore/persistentActionTypesModel';
 import persistentActions from '../../src/storage/persistentActions';
-import {
-  UPDATE_AUTH_STATUS,
-  FETCH_USERINFO_BEGIN,
-} from '../../src/slices/userSlice';
+import { FETCH_USER_BEGIN, UPDATE_AUTH_STATUS } from '../../src/slices/userSlice';
 
 describe('actions', () => {
   it('should create an action to set the auth status', () => {
@@ -19,10 +16,10 @@ describe('actions', () => {
 
   it('should create an action to begin fetching the set user info', () => {
     const expectedAction = {
-      type: 'user/FETCH_USERINFO_BEGIN',
+      type: 'user/FETCH_USER_BEGIN',
       payload: undefined,
     };
-    expect(FETCH_USERINFO_BEGIN()).toEqual(expectedAction);
+    expect(FETCH_USER_BEGIN()).toEqual(expectedAction);
   });
 
   it('should create an action to set the push channel token', () => {
@@ -32,9 +29,7 @@ describe('actions', () => {
         pushChannelToken: 'my token',
       },
     };
-    expect(persistentActions.setPushChannelToken('my token')).toEqual(
-      expectedAction,
-    );
+    expect(persistentActions.setPushChannelToken('my token')).toEqual(expectedAction);
   });
 
   it('should create an action to set the notifications', () => {

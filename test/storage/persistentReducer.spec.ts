@@ -3,13 +3,21 @@ import persistentReducer from '../../src/storage/persistentReducer';
 
 describe('persistent reducer', () => {
   it('should return the initial state', () => {
-    expect(persistentReducer(undefined, { type: '' })).toEqual(
-      {
-        pushChannelToken: undefined,
-        notificationList: { notifications: [] },
-        unseenNotificationsNumber: 0,
+    expect(persistentReducer(undefined, { type: '' })).toEqual({
+      pushChannelToken: undefined,
+      notificationList: { notifications: [] },
+      unseenNotificationsNumber: 0,
+      currentFixLocation: {
+        id: '',
+        isCurrentAddress: false,
+        aptSuiteFloor: '',
+        label: '',
+        address: {
+          AddressComponents: [],
+          formattedAddress: '',
+        },
       },
-    );
+    });
   });
 
   it('should handle SET_NOTIFICATION_TOKEN', () => {
@@ -24,6 +32,16 @@ describe('persistent reducer', () => {
       pushChannelToken: 'my token',
       notificationList: { notifications: [] },
       unseenNotificationsNumber: 0,
+      currentFixLocation: {
+        id: '',
+        isCurrentAddress: false,
+        aptSuiteFloor: '',
+        label: '',
+        address: {
+          AddressComponents: [],
+          formattedAddress: '',
+        },
+      },
     });
   });
 
@@ -40,6 +58,16 @@ describe('persistent reducer', () => {
       pushChannelToken: undefined,
       notificationList: {},
       unseenNotificationsNumber: 0,
+      currentFixLocation: {
+        id: '',
+        isCurrentAddress: false,
+        aptSuiteFloor: '',
+        label: '',
+        address: {
+          AddressComponents: [],
+          formattedAddress: '',
+        },
+      },
     });
   });
 });

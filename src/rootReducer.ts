@@ -9,6 +9,7 @@ import notificationsReducer, { NotificationState } from './slices/notificationSl
 import fixesReducer, { FixesStates } from './slices/fixesSlice';
 import fixRequestReducer, { FixRequestState } from './slices/fixRequestSlice';
 import persistentReducer from './storage/persistentReducer';
+import addressReducer, { AddressState } from './slices/addressSlice';
 
 import { PersistentStateModel } from './models/persistentStore/persistentStateModel';
 import fixTemplateReducer, { FixTemplateState } from './slices/fixTemplateSlice';
@@ -28,6 +29,7 @@ export interface RootState {
   fixRequest: FixRequestState,
   fixTemplate: FixTemplateState,
   fixes: FixesStates,
+  address: AddressState,
   notifications: NotificationState
 }
 
@@ -41,4 +43,5 @@ export const rootReducer: Reducer<CombinedState<RootState>> = combineReducers({
   fixTemplate: fixTemplateReducer,
   fixes: fixesReducer,
   notifications: notificationsReducer,
+  address: addressReducer,
 });

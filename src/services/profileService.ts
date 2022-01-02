@@ -20,31 +20,31 @@ export default class ProfileService {
     this.store = store;
   }
 
-  getUserProfile(userId: string) : Promise<ProfileModel> {
+  getUserProfile(userId: string): Promise<ProfileModel> {
     this.store.dispatch(FETCH_PROFILEINFO_BEGIN());
-    return (
-      axios.get(`https://fixit-dev-ums-api.azurewebsites.net/api/${userId}/account/profile`)
-        .then((response) => {
-          this.store.dispatch(FETCH_PROFILEINFO_SUCCESS(response.data));
-          return response.data;
-        })
-        .catch((error) => {
-          this.store.dispatch(FETCH_PROFILEINFO_FAILURE(error));
-        }));
+    return axios
+      .get(`https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/account/profile`)
+      .then((response) => {
+        this.store.dispatch(FETCH_PROFILEINFO_SUCCESS(response.data));
+        return response.data;
+      })
+      .catch((error) => {
+        this.store.dispatch(FETCH_PROFILEINFO_FAILURE(error));
+      });
   }
 
-  updateUserProfile(userId: string, updatedProfileInfo: ProfileModel) : Promise<ProfileModel> {
+  updateUserProfile(userId: string, updatedProfileInfo: ProfileModel): Promise<ProfileModel> {
     this.store.dispatch(UPDATE_PROFILEINFO_BEGIN());
-    return (
-      axios.put(`https://fixit-dev-ums-api.azurewebsites.net/api/${userId}/account/profile`,
-        updatedProfileInfo,
-        { headers: { 'Content-Type': 'application/json' } })
-        .then((response) => {
-          this.store.dispatch(UPDATE_PROFILEINFO_SUCCESS(response.data));
-          return response.data;
-        })
-        .catch((error) => {
-          this.store.dispatch(UPDATE_PROFILEINFO_FAILURE(error));
-        }));
+    return axios
+      .put(`https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/account/profile`, updatedProfileInfo, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then((response) => {
+        this.store.dispatch(UPDATE_PROFILEINFO_SUCCESS(response.data));
+        return response.data;
+      })
+      .catch((error) => {
+        this.store.dispatch(UPDATE_PROFILEINFO_FAILURE(error));
+      });
   }
 }

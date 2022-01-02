@@ -2,9 +2,7 @@ import { Reducer, applyMiddleware, createStore } from 'redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 import thunk from 'redux-thunk';
-import {
-  Provider, connect, useSelector, useDispatch,
-} from 'react-redux';
+import { Provider, connect, useSelector, useDispatch } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import ConfigFactory from './config/factory/configFactory';
 import * as persistentActions from './storage/persistentActions';
@@ -14,7 +12,9 @@ import { PersistentStateModel } from './models/persistentStore/persistentStateMo
 import { RootState, rootReducer, persistConfig } from './rootReducer';
 import ProfileService from './services/profileService';
 import RatingsService from './services/ratingsService';
+import AddressService from './services/addressService';
 import FixesService from './services/fixesService';
+import UserService from './services/userService';
 import * as notificationActions from './slices/notificationSlice';
 import * as userSlice from './slices/userSlice';
 import { FixRequestService, FixTemplateUpdateRequest, FixTemplateCreateRequest } from './services/fixRequestService';
@@ -23,13 +23,12 @@ import * as fixTemplateSlice from './slices/fixTemplateSlice';
 import { ProfileModel } from './slices/profileSlice';
 import NotificationModel from './models/notification/notificationModel';
 import { FixesModel, FixTagModel } from './slices/fixesSlice';
-import { UserSummaryModel } from './models/user/userSummaryModel';
+import { AddressModel, AddressQueryItemModel } from './slices/addressSlice';
 import { RatingsModel } from './slices/ratingSlice';
-import {
-  AddressModel, Category, Type, Unit,
-} from './models/common';
+import { Category, Type, Unit } from './models/common';
 import Status from './models/common/fixTemplateStatus';
 import { Schedule } from './models/common/scheduleModel';
+import { UserAddressModel, UserAddressModelBase, UserSummaryModel } from './slices/userSlice';
 
 const persistedRootReducer: Reducer<RootState & PersistPartial, any> = persistReducer(persistConfig, rootReducer);
 const store = createStore(persistedRootReducer, applyMiddleware(thunk));
@@ -49,6 +48,8 @@ export {
   ProfileService,
   RatingsService,
   FixesService,
+  AddressService,
+  UserService,
   FixRequestService,
   Status as FixTemplateStatus,
   connect,
@@ -72,6 +73,8 @@ export type {
   FixRequestModel,
   NotificationModel,
   ProfileModel,
+  UserAddressModelBase,
+  UserAddressModel,
   RatingsModel,
   FixesModel,
   FixTagModel,
@@ -81,9 +84,10 @@ export type {
   SectionModel,
   SectionDetailsModel,
   TagModel,
-  AddressModel,
   ApplicationTypesEnum,
   UserSummaryModel,
+  AddressModel,
+  AddressQueryItemModel,
   Category,
   Type,
   Unit,

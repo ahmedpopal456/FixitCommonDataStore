@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FixitAction } from '../models/common/fixitAction';
-import { UserSummaryModel } from '../models/user/userSummaryModel';
+import { UserSummaryModel } from './userSlice';
 
 export enum RatingType {
   SYSTEM,

@@ -1,24 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FixitAction } from '../models/common/fixitAction';
-import { AddressModel } from '../models/common/addressModel';
+import { UserAddressModel } from './userSlice';
 
 export interface ProfileModel {
-  firstName: string,
-  lastName: string,
-  address: AddressModel,
-  profilePictureUrl: string,
-  availability : any,
+  firstName: string;
+  lastName: string;
+  address: UserAddressModel;
+  profilePictureUrl: string;
+  availability: any;
 }
 
 export interface ProfileState extends ProfileModel {
-  isLoading: boolean,
-  error: any,
+  isLoading: boolean;
+  error: any;
 }
 
 export const initialState: ProfileState = {
   firstName: '',
   lastName: '',
-  address: {} as AddressModel,
+  address: {} as UserAddressModel,
   profilePictureUrl: '',
   availability: [],
   isLoading: false,
@@ -26,11 +26,17 @@ export const initialState: ProfileState = {
 };
 
 const prepareSuccess = (payload: ProfileModel): FixitAction<ProfileModel> => ({
-  payload, type: 'inherit', meta: 'empty', error: null,
+  payload,
+  type: 'inherit',
+  meta: 'empty',
+  error: null,
 });
 
 const prepareFailure = (error: any | null = null): FixitAction<ProfileModel> => ({
-  payload: initialState, type: 'inherit', meta: 'empty', error,
+  payload: initialState,
+  type: 'inherit',
+  meta: 'empty',
+  error,
 });
 
 const profileSlice = createSlice({
@@ -68,7 +74,6 @@ const profileSlice = createSlice({
       reducer: (state, action: FixitAction<ProfileModel>) => {
         state.firstName = action.payload.firstName;
         state.lastName = action.payload.lastName;
-        state.address = action.payload.address;
         state.isLoading = false;
         state.error = null;
       },

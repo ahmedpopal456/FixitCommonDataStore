@@ -2,13 +2,22 @@ import PersistentActionTypesModel from '../models/persistentStore/persistentActi
 import {
   SetPushChannelTokenActionModel,
   SetNotificationListActionModel,
+  SetUserAddressActionModel,
 } from '../models/persistentStore/persistentActionModel';
 import NotificationModel from '../models/notification/notificationModel';
+import { UserAddressModel } from '../slices/userSlice';
 
 const setPushChannelToken = (pushChannelToken: string): SetPushChannelTokenActionModel => ({
   type: PersistentActionTypesModel.SET_NOTIFICATION_TOKEN,
   payload: {
     pushChannelToken,
+  },
+});
+
+const setCurrentFixLocations = (userAddress :UserAddressModel): SetUserAddressActionModel => ({
+  type: PersistentActionTypesModel.SET_CURRENT_FIX_LOCATION,
+  payload: {
+    currentFixLocation: userAddress,
   },
 });
 
@@ -26,4 +35,5 @@ const setNotificationList = (
 export default {
   setPushChannelToken,
   setNotificationList,
+  setCurrentFixLocations,
 };

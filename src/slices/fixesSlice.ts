@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FixitAction } from '../models/common/fixitAction';
-import { UserSummaryModel } from '../models/user/userSummaryModel';
+import { UserSummaryModel } from './userSlice';
 import { Schedule } from '../models/common/scheduleModel';
 import { ClientEstimatedCostModel } from '../models/common/clientEstimatedCostModel';
 
 interface AssignedToCraftsmanModel {
-  Id: string,
-  FirstName: string,
-  LastName: string,
+  id: string,
+  firstName: string,
+  lastName: string,
 }
 
 interface DetailsModel {
