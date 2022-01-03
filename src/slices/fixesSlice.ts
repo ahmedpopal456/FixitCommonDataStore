@@ -3,6 +3,7 @@ import { FixitAction } from '../models/common/fixitAction';
 import { UserSummaryModel } from './userSlice';
 import { Schedule } from '../models/common/scheduleModel';
 import { ClientEstimatedCostModel } from '../models/common/clientEstimatedCostModel';
+import { TagModel } from './fixRequestSlice';
 
 interface AssignedToCraftsmanModel {
   id: string,
@@ -21,11 +22,6 @@ interface ImagesModel {
   metadata: string,
   url: string,
   name: string,
-}
-
-interface TagsModel {
-  Key: string,
-  Value: string,
 }
 
 interface CraftsmanEstimatedCostModel {
@@ -91,7 +87,7 @@ export interface FixesModel {
   schedule: Array<Schedule>,
   status: number,
   systemCalculatedCost: number,
-  tags: Array<TagsModel>,
+  tags: Array<TagModel>,
   createdByClient: UserSummaryModel,
   updatedByUser: UserSummaryModel,
   createdTimestampUtc: number,
@@ -99,6 +95,12 @@ export interface FixesModel {
 }
 export interface FixesStateWithAction {
   fixes: Array<FixesModel>,
+  isLoading : boolean,
+  error: any
+}
+
+export interface UpdateFixStateWithAction {
+  fix: FixesModel | undefined,
   isLoading : boolean,
   error: any
 }
@@ -111,7 +113,9 @@ export interface FixesStates {
   readonly completedFixesState: FixesStateWithAction,
   readonly terminatedFixesState: FixesStateWithAction,
   readonly topFixTagsState: FixTagWithAction,
-
+  readonly updateFixState: UpdateFixStateWithAction,
+  readonly terminatedByCraftsmanFixesState: FixesStateWithAction
+  readonly terminatedByClientFixesState: FixesStateWithAction
 }
 
 const initialState: FixesStates = {
@@ -121,7 +125,10 @@ const initialState: FixesStates = {
   inReviewFixesState: { fixes: [], isLoading: false, error: null },
   completedFixesState: { fixes: [], isLoading: false, error: null },
   terminatedFixesState: { fixes: [], isLoading: false, error: null },
+  terminatedByCraftsmanFixesState: { fixes: [], isLoading: false, error: null },
+  terminatedByClientFixesState: { fixes: [], isLoading: false, error: null },
   topFixTagsState: { tags: [], isLoading: false, error: null },
+  updateFixState: { fix: undefined, isLoading: false, error: null },
 };
 
 const prepareSuccess = <T> (payload: T) : FixitAction<T> => ({
@@ -251,6 +258,36 @@ const fixesSlice = createSlice({
       },
       prepare: (error : any) => prepareFailure<FixesModel[]>(error),
     },
+    FETCH_TERMINATEDBYCRAFTSMANFIXES_SUCCESS: {
+      reducer: (state, action: FixitAction<FixesModel[]>) => {
+        state.terminatedByCraftsmanFixesState.fixes = action.payload;
+        state.terminatedFixesState.isLoading = false;
+        state.terminatedFixesState.error = null;
+      },
+      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
+    },
+    FETCH_TERMINATEDBYCRAFTSMANFIXES_FAILURE: {
+      reducer: (state, action: FixitAction<FixesModel[]>) => {
+        state.terminatedByCraftsmanFixesState.isLoading = false;
+        state.terminatedByCraftsmanFixesState.error = action.error;
+      },
+      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
+    },
+    FETCH_TERMINATEDBYCLIENTFIXES_SUCCESS: {
+      reducer: (state, action: FixitAction<FixesModel[]>) => {
+        state.terminatedByClientFixesState.fixes = action.payload;
+        state.terminatedFixesState.isLoading = false;
+        state.terminatedFixesState.error = null;
+      },
+      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
+    },
+    FETCH_TERMINATEDBYCLIENTFIXES_FAILURE: {
+      reducer: (state, action: FixitAction<FixesModel[]>) => {
+        state.terminatedByClientFixesState.isLoading = false;
+        state.terminatedByClientFixesState.error = action.error;
+      },
+      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
+    },
     FETCH_POPULARFIXTAGS_BEGIN: (state) => {
       state.topFixTagsState.error = null;
       state.topFixTagsState.isLoading = true;
@@ -269,6 +306,25 @@ const fixesSlice = createSlice({
         state.topFixTagsState.error = action.error;
       },
       prepare: (error : any) => prepareFailure<FixTagModel[]>(error),
+    },
+    UPDATE_FIX_BEGIN: (state) => {
+      state.updateFixState.error = null;
+      state.updateFixState.isLoading = true;
+    },
+    UPDATE_FIX_SUCCESS: {
+      reducer: (state, action: FixitAction<FixesModel>) => {
+        state.updateFixState.fix = action.payload;
+        state.updateFixState.error = null;
+        state.updateFixState.isLoading = false;
+      },
+      prepare: (payload: FixesModel) => prepareSuccess(payload),
+    },
+    UPDATE_FIX_FAILURE: {
+      reducer: (state, action: FixitAction<FixesModel>) => {
+        state.updateFixState.error = action.error;
+        state.updateFixState.isLoading = false;
+      },
+      prepare: (error: any) => prepareFailure<FixesModel>(error),
     },
   },
 });
@@ -291,10 +347,17 @@ export const {
   FETCH_TERMINATEDFIXES_BEGIN,
   FETCH_TERMINATEDFIXES_SUCCESS,
   FETCH_TERMINATEDFIXES_FAILURE,
+  FETCH_TERMINATEDBYCRAFTSMANFIXES_SUCCESS,
+  FETCH_TERMINATEDBYCRAFTSMANFIXES_FAILURE,
+  FETCH_TERMINATEDBYCLIENTFIXES_SUCCESS,
+  FETCH_TERMINATEDBYCLIENTFIXES_FAILURE,
   FETCH_POPULARFIXTAGS_BEGIN,
   FETCH_POPULARFIXTAGS_SUCCESS,
   FETCH_POPULARFIXTAGS_FAILURE,
   RESET_FIXES_SLICE,
+  UPDATE_FIX_BEGIN,
+  UPDATE_FIX_SUCCESS,
+  UPDATE_FIX_FAILURE,
 } = fixesSlice.actions;
 
 export default fixesSlice.reducer;

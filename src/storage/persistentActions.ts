@@ -1,7 +1,7 @@
 import PersistentActionTypesModel from '../models/persistentStore/persistentActionTypesModel';
 import {
   SetPushChannelTokenActionModel,
-  SetNotificationListActionModel,
+  SetNotificationsActionModel,
   SetUserAddressActionModel,
 } from '../models/persistentStore/persistentActionModel';
 import NotificationModel from '../models/notification/notificationModel';
@@ -21,19 +21,19 @@ const setCurrentFixLocations = (userAddress :UserAddressModel): SetUserAddressAc
   },
 });
 
-const setNotificationList = (
-  notificationList: Record<string, Array<NotificationModel>>,
+const setNotifications = (
+  notifications: Array<NotificationModel>,
   unseenNotificationsNumber: number,
-) : SetNotificationListActionModel => ({
-  type: PersistentActionTypesModel.SET_NOTIFICATION_LIST,
+) : SetNotificationsActionModel => ({
+  type: PersistentActionTypesModel.SET_NOTIFICATIONS,
   payload: {
-    notificationList,
+    notifications,
     unseenNotificationsNumber,
   },
 });
 
 export default {
   setPushChannelToken,
-  setNotificationList,
+  setNotifications,
   setCurrentFixLocations,
 };

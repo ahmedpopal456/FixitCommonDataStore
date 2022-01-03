@@ -26,6 +26,13 @@ import {
   FETCH_POPULARFIXTAGS_BEGIN,
   FETCH_POPULARFIXTAGS_SUCCESS,
   FETCH_POPULARFIXTAGS_FAILURE,
+  UPDATE_FIX_BEGIN,
+  UPDATE_FIX_SUCCESS,
+  UPDATE_FIX_FAILURE,
+  FETCH_TERMINATEDBYCRAFTSMANFIXES_SUCCESS,
+  FETCH_TERMINATEDBYCRAFTSMANFIXES_FAILURE,
+  FETCH_TERMINATEDBYCLIENTFIXES_SUCCESS,
+  FETCH_TERMINATEDBYCLIENTFIXES_FAILURE,
 } from '../slices/fixesSlice';
 import ConfigFactory from '../config/factory/configFactory';
 
@@ -119,6 +126,32 @@ export default class FixesService {
         }));
   }
 
+  getTerminatedByCraftsman(userId: string) : Promise<Array<FixesModel>> {
+    this.store.dispatch(FETCH_TERMINATEDFIXES_BEGIN());
+    return (
+      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=7`)
+        .then((response) => {
+          this.store.dispatch(FETCH_TERMINATEDBYCRAFTSMANFIXES_SUCCESS(response.data));
+          return response.data;
+        })
+        .catch((error) => {
+          this.store.dispatch(FETCH_TERMINATEDBYCRAFTSMANFIXES_FAILURE(error));
+        }));
+  }
+
+  getTerminatedByClient(userId: string) : Promise<Array<FixesModel>> {
+    this.store.dispatch(FETCH_TERMINATEDFIXES_BEGIN());
+    return (
+      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=6`)
+        .then((response) => {
+          this.store.dispatch(FETCH_TERMINATEDBYCLIENTFIXES_SUCCESS(response.data));
+          return response.data;
+        })
+        .catch((error) => {
+          this.store.dispatch(FETCH_TERMINATEDBYCLIENTFIXES_FAILURE(error));
+        }));
+  }
+
   getPopularFixTags(count: string) : Promise<Array<FixTagModel>> {
     this.store.dispatch(FETCH_POPULARFIXTAGS_BEGIN());
     return (
@@ -130,6 +163,18 @@ export default class FixesService {
         .catch((error) => {
           this.store.dispatch(FETCH_POPULARFIXTAGS_FAILURE(error));
         }));
+  }
+
+  async updateFix(fixId: string, body: Partial<FixesModel>) : Promise<FixesModel | null> {
+    this.store.dispatch(UPDATE_FIX_BEGIN());
+    try {
+      const response = await axios.put(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/${fixId}`, body);
+      this.store.dispatch(UPDATE_FIX_SUCCESS(response.data));
+      return response.data;
+    } catch (error) {
+      this.store.dispatch(UPDATE_FIX_FAILURE(error));
+      return null;
+    }
   }
 
   getFix = (fixId: string):

@@ -7,14 +7,16 @@ export interface SetPushChannelTokenActionModel extends ActionModel {
     pushChannelToken: string | undefined,
   };
 }
+
 export interface SetUserAddressActionModel extends ActionModel {
   payload: {
     currentFixLocation: UserAddressModel,
   };
 }
-export interface SetNotificationListActionModel extends ActionModel {
+
+export interface SetNotificationsActionModel extends ActionModel {
   payload: {
-    notificationList: Record<string, Array<NotificationModel>>,
+    notifications: Array<NotificationModel>,
     unseenNotificationsNumber: number,
   };
 }

@@ -34,12 +34,12 @@ describe('actions', () => {
 
   it('should create an action to set the notifications', () => {
     const expectedAction = {
-      type: PersistentActionTypesModel.SET_NOTIFICATION_LIST,
+      type: PersistentActionTypesModel.SET_NOTIFICATIONS,
       payload: {
-        notificationList: {},
+        notifications: [],
         unseenNotificationsNumber: 0,
       },
     };
-    expect(persistentActions.setNotificationList({}, 0)).toEqual(expectedAction);
+    expect(persistentActions.setNotifications([], 0)).toEqual(expectedAction);
   });
 });

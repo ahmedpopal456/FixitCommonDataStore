@@ -3,7 +3,7 @@ import NotificationModel from '../notification/notificationModel';
 
 export interface PersistentStateModel {
   readonly pushChannelToken: string | undefined;
-  readonly notificationList: Record<string, Array<NotificationModel>>;
+  readonly notifications: Array<NotificationModel>;
   readonly unseenNotificationsNumber: number,
   readonly currentFixLocation: UserAddressModel,
 }

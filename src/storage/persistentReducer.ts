@@ -4,7 +4,7 @@ import { PersistentStateModel } from '../models/persistentStore/persistentStateM
 
 const initialState: PersistentStateModel = {
   pushChannelToken: undefined,
-  notificationList: { notifications: [] },
+  notifications: [],
   unseenNotificationsNumber: 0,
   currentFixLocation: {
     id: '',
@@ -28,10 +28,10 @@ export default function persistentReducer(
         ...state,
         pushChannelToken: action.payload.pushChannelToken,
       };
-    case PersistentActionTypesModel.SET_NOTIFICATION_LIST:
+    case PersistentActionTypesModel.SET_NOTIFICATIONS:
       return {
         ...state,
-        notificationList: action.payload.notificationList,
+        notifications: action.payload.notifications,
         unseenNotificationsNumber: action.payload.unseenNotificationsNumber,
       };
     case PersistentActionTypesModel.SET_CURRENT_FIX_LOCATION:

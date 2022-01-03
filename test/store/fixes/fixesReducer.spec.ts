@@ -33,10 +33,25 @@ describe.only('fixes reducer', () => {
         fixes: [],
         isLoading: false,
       },
+      terminatedByCraftsmanFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
+      terminatedByClientFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
       topFixTagsState: {
         error: null,
         isLoading: false,
         tags: [],
+      },
+      updateFixState: {
+        error: null,
+        fixes: undefined,
+        isLoading: false,
       },
     });
   });
@@ -84,10 +99,25 @@ describe.only('fixes reducer', () => {
         fixes: [],
         isLoading: false,
       },
+      terminatedByCraftsmanFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
+      terminatedByClientFixesState: {
+        error: null,
+        fixes: [],
+        isLoading: false,
+      },
       topFixTagsState: {
         error: null,
         isLoading: false,
         tags: [],
+      },
+      updateFixState: {
+        error: null,
+        fixes: undefined,
+        isLoading: false,
       },
     });
   });

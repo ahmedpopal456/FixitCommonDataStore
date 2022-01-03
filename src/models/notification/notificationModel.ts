@@ -1,27 +1,30 @@
 interface Payload {
-  Id: string,
+  id: string,
 }
 interface Tag {
-  Key: string,
-  Value: string,
+  key: string,
+  value: string,
 }
+
 interface Recipient {
-  Id: string,
-  FirstName: string,
-  LastName: string,
-  ProfilePictureUrl: string,
-  Role: number,
-  Status: string,
+  id: string,
+  firstName: string,
+  lastName: string,
+  profilePictureUrl: string,
+  role: number,
+  status: string,
 }
+
 interface RequestSummary {
-  Payload: Payload,
-  Action: number,
-  Tags: Array<Tag>,
-  Recipients: Array<Recipient>,
-  Silent: boolean,
-  CreatedTimestampUtc: number,
-  Retries: number,
+  payload: Payload,
+  action: number,
+  tags: Array<Tag>,
+  recipients: Array<Recipient>,
+  silent: boolean,
+  createdTimestampUtc: number,
+  retries: number,
 }
+
 export default interface NotificationModel {
   collapseKey: string,
   from: string,

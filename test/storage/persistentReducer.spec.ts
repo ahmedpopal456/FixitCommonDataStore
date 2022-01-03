@@ -5,7 +5,7 @@ describe('persistent reducer', () => {
   it('should return the initial state', () => {
     expect(persistentReducer(undefined, { type: '' })).toEqual({
       pushChannelToken: undefined,
-      notificationList: { notifications: [] },
+      notifications: [],
       unseenNotificationsNumber: 0,
       currentFixLocation: {
         id: '',
@@ -30,7 +30,7 @@ describe('persistent reducer', () => {
       }),
     ).toEqual({
       pushChannelToken: 'my token',
-      notificationList: { notifications: [] },
+      notifications: [],
       unseenNotificationsNumber: 0,
       currentFixLocation: {
         id: '',
@@ -45,18 +45,18 @@ describe('persistent reducer', () => {
     });
   });
 
-  it('should handle SET_NOTIFICATION_LIST', () => {
+  it('should handle SET_NOTIFICATIONS', () => {
     expect(
       persistentReducer(undefined, {
-        type: PersistentActionTypesModel.SET_NOTIFICATION_LIST,
+        type: PersistentActionTypesModel.SET_NOTIFICATIONS,
         payload: {
-          notificationList: {},
+          notifications: [],
           unseenNotificationsNumber: 0,
         },
       }),
     ).toEqual({
       pushChannelToken: undefined,
-      notificationList: {},
+      notifications: [],
       unseenNotificationsNumber: 0,
       currentFixLocation: {
         id: '',
