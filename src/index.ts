@@ -2,7 +2,9 @@ import { Reducer, applyMiddleware, createStore } from 'redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 import thunk from 'redux-thunk';
-import { Provider, connect, useSelector, useDispatch } from 'react-redux';
+import {
+  Provider, connect, useSelector, useDispatch,
+} from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import ConfigFactory from './config/factory/configFactory';
 import * as persistentActions from './storage/persistentActions';
@@ -21,7 +23,6 @@ import { FixRequestService, FixTemplateUpdateRequest, FixTemplateCreateRequest }
 import * as fixRequestSlice from './slices/fixRequestSlice';
 import * as fixTemplateSlice from './slices/fixTemplateSlice';
 import { ProfileModel } from './slices/profileSlice';
-import NotificationModel from './models/notification/notificationModel';
 import { FixesModel, FixTagModel } from './slices/fixesSlice';
 import { AddressModel, AddressQueryItemModel } from './slices/addressSlice';
 import { RatingsModel } from './slices/ratingSlice';
@@ -29,6 +30,7 @@ import { Category, Type, Unit } from './models/common';
 import Status from './models/common/fixTemplateStatus';
 import { Schedule } from './models/common/scheduleModel';
 import { UserAddressModel, UserAddressModelBase, UserSummaryModel } from './slices/userSlice';
+import { NotificationModel } from './models/notification/NotificationModel';
 
 const persistedRootReducer: Reducer<RootState & PersistPartial, any> = persistReducer(persistConfig, rootReducer);
 const store = createStore(persistedRootReducer, applyMiddleware(thunk));
@@ -71,7 +73,6 @@ export type {
   PersistentStateModel as PersistentState,
   RootState as StoreState,
   FixRequestModel,
-  NotificationModel,
   ProfileModel,
   UserAddressModelBase,
   UserAddressModel,
@@ -95,4 +96,5 @@ export type {
   FixTemplateUpdateRequest,
   FixTemplateCreateRequest,
   Schedule,
+  NotificationModel,
 };

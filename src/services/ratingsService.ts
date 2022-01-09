@@ -13,20 +13,23 @@ export default class RatingsService {
     this.store = store;
   }
 
-  async getUserRatingsAverage(userId: string) :Promise<RatingsModel> {
+  async getUserRatingsAverage(userId: string) : Promise<RatingsModel | null> {
     this.store.dispatch(FETCH_USERRATINGS_BEGIN());
-    const response = await fetch(`https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/account/ratings`)
-      .catch((error) => this.store.dispatch(FETCH_USERRATINGS_FAILURE(error)));
+    try {
+      const response = await fetch(`https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/account/ratings`);
+      const data = await response.json();
+      const ratingsResponse: RatingsModel = {
+        ratingsId: data.ratings.id,
+        averageRating: data.ratings.averageRating,
+        ratings: data.ratings.ratings,
+        ratingsOfUser: data.ratings.ratingsOfUser,
+      };
 
-    const data = await response.json();
-    const ratingsResponse: RatingsModel = {
-      ratingsId: data.ratings.id,
-      averageRating: data.ratings.averageRating,
-      ratings: data.ratings.ratings,
-      ratingsOfUser: data.ratings.ratingsOfUser,
-    };
-
-    this.store.dispatch(FETCH_USERRATINGS_SUCCESS(ratingsResponse));
-    return ratingsResponse;
+      this.store.dispatch(FETCH_USERRATINGS_SUCCESS(ratingsResponse));
+      return ratingsResponse;
+    } catch (error) {
+      this.store.dispatch(FETCH_USERRATINGS_FAILURE(error));
+    }
+    return null;
   }
 }

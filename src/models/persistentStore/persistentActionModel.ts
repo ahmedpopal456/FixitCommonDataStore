@@ -1,6 +1,6 @@
 import { UserAddressModel } from '../../slices/userSlice';
 import { ActionModel } from '../actionModel';
-import NotificationModel from '../notification/notificationModel';
+import { NotificationModel } from '../notification/NotificationModel';
 
 export interface SetPushChannelTokenActionModel extends ActionModel {
   payload: {

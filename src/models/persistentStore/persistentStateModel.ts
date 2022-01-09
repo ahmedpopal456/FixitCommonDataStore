@@ -1,5 +1,5 @@
 import { UserAddressModel } from '../../slices/userSlice';
-import NotificationModel from '../notification/notificationModel';
+import { NotificationModel } from '../notification/NotificationModel';
 
 export interface PersistentStateModel {
   readonly pushChannelToken: string | undefined;

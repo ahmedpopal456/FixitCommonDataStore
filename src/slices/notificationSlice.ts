@@ -1,17 +1,17 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging/lib';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface NotificationModel {
+export interface RemoteMessagesModel {
   readonly messages: FirebaseMessagingTypes.RemoteMessage[];
 }
 
-export type NotificationState = NotificationModel;
+export type RemoteMessagesState = RemoteMessagesModel;
 
-const initialState: NotificationState = {
+const initialState: RemoteMessagesState = {
   messages: [],
 };
 
-type displayNotificationPicked = Pick<NotificationState, 'messages'>;
+type displayNotificationPicked = Pick<RemoteMessagesState, 'messages'>;
 
 const notificationSlice = createSlice({
   name: 'notification',

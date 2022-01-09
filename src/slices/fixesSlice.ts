@@ -4,6 +4,7 @@ import { UserSummaryModel } from './userSlice';
 import { Schedule } from '../models/common/scheduleModel';
 import { ClientEstimatedCostModel } from '../models/common/clientEstimatedCostModel';
 import { TagModel } from './fixRequestSlice';
+import { AddressModel } from './addressSlice';
 
 interface AssignedToCraftsmanModel {
   id: string,
@@ -77,12 +78,7 @@ export interface FixesModel {
   craftsmanEstimatedCost: CraftsmanEstimatedCostModel,
   details: DetailsModel,
   images: Array<ImagesModel>,
-  location: {
-    address: string,
-    city: string,
-    postalCode: string,
-    province: string,
-  },
+  location:AddressModel,
   planSummary: FixPlanSummaryModel,
   schedule: Array<Schedule>,
   status: number,

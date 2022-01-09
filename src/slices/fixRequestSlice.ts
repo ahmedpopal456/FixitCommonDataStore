@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Schedule } from '../models/common/scheduleModel';
 import { ClientEstimatedCostModel } from '../models/common/clientEstimatedCostModel';
-import { UserAddressModel, UserSummaryModel } from './userSlice';
+import { UserSummaryModel } from './userSlice';
+import { AddressModel } from './addressSlice';
 
 export interface TagModel {
   id?: string;
@@ -41,7 +42,7 @@ export interface FixRequestModel {
   tags: Array<TagModel>;
   details: Details;
   images?: Array<ImagesModel>;
-  location: UserAddressModel;
+  location?: AddressModel;
   schedule: Array<Schedule>;
   clientEstimatedCost: ClientEstimatedCostModel;
   createdByClient: UserSummaryModel;
@@ -75,14 +76,8 @@ const initialState: FixRequestState = {
       unit: 'Front Yard',
     },
     location: {
-      id: '',
-      isCurrentAddress: false,
-      aptSuiteFloor: '',
-      label: '',
-      address: {
-        AddressComponents: [],
-        formattedAddress: '',
-      },
+      AddressComponents: [],
+      formattedAddress: '',
     },
     schedule: [],
     clientEstimatedCost: {
@@ -152,7 +147,7 @@ const fixRequestSlice = createSlice({
     addFixRequestTag: (state, action: PayloadAction<TagModel>) => {
       state.fixRequestObj.tags.push(action.payload);
     },
-    setFixRequestAddress: (state, action: PayloadAction<{ address: UserAddressModel }>) => {
+    setFixRequestAddress: (state, action: PayloadAction<{ address: AddressModel }>) => {
       state.fixRequestObj.location = action.payload.address;
     },
     setFixRequestSchedules: (state, action: PayloadAction<Array<Schedule>>) => {

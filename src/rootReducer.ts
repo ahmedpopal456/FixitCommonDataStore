@@ -5,7 +5,7 @@ import accountReducer, { AccountState } from './slices/accountSlice';
 import profileReducer, { ProfileState } from './slices/profileSlice';
 import ratingsReducer, { RatingsState } from './slices/ratingSlice';
 import userReducer, { UserState } from './slices/userSlice';
-import notificationsReducer, { NotificationState } from './slices/notificationSlice';
+import notificationsReducer, { RemoteMessagesState } from './slices/notificationSlice';
 import fixesReducer, { FixesStates } from './slices/fixesSlice';
 import fixRequestReducer, { FixRequestState } from './slices/fixRequestSlice';
 import persistentReducer from './storage/persistentReducer';
@@ -30,7 +30,7 @@ export interface RootState {
   fixTemplate: FixTemplateState,
   fixes: FixesStates,
   address: AddressState,
-  notifications: NotificationState
+  remoteMessages: RemoteMessagesState
 }
 
 export const rootReducer: Reducer<CombinedState<RootState>> = combineReducers({
@@ -42,6 +42,6 @@ export const rootReducer: Reducer<CombinedState<RootState>> = combineReducers({
   fixRequest: fixRequestReducer,
   fixTemplate: fixTemplateReducer,
   fixes: fixesReducer,
-  notifications: notificationsReducer,
+  remoteMessages: notificationsReducer,
   address: addressReducer,
 });
