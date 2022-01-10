@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Category, Type, Unit } from 'src/models/common';
-import Status from 'src/models/common/fixTemplateStatus';
+import { Category, Type, Unit } from '../models/common';
+import Status from '../models/common/fixTemplateStatus';
 import {
   FixRequestModel,
   clearData,
@@ -13,9 +13,9 @@ import {
 
 export interface FixTemplateUpdateRequest {
   name?: string;
-  workTypeId?: Type;
-  workCategoryId?: Category;
-  fixUnitId?: Unit;
+  workTypeId?: string;
+  workCategoryId?: string;
+  fixUnitId?: string;
   description?: string;
   updatedByUserId?: string;
   tags?: Array<string>;

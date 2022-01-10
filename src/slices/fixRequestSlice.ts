@@ -1,107 +1,64 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Schedule } from '../models/common/scheduleModel';
-import { ClientEstimatedCostModel } from '../models/common/clientEstimatedCostModel';
 import { UserSummaryModel } from './userSlice';
 import { AddressModel } from './addressSlice';
+import {
+  FixesModel, SectionDetailsModel, SectionModel, TagModel,
+} from './fixesSlice';
 
-export interface TagModel {
-  id?: string;
-  name: string;
-}
+export type FixRequestModel =
+Pick<FixesModel,
+'tags' | 'details'
+ | 'location' | 'schedule' | 'clientEstimatedCost' | 'createdByClient' | 'updatedByUser' | 'status'>;
 
-export interface SectionDetailsModel {
-  name: string;
-  value: string;
-}
-
-export interface SectionModel {
-  name: string;
-  details: Array<SectionDetailsModel>;
-}
-
-interface Details {
-  name: string;
-  description: string;
-  category: string;
-  type: string;
-  unit?: string;
-  sections: Array<SectionModel>;
-}
-
-interface MetadataModel {
-  createdTimeStampUTC: number;
-  updatedTimeStampUTC: number;
-}
-interface ImagesModel {
-  name: string;
-  url: string;
-  metadata: MetadataModel;
-}
-
-export interface FixRequestModel {
-  tags: Array<TagModel>;
-  details: Details;
-  images?: Array<ImagesModel>;
-  location?: AddressModel;
-  schedule: Array<Schedule>;
-  clientEstimatedCost: ClientEstimatedCostModel;
-  createdByClient: UserSummaryModel;
-  updatedByUser: UserSummaryModel;
-  status: number;
-}
-
-export interface FixRequestState {
-  fixRequestObj: FixRequestModel;
-}
+export type FixRequestState = FixRequestModel;
 
 const initialState: FixRequestState = {
-  fixRequestObj: {
-    tags: [],
-    details: {
-      name: '',
-      description: '',
-      category: 'Foundation',
-      type: 'Quick Fix',
-      sections: [
-        {
-          name: '',
-          details: [
-            {
-              name: '',
-              value: '',
-            },
-          ],
-        },
-      ],
-      unit: 'Front Yard',
-    },
-    location: {
-      AddressComponents: [],
-      formattedAddress: '',
-    },
-    schedule: [],
-    clientEstimatedCost: {
-      maximumCost: 0,
-      minimumCost: 0,
-    },
-    createdByClient: {
-      userPrincipalName: '',
-      firstName: '',
-      lastName: '',
-      savedAddresses: [],
-      role: 1,
-      status: { lastSeenTimestampUtc: 0, status: 1 },
-    },
-    updatedByUser: {
-      userPrincipalName: '',
-      firstName: '',
-      lastName: '',
-      savedAddresses: [],
-      role: 1,
-      status: { lastSeenTimestampUtc: 0, status: 1 },
-    },
-    status: 0,
+  tags: [],
+  details: {
+    name: '',
+    description: '',
+    category: 'Foundation',
+    type: 'Quick Fix',
+    sections: [
+      {
+        name: '',
+        details: [
+          {
+            name: '',
+            value: '',
+          },
+        ],
+      },
+    ],
+    unit: 'Front Yard',
   },
+  location: {
+    AddressComponents: [],
+    formattedAddress: '',
+  },
+  schedule: [],
+  clientEstimatedCost: {
+    maximumCost: 0,
+    minimumCost: 0,
+  },
+  createdByClient: {
+    userPrincipalName: '',
+    firstName: '',
+    lastName: '',
+    savedAddresses: [],
+    role: 1,
+    status: { lastSeenTimestampUtc: 0, status: 1 },
+  },
+  updatedByUser: {
+    userPrincipalName: '',
+    firstName: '',
+    lastName: '',
+    savedAddresses: [],
+    role: 1,
+    status: { lastSeenTimestampUtc: 0, status: 1 },
+  },
+  status: 0,
 };
 
 type CreatedByUserPick = Pick<
@@ -119,10 +76,10 @@ const fixRequestSlice = createSlice({
   initialState,
   reducers: {
     setFixSectionTitle: (state, action: PayloadAction<{ index: number; sectionName: string }>) => {
-      if (state.fixRequestObj.details.sections[action.payload.index]) {
-        state.fixRequestObj.details.sections[action.payload.index].name = action.payload.sectionName;
+      if (state.details.sections[action.payload.index]) {
+        state.details.sections[action.payload.index].name = action.payload.sectionName;
       } else {
-        state.fixRequestObj.details.sections[action.payload.index] = {
+        state.details.sections[action.payload.index] = {
           name: action.payload.sectionName,
           details: [],
         };
@@ -135,38 +92,38 @@ const fixRequestSlice = createSlice({
         details: Array<SectionDetailsModel>;
       }>,
     ) => {
-      if (state.fixRequestObj.details.sections[action.payload.index]) {
-        state.fixRequestObj.details.sections[action.payload.index] = {
-          name: state.fixRequestObj.details.sections[action.payload.index]
-            ? state.fixRequestObj.details.sections[action.payload.index].name
+      if (state.details.sections[action.payload.index]) {
+        state.details.sections[action.payload.index] = {
+          name: state.details.sections[action.payload.index]
+            ? state.details.sections[action.payload.index].name
             : '',
           details: action.payload.details,
         };
       }
     },
     addFixRequestTag: (state, action: PayloadAction<TagModel>) => {
-      state.fixRequestObj.tags.push(action.payload);
+      state.tags.push(action.payload);
     },
     setFixRequestAddress: (state, action: PayloadAction<{ address: AddressModel }>) => {
-      state.fixRequestObj.location = action.payload.address;
+      state.location = action.payload.address;
     },
     setFixRequestSchedules: (state, action: PayloadAction<Array<Schedule>>) => {
-      state.fixRequestObj.schedule = action.payload;
+      state.schedule = action.payload;
     },
     setFixRequestClientMinEstimatedCost: (state, action: PayloadAction<{ minimumCost: number }>) => {
-      state.fixRequestObj.clientEstimatedCost.minimumCost = action.payload.minimumCost;
+      state.clientEstimatedCost.minimumCost = action.payload.minimumCost;
     },
     setFixRequestClientMaxEstimatedCost: (state, action: PayloadAction<{ maximumCost: number }>) => {
-      state.fixRequestObj.clientEstimatedCost.maximumCost = action.payload.maximumCost;
+      state.clientEstimatedCost.maximumCost = action.payload.maximumCost;
     },
     setFixRequestCreatedByUser: (state, action: PayloadAction<CreatedByUserPick>) => {
-      state.fixRequestObj.createdByClient = action.payload;
+      state.createdByClient = action.payload;
     },
     setFixRequestUpdatedByUser: (state, action: PayloadAction<UpdatedByUserPick>) => {
-      state.fixRequestObj.updatedByUser = action.payload;
+      state.updatedByUser = action.payload;
     },
     setFixRequestDetailsSection: (state, action: PayloadAction<{ index: number; section: SectionModel }>) => {
-      state.fixRequestObj.details.sections[action.payload.index] = action.payload.section;
+      state.details.sections[action.payload.index] = action.payload.section;
     },
     clearData: () => initialState,
   },

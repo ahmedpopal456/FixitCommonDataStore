@@ -23,7 +23,9 @@ import { FixRequestService, FixTemplateUpdateRequest, FixTemplateCreateRequest }
 import * as fixRequestSlice from './slices/fixRequestSlice';
 import * as fixTemplateSlice from './slices/fixTemplateSlice';
 import { ProfileModel } from './slices/profileSlice';
-import { FixesModel, FixTagModel } from './slices/fixesSlice';
+import {
+  FixesModel, FixTagModel, SectionDetailsModel, SectionModel,
+} from './slices/fixesSlice';
 import { AddressModel, AddressQueryItemModel } from './slices/addressSlice';
 import { RatingsModel } from './slices/ratingSlice';
 import { Category, Type, Unit } from './models/common';
@@ -61,9 +63,6 @@ export {
 
 type UserModel = userSlice.UserModel;
 type FixRequestModel = fixRequestSlice.FixRequestModel;
-type SectionModel = fixRequestSlice.SectionModel;
-type SectionDetailsModel = fixRequestSlice.SectionDetailsModel;
-type TagModel = fixRequestSlice.TagModel;
 type FixTemplateModel = fixTemplateSlice.FixTemplateModel;
 type FixTemplateSection = fixTemplateSlice.FixTemplateSection;
 type FixTemplateSectionField = fixTemplateSlice.FixTemplateSectionField;
@@ -79,12 +78,11 @@ export type {
   RatingsModel,
   FixesModel,
   FixTagModel,
+  SectionModel,
+  SectionDetailsModel,
   UserModel,
   FixTemplateModel,
   FixTemplateSection,
-  SectionModel,
-  SectionDetailsModel,
-  TagModel,
   ApplicationTypesEnum,
   UserSummaryModel,
   AddressModel,

@@ -3,52 +3,52 @@ import { FixitAction } from '../models/common/fixitAction';
 import { UserSummaryModel } from './userSlice';
 import { Schedule } from '../models/common/scheduleModel';
 import { ClientEstimatedCostModel } from '../models/common/clientEstimatedCostModel';
-import { TagModel } from './fixRequestSlice';
 import { AddressModel } from './addressSlice';
 
-interface AssignedToCraftsmanModel {
+export interface TagModel {
+  id?: string;
+  name: string;
+}
+
+export interface SectionDetailsModel {
+  name: string;
+  value: string;
+}
+
+export interface SectionModel {
+  name: string;
+  details: Array<SectionDetailsModel>;
+}
+
+export interface Details {
+  name: string;
+  description: string;
+  category: string;
+  type: string;
+  unit?: string;
+  sections: Array<SectionModel>;
+}
+
+export interface MetadataModel {
+  createdTimeStampUTC: number;
+  updatedTimeStampUTC: number;
+}
+
+export interface ImagesModel {
+  name: string;
+  url: string;
+  metadata: MetadataModel;
+}
+
+export interface AssignedToCraftsmanModel {
   id: string,
   firstName: string,
   lastName: string,
 }
 
-interface DetailsModel {
-  category: string,
-  description: string,
-  name: string,
-  section: string,
-  type: string,
-}
-interface ImagesModel {
-  metadata: string,
-  url: string,
-  name: string,
-}
-
-interface CraftsmanEstimatedCostModel {
+export interface CraftsmanEstimatedCostModel {
   cost: number,
   comment: string
-}
-
-interface FixPhaseTaskSummaryModel {
-  name: string,
-  description: string
-}
-
-interface FixPhaseTaskScheduleModel {
-  scheduledTask: FixPhaseTaskSummaryModel,
-  appointedTimestampsUtc: Array<number>
-}
-
-interface FixPhaseSummary {
-  name: string,
-  taskSchedule: Array<FixPhaseTaskScheduleModel>
-}
-
-interface FixPlanSummaryModel {
-  phases: Array<FixPhaseSummary>,
-  completionPercentage: number,
-  totalPhaseCount: number,
 }
 
 export interface FixTagModel {
@@ -63,6 +63,7 @@ export interface FixTagModel {
     percentageUsage: number
   }
 }
+
 export interface FixTagWithAction {
   tags: Array<FixTagModel>,
   isLoading : boolean,
@@ -76,10 +77,9 @@ export interface FixesModel {
   billingActivityId: string,
   clientEstimatedCost: ClientEstimatedCostModel,
   craftsmanEstimatedCost: CraftsmanEstimatedCostModel,
-  details: DetailsModel,
+  details: Details,
   images: Array<ImagesModel>,
-  location:AddressModel,
-  planSummary: FixPlanSummaryModel,
+  location?:AddressModel,
   schedule: Array<Schedule>,
   status: number,
   systemCalculatedCost: number,
