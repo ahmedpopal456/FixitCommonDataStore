@@ -15,22 +15,22 @@ import {
   UserAddressModelBase,
   UserSummaryModel,
 } from '../slices/userSlice';
-import ConfigFactory from '../config/factory/configFactory';
+import BaseConfigProvider from '../config/providers/baseConfigProvider';
 
 export default class UserService {
-  configFactory: ConfigFactory;
+  config: BaseConfigProvider;
 
   store: any;
 
-  constructor(configFactory: ConfigFactory, store: any) {
-    this.configFactory = configFactory;
+  constructor(config: BaseConfigProvider, store: any) {
+    this.config = config;
     this.store = store;
   }
 
   async fetchUser(userId: string): Promise<UserSummaryModel> {
     this.store.dispatch(FETCH_USER_BEGIN());
     const response = await fetch(
-      `https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/account/profile/summary`,
+      `${this.config.userApiBaseUrl}/users/${userId}/account/profile/summary`,
     ).catch((error) => this.store.dispatch(FETCH_USER_FAILURE(error)));
 
     const data = await response.json();
@@ -48,7 +48,7 @@ export default class UserService {
     };
 
     const response = await fetch(
-      `https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/addresses`,
+      `${this.config.userApiBaseUrl}/users/${userId}/addresses`,
       requestOptions,
     ).catch((error) => this.store.dispatch(ADD_USERADDRESS_FAILURE(error)));
 
@@ -74,7 +74,7 @@ export default class UserService {
     };
 
     const response = await fetch(
-      `https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/addresses/${userAddressId}`,
+      `${this.config.userApiBaseUrl}/users/${userId}/addresses/${userAddressId}`,
       requestOptions,
     ).catch((error) => this.store.dispatch(UPDATE_USERADDRESS_FAILURE(error)));
 
@@ -96,7 +96,7 @@ export default class UserService {
     };
 
     const response = await fetch(
-      `https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/addresses/${userAddressId}`,
+      `${this.config.userApiBaseUrl}/users/${userId}/addresses/${userAddressId}`,
       requestOptions,
     ).catch((error) => this.store.dispatch(REMOVE_USERADDRESS_FAILURE(error)));
 

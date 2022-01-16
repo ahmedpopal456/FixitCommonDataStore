@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Category, Type, Unit } from '../models/common';
+import { } from '../rootReducer';
 import Status from '../models/common/fixTemplateStatus';
 import {
   FixRequestModel,
@@ -9,7 +9,11 @@ import {
 import {
   updateFixTemplate,
   FixTemplateSection,
+  setCategories,
+  setUnits,
+  setTypes,
 } from '../slices/fixTemplateSlice';
+import BaseConfigProvider from '../config/providers/baseConfigProvider';
 
 export interface FixTemplateUpdateRequest {
   name?: string;
@@ -28,23 +32,18 @@ export interface FixTemplateCreateRequest extends FixTemplateUpdateRequest {
 }
 
 export class FixRequestService {
-  fixRequestBaseUrl: string;
-
-  mdmBaseApiUrl: string;
-
+  config: BaseConfigProvider;
   store: any;
 
-  constructor(store: any) {
-    this.fixRequestBaseUrl = 'https://fixit-dev-fms-api.azurewebsites.net/api/fixes';
-    this.mdmBaseApiUrl = 'https://fixit-dev-mdm-api.azurewebsites.net/api/';
+  constructor(config: BaseConfigProvider, store: any) {
+    this.config = config;
     this.store = store;
   }
 
   // TODO use the config factory
   publishFixRequest(fixRequestObj: FixRequestModel): void {
-    const { fixRequestBaseUrl } = this;
     axios
-      .post(fixRequestBaseUrl, fixRequestObj)
+      .post(`${this.config.fixApiBaseUrl}/fixes`, fixRequestObj)
       // TODO send data to handle exceptions in UI
       .then((response) => {
         this.store.dispatch(clearData());
@@ -55,42 +54,39 @@ export class FixRequestService {
       });
   }
 
-  async getCategories(): Promise<Array<Category>> {
+  async getCategories(): Promise<void> {
     try {
-      const response = await axios.get(`${this.mdmBaseApiUrl}/workCategories`);
-      return response.data;
+      const response = await axios.get(`${this.config.mdmBaseApiUrl}/workCategories`);
+      this.store.dispatch(setCategories(response.data));
     } catch (e) {
       console.error(e);
     }
-    return [];
   }
 
-  async getTypes(): Promise<Array<Type>> {
+  async getTypes(): Promise<void> {
     try {
-      const response = await axios.get(`${this.mdmBaseApiUrl}/workTypes`);
-      return response.data;
+      const response = await axios.get(`${this.config.mdmBaseApiUrl}/workTypes`);
+      this.store.dispatch(setTypes(response.data));
     } catch (e) {
       console.error(e);
     }
-    return [];
   }
 
-  async getUnits(): Promise<Array<Unit>> {
+  async getUnits(): Promise<void> {
     try {
-      const response = await axios.get(`${this.mdmBaseApiUrl}/fixunits`);
-      return response.data;
+      const response = await axios.get(`${this.config.mdmBaseApiUrl}/fixunits`);
+      this.store.dispatch(setUnits(response.data));
     } catch (e) {
       console.error(e);
     }
-    return [];
   }
 
   updateFixTemplate(fixTemplateObject: FixTemplateUpdateRequest, id: string): void {
-    axios.put(`${this.mdmBaseApiUrl}/fixtemplates/${id}`, fixTemplateObject);
+    axios.put(`${this.config.mdmBaseApiUrl}/fixtemplates/${id}`, fixTemplateObject);
   }
 
   saveFixTemplate(fixTemplateObject: FixTemplateCreateRequest): void {
-    axios.post(`${this.mdmBaseApiUrl}/fixtemplates`, fixTemplateObject).then((response) => {
+    axios.post(`${this.config.mdmBaseApiUrl}/fixtemplates`, fixTemplateObject).then((response) => {
       this.store.dispatch(updateFixTemplate(response.data));
     }).catch((error) => {
       console.error(error);
@@ -99,7 +95,7 @@ export class FixRequestService {
 
   getFixTemplateById(id: string): void {
     axios
-      .get(`${this.mdmBaseApiUrl}/fixtemplates/${id}`)
+      .get(`${this.config.mdmBaseApiUrl}/fixtemplates/${id}`)
       .then((response) => {
         this.store.dispatch(updateFixTemplate(response.data));
       })

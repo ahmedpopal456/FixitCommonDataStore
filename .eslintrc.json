@@ -3,9 +3,14 @@
     "browser": true,
     "es6": true
   },
-  "extends": ["airbnb-base", "plugin:@typescript-eslint/recommended", "plugin:import/typescript"],
+  "extends": [
+    "plugin:prettier/recommended"
+  ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "import",
+    "@typescript-eslint"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -15,23 +20,32 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"] }],
-    "max-len": ["error", { "code": 120 }],
-    // we only want single quotes
-    "quotes": ["error", "single"],
-    // we want to force semicolons
-    "semi": ["error", "always"],
-    // we use 2 spaces to indent our code
-    "indent": ["error", 2, { "SwitchCase": 1 }],
-    // we want to avoid useless spaces
-    "no-multi-spaces": ["error"],
+    "max-len": [
+      "error",
+      {
+        "code": 120
+      }
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-multi-spaces": [
+      "error"
+    ],
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"],
+    "no-use-before-define": "off",
+    "no-nested-ternary": "off",
+    "@typescript-eslint/no-shadow": [
+      "error"
+    ],
     "@typescript-eslint/naming-convention": [
       "warn",
       {
         "selector": "enumMember",
-        "format": ["UPPER_CASE"]
+        "format": [
+          "UPPER_CASE"
+        ]
       }
     ],
     "import/extensions": [
@@ -43,7 +57,7 @@
         "ts": "never",
         "tsx": "never"
       }
-   ]
+    ]
   },
   "settings": {
     "import/resolver": {

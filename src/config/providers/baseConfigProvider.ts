@@ -7,32 +7,28 @@ export default abstract class BaseConfigProvider {
     this.config = config;
   }
 
-  public getIsProduction(): boolean {
+  public get isProduction(): boolean {
     return this.config.production;
   }
 
-  public getUserApiBaseUrl(): string {
+  public get userApiBaseUrl(): string {
     return this.config.userApiBaseUrl;
   }
 
-  public getFixApiBaseUrl(): string {
+  public get fixApiBaseUrl(): string {
     return this.config.fixApiBaseUrl;
   }
 
-  public getUserAccountRoute(): string {
-    return this.config.getUserAccountRoute;
+  public get instrumentationKey(): string {
+    return this.config.instrumentationKey;
   }
 
-  public getUserProfileRoute(): string {
-    return this.config.getUserProfileRoute;
-  }
+  public get addressApiBaseUrl(): string {
+    return this.config.addressApiBaseUrl;
+  };
 
-  public getUserRatingRoute(): string {
-    return this.config.getUserRatingsRoute;
-  }
-
-  public getFixRequestBaseUrl(): string {
-    return this.config.fixRequestBaseUrl;
+  public get mdmBaseApiUrl(): string {
+    return this.config.mdmBaseApiUrl;
   }
 
   public get rawConfig(): ConfigModel {

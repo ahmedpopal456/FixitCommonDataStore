@@ -8,22 +8,22 @@ import {
   UPDATE_PROFILEINFO_SUCCESS,
   UPDATE_PROFILEINFO_BEGIN,
 } from '../slices/profileSlice';
-import ConfigFactory from '../config/factory/configFactory';
+import BaseConfigProvider from '../config/providers/baseConfigProvider';
 
 export default class ProfileService {
-  configFactory: ConfigFactory;
+  config: BaseConfigProvider;
 
   store: any;
 
-  constructor(configFactory: ConfigFactory, store: any) {
-    this.configFactory = configFactory;
+  constructor(config: BaseConfigProvider, store: any) {
+    this.config = config;
     this.store = store;
   }
 
   getUserProfile(userId: string): Promise<ProfileModel> {
     this.store.dispatch(FETCH_PROFILEINFO_BEGIN());
     return axios
-      .get(`https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/account/profile`)
+      .get(`${this.config.userApiBaseUrl}/users/${userId}/account/profile`)
       .then((response) => {
         this.store.dispatch(FETCH_PROFILEINFO_SUCCESS(response.data));
         return response.data;
@@ -36,7 +36,7 @@ export default class ProfileService {
   updateUserProfile(userId: string, updatedProfileInfo: ProfileModel): Promise<ProfileModel> {
     this.store.dispatch(UPDATE_PROFILEINFO_BEGIN());
     return axios
-      .put(`https://fixit-dev-ums-api.azurewebsites.net/api/users/${userId}/account/profile`, updatedProfileInfo, {
+      .put(`${this.config.userApiBaseUrl}/users/${userId}/account/profile`, updatedProfileInfo, {
         headers: { 'Content-Type': 'application/json' },
       })
       .then((response) => {

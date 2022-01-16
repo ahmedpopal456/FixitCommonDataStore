@@ -1,7 +1,6 @@
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 import { Store } from 'redux';
 import { RootState } from '../rootReducer';
-import ConfigFactory from '../config/factory/configFactory';
 import {
   AddressModel,
   AddressQueryItemModel,
@@ -12,25 +11,26 @@ import {
   FETCH_ADDRESSBYID_SUCCESS,
   FETCH_ADDRESSBYID_FAILURE,
 } from '../slices/addressSlice';
+import BaseConfigProvider from '../config/providers/baseConfigProvider';
 
 export default class AddressService {
-  configFactory: ConfigFactory;
+  config: BaseConfigProvider;
 
   store: any;
 
   constructor(
-    configFactory: ConfigFactory,
+    config: BaseConfigProvider,
     store: Store<RootState & PersistPartial, any> & {
       dispatch: unknown;
     },
   ) {
-    this.configFactory = configFactory;
+    this.config = config;
     this.store = store;
   }
 
   async getAddressBySearch(search: string): Promise<Array<AddressQueryItemModel>> {
     this.store.dispatch(FETCH_ADDRESSESBYSEARCH_BEGIN());
-    const response = await fetch(`https://fixit-dev-ums-api.azurewebsites.net/api/addresses/search/${search}`).catch(
+    const response = await fetch(`${this.config.addressApiBaseUrl}/addresses/search/${search}`).catch(
       (error) => this.store.dispatch(FETCH_ADDRESSESBYSEARCH_FAILURE(error)),
     );
 
@@ -43,7 +43,7 @@ export default class AddressService {
 
   async getAddressById(addressId: string): Promise<AddressModel> {
     this.store.dispatch(FETCH_ADDRESSBYID_BEGIN());
-    const response = await fetch(`https://fixit-dev-ums-api.azurewebsites.net/api/addresses/${addressId}`).catch(
+    const response = await fetch(`${this.config.addressApiBaseUrl}/addresses/${addressId}`).catch(
       (error) => this.store.dispatch(FETCH_ADDRESSBYID_FAILURE(error)),
     );
 

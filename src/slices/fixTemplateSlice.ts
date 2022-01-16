@@ -28,6 +28,9 @@ export interface FixTemplateModel {
   systemCostEstimate: number;
   tags: Array<string>;
   sections: Array<FixTemplateSection>;
+  categories: Array<Category>,
+  types: Array<Type>,
+  units: Array<Unit>
 }
 
 interface PartialUpdateTemplateModel {
@@ -60,6 +63,9 @@ const initialState: FixTemplateState = {
   systemCostEstimate: 0,
   tags: [],
   sections: [],
+  categories: [],
+  types: [],
+  units: [],
 };
 
 const fixTemplateSlice = createSlice({
@@ -79,11 +85,23 @@ const fixTemplateSlice = createSlice({
       if (action.payload.tags) state.tags = action.payload.tags;
       if (action.payload.sections) state.sections = action.payload.sections;
     },
+    setCategories: (state, action: PayloadAction<Array<Category>>) => {
+      state.categories = action.payload;
+    },
+    setTypes: (state, action: PayloadAction<Array<Type>>) => {
+      state.types = action.payload;
+    },
+    setUnits: (state, action: PayloadAction<Array<Unit>>) => {
+      state.units = action.payload;
+    },
   },
 });
 
 export const {
   updateFixTemplate,
+  setCategories,
+  setTypes,
+  setUnits,
 } = fixTemplateSlice.actions;
 
 export default fixTemplateSlice.reducer;

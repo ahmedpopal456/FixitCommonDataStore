@@ -34,24 +34,24 @@ import {
   FETCH_TERMINATEDBYCLIENTFIXES_SUCCESS,
   FETCH_TERMINATEDBYCLIENTFIXES_FAILURE,
 } from '../slices/fixesSlice';
-import ConfigFactory from '../config/factory/configFactory';
+import BaseConfigProvider from '../config/providers/baseConfigProvider';
 
 export default class FixesService {
-  configFactory: ConfigFactory;
+  config: BaseConfigProvider;
 
   store: any;
 
-  constructor(configFactory: ConfigFactory, store: Store<RootState & PersistPartial, any> & {
+  constructor(config: BaseConfigProvider, store: Store<RootState & PersistPartial, any> & {
     dispatch: unknown;
-}) {
-    this.configFactory = configFactory;
+  }) {
+    this.config = config;
     this.store = store;
   }
 
-  getNewFixes(userId: string) : Promise<Array<FixesModel>> {
+  getNewFixes(userId: string): Promise<Array<FixesModel>> {
     this.store.dispatch(FETCH_NEWFIXES_BEGIN());
     return (
-      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=0`)
+      axios.get(`${this.config.fixApiBaseUrl}/fixes/users/${userId}?statuses=0`)
         .then((response) => {
           this.store.dispatch(FETCH_NEWFIXES_SUCCESS(response.data));
           return response.data;
@@ -61,10 +61,10 @@ export default class FixesService {
         }));
   }
 
-  getPendingFixes(userId: string) : Promise<Array<FixesModel>> {
+  getPendingFixes(userId: string): Promise<Array<FixesModel>> {
     this.store.dispatch(FETCH_PENDINGFIXES_BEGIN());
     return (
-      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=1`)
+      axios.get(`${this.config.fixApiBaseUrl}/fixes/users/${userId}?statuses=1`)
         .then((response) => {
           this.store.dispatch(FETCH_PENDINGFIXES_SUCCESS(response.data));
           return response.data;
@@ -74,10 +74,10 @@ export default class FixesService {
         }));
   }
 
-  getInProgressFixes(userId: string) : Promise<Array<FixesModel>> {
+  getInProgressFixes(userId: string): Promise<Array<FixesModel>> {
     this.store.dispatch(FETCH_INPROGRESSFIXES_BEGIN());
     return (
-      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=2`)
+      axios.get(`${this.config.fixApiBaseUrl}/fixes/users/${userId}?statuses=2`)
         .then((response) => {
           this.store.dispatch(FETCH_INPROGRESSFIXES_SUCCESS(response.data));
           return response.data;
@@ -87,10 +87,10 @@ export default class FixesService {
         }));
   }
 
-  getInReviewFixes(userId: string) : Promise<Array<FixesModel>> {
+  getInReviewFixes(userId: string): Promise<Array<FixesModel>> {
     this.store.dispatch(FETCH_INREVIEWFIXES_BEGIN());
     return (
-      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=3`)
+      axios.get(`${this.config.fixApiBaseUrl}/fixes/users/${userId}?statuses=3`)
         .then((response) => {
           this.store.dispatch(FETCH_INREVIEWFIXES_SUCCESS(response.data));
           return response.data;
@@ -100,10 +100,10 @@ export default class FixesService {
         }));
   }
 
-  getCompletedFixes(userId: string) : Promise<Array<FixesModel>> {
+  getCompletedFixes(userId: string): Promise<Array<FixesModel>> {
     this.store.dispatch(FETCH_COMPLETEDFIXES_BEGIN());
     return (
-      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=4`)
+      axios.get(`${this.config.fixApiBaseUrl}/fixes/users/${userId}?statuses=4`)
         .then((response) => {
           this.store.dispatch(FETCH_COMPLETEDFIXES_SUCCESS(response.data));
           return response.data;
@@ -113,10 +113,10 @@ export default class FixesService {
         }));
   }
 
-  getTerminatedFixes(userId: string) : Promise<Array<FixesModel>> {
+  getTerminatedFixes(userId: string): Promise<Array<FixesModel>> {
     this.store.dispatch(FETCH_TERMINATEDFIXES_BEGIN());
     return (
-      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=5`)
+      axios.get(`${this.config.fixApiBaseUrl}/fixes/users/${userId}?statuses=5`)
         .then((response) => {
           this.store.dispatch(FETCH_TERMINATEDFIXES_SUCCESS(response.data));
           return response.data;
@@ -126,10 +126,10 @@ export default class FixesService {
         }));
   }
 
-  getTerminatedByCraftsman(userId: string) : Promise<Array<FixesModel>> {
+  getTerminatedByCraftsman(userId: string): Promise<Array<FixesModel>> {
     this.store.dispatch(FETCH_TERMINATEDFIXES_BEGIN());
     return (
-      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=7`)
+      axios.get(`${this.config.fixApiBaseUrl}/fixes/users/${userId}?statuses=7`)
         .then((response) => {
           this.store.dispatch(FETCH_TERMINATEDBYCRAFTSMANFIXES_SUCCESS(response.data));
           return response.data;
@@ -139,10 +139,10 @@ export default class FixesService {
         }));
   }
 
-  getTerminatedByClient(userId: string) : Promise<Array<FixesModel>> {
+  getTerminatedByClient(userId: string): Promise<Array<FixesModel>> {
     this.store.dispatch(FETCH_TERMINATEDFIXES_BEGIN());
     return (
-      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/users/${userId}?statuses=6`)
+      axios.get(`${this.config.fixApiBaseUrl}/fixes/users/${userId}?statuses=6`)
         .then((response) => {
           this.store.dispatch(FETCH_TERMINATEDBYCLIENTFIXES_SUCCESS(response.data));
           return response.data;
@@ -152,10 +152,10 @@ export default class FixesService {
         }));
   }
 
-  getPopularFixTags(count: string) : Promise<Array<FixTagModel>> {
+  getPopularFixTags(count: string): Promise<Array<FixTagModel>> {
     this.store.dispatch(FETCH_POPULARFIXTAGS_BEGIN());
     return (
-      axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/tags/${count}`)
+      axios.get(`${this.config.fixApiBaseUrl}/tags/${count}`)
         .then((response) => {
           this.store.dispatch(FETCH_POPULARFIXTAGS_SUCCESS(response.data));
           return response.data;
@@ -165,10 +165,22 @@ export default class FixesService {
         }));
   }
 
-  async updateFix(fixId: string, body: Partial<FixesModel>) : Promise<FixesModel | null> {
+  async updateFix(fixId: string, body: Partial<FixesModel>): Promise<FixesModel | null> {
     this.store.dispatch(UPDATE_FIX_BEGIN());
     try {
-      const response = await axios.put(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/${fixId}`, body);
+      const response = await axios.put(`${this.config.fixApiBaseUrl}/fixes/${fixId}`, body);
+      this.store.dispatch(UPDATE_FIX_SUCCESS(response.data));
+      return response.data;
+    } catch (error) {
+      this.store.dispatch(UPDATE_FIX_FAILURE(error));
+      return null;
+    }
+  }
+
+  async updateFixAssign(fixId: string, assignedToCraftsmanId: string, body: Partial<FixesModel>): Promise<FixesModel | null> {
+    this.store.dispatch(UPDATE_FIX_BEGIN());
+    try {
+      const response = await axios.put(`${this.config.fixApiBaseUrl}/fixes/${fixId}/users/${assignedToCraftsmanId}/assign`, body);
       this.store.dispatch(UPDATE_FIX_SUCCESS(response.data));
       return response.data;
     } catch (error) {
@@ -178,7 +190,7 @@ export default class FixesService {
   }
 
   getFix = (fixId: string):
-  Promise<FixesModel> => axios.get(`https://fixit-dev-fms-api.azurewebsites.net/api/fixes/${fixId}`)
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
+    Promise<FixesModel> => axios.get(`${this.config.fixApiBaseUrl}/fixes/${fixId}`)
+      .then((response) => response.data)
+      .catch((error) => console.error(error));
 }

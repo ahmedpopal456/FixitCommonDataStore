@@ -2,8 +2,10 @@ export interface ConfigModel {
   production: boolean;
   userApiBaseUrl: string;
   fixApiBaseUrl: string;
-  getUserAccountRoute: string;
-  getUserProfileRoute: string;
-  getUserRatingsRoute: string;
-  fixRequestBaseUrl: string;
+  mdmBaseApiUrl: string;
+  notificationApiUrl: string;
+  chatApiUrl: string;
+  chatTriggerUrl: string;
+  addressApiBaseUrl: string;
+  instrumentationKey: string;
 }

@@ -1,16 +1,20 @@
 import ConfigFactory from '../../src/config/factory/configFactory';
 import ApplicationTypesEnum from '../../src/models/config/applicationTypesEnum';
+import { ConfigModel } from '../../src/models/config/configModel';
 
 const factory = new ConfigFactory();
 
-const mockConfig = {
+const mockConfig: ConfigModel = {
   production: false,
   userApiBaseUrl: 'userurl',
   fixApiBaseUrl: 'fixurl',
-  fixRequestBaseUrl: 'fixRequesturl',
-  getUserAccountRoute: 'userAccountRoute',
-  getUserProfileRoute: 'userProfileRoute',
-  getUserRatingsRoute: 'userRatingsRoute',
+  mdmBaseApiUrl: 'mdmBaseApiUrl',
+  addressApiBaseUrl: '',
+  chatApiUrl: '',
+  chatTriggerUrl: '',
+  instrumentationKey: '',
+  notificationApiUrl: ''
+
 };
 
 describe('config factory', () => {
@@ -20,26 +24,15 @@ describe('config factory', () => {
   });
 
   it('should return the production environment', () => {
-    expect(factory.config.getIsProduction()).toBe(false);
+    expect(factory.config.isProduction).toBe(false);
   });
 
   it('should return the user api url', () => {
-    expect(factory.config.getUserApiBaseUrl()).toBe('userurl');
+    expect(factory.config.userApiBaseUrl).toBe('userurl');
   });
 
   it('should return the fix api url', () => {
-    expect(factory.config.getFixApiBaseUrl()).toBe('fixurl');
+    expect(factory.config.fixApiBaseUrl).toBe('fixurl');
   });
 
-  it('should return the user accounr route', () => {
-    expect(factory.config.getUserAccountRoute()).toBe('userAccountRoute');
-  });
-
-  it('should return the user profile route', () => {
-    expect(factory.config.getUserProfileRoute()).toBe('userProfileRoute');
-  });
-
-  it('should return the user ratings route', () => {
-    expect(factory.config.getUserRatingRoute()).toBe('userRatingsRoute');
-  });
 });

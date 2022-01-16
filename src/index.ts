@@ -59,6 +59,7 @@ export {
   connect,
   useSelector,
   useDispatch,
+  ApplicationTypesEnum
 };
 
 type UserModel = userSlice.UserModel;
@@ -83,7 +84,6 @@ export type {
   UserModel,
   FixTemplateModel,
   FixTemplateSection,
-  ApplicationTypesEnum,
   UserSummaryModel,
   AddressModel,
   AddressQueryItemModel,

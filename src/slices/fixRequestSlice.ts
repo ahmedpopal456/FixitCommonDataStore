@@ -59,6 +59,7 @@ const initialState: FixRequestState = {
     status: { lastSeenTimestampUtc: 0, status: 1 },
   },
   status: 0,
+
 };
 
 type CreatedByUserPick = Pick<
