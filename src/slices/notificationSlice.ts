@@ -1,8 +1,8 @@
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging/lib';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ReceivedNotification } from 'react-native-push-notification';
 
 export interface RemoteMessagesModel {
-  readonly messages: FirebaseMessagingTypes.RemoteMessage[];
+  readonly messages: ReceivedNotification[];
 }
 
 export type RemoteMessagesState = RemoteMessagesModel;
@@ -20,9 +20,9 @@ const notificationSlice = createSlice({
     displayNotification: (state, action: PayloadAction<displayNotificationPicked>) => {
       state.messages = action.payload.messages;
     },
-    dismissNotification: (state, action: PayloadAction<{messageId: string}>) => {
+    dismissNotification: (state, action: PayloadAction<{ messageId: string }>) => {
       state.messages = state.messages.filter(
-        (message: FirebaseMessagingTypes.RemoteMessage) => message.messageId !== action.payload.messageId,
+        (message: ReceivedNotification) => message.id !== action.payload.messageId,
       );
     },
   },

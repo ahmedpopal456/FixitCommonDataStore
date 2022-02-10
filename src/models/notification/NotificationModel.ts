@@ -1,8 +1,8 @@
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 import { FixesModel } from '../../slices/fixesSlice';
+import { ReceivedNotification } from 'react-native-push-notification';
 
 export interface NotificationModel {
-  remoteMessage: FirebaseMessagingTypes.RemoteMessage,
-  fix: FixesModel,
-  visited: boolean,
+  remoteMessage: ReceivedNotification;
+  fix: FixesModel;
+  visited: boolean;
 }
