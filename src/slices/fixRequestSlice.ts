@@ -2,18 +2,26 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Schedule } from '../models/common/scheduleModel';
 import { UserSummaryModel } from './userSlice';
 import { AddressModel } from './addressSlice';
-import {
-  FixesModel, SectionDetailsModel, SectionModel, TagModel,
-} from './fixesSlice';
+import { FixesModel, SectionDetailsModel, SectionModel, TagModel } from './fixesSlice';
 
-export type FixRequestModel =
-Pick<FixesModel,
-'tags' | 'details'
- | 'location' | 'schedule' | 'clientEstimatedCost' | 'createdByClient' | 'updatedByUser' | 'status'>;
+export type FixRequestModel = Pick<
+  FixesModel,
+  | 'id'
+  | 'tags'
+  | 'details'
+  | 'location'
+  | 'schedule'
+  | 'clientEstimatedCost'
+  | 'createdByClient'
+  | 'updatedByUser'
+  | 'status'
+  | 'images'
+>;
 
 export type FixRequestState = FixRequestModel;
 
 const initialState: FixRequestState = {
+  id: '',
   tags: [],
   details: {
     name: '',
@@ -38,6 +46,7 @@ const initialState: FixRequestState = {
     formattedAddress: '',
   },
   schedule: [],
+  images: [],
   clientEstimatedCost: {
     maximumCost: 0,
     minimumCost: 0,
@@ -59,7 +68,6 @@ const initialState: FixRequestState = {
     status: { lastSeenTimestampUtc: 0, status: 1 },
   },
   status: 0,
-
 };
 
 type CreatedByUserPick = Pick<
@@ -95,9 +103,7 @@ const fixRequestSlice = createSlice({
     ) => {
       if (state.details.sections[action.payload.index]) {
         state.details.sections[action.payload.index] = {
-          name: state.details.sections[action.payload.index]
-            ? state.details.sections[action.payload.index].name
-            : '',
+          name: state.details.sections[action.payload.index] ? state.details.sections[action.payload.index].name : '',
           details: action.payload.details,
         };
       }

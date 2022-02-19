@@ -2,9 +2,7 @@ import { Reducer, applyMiddleware, createStore } from 'redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 import thunk from 'redux-thunk';
-import {
-  Provider, connect, useSelector, useDispatch,
-} from 'react-redux';
+import { Provider, connect, useSelector, useDispatch } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import ConfigFactory from './config/factory/configFactory';
 import * as persistentActions from './storage/persistentActions';
@@ -23,9 +21,7 @@ import { FixRequestService, FixTemplateUpdateRequest, FixTemplateCreateRequest }
 import * as fixRequestSlice from './slices/fixRequestSlice';
 import * as fixTemplateSlice from './slices/fixTemplateSlice';
 import { ProfileModel } from './slices/profileSlice';
-import {
-  FixesModel, FixTagModel, SectionDetailsModel, SectionModel,
-} from './slices/fixesSlice';
+import { FixesModel, FixTagModel, SectionDetailsModel, SectionModel, ImageModel } from './slices/fixesSlice';
 import { AddressModel, AddressQueryItemModel } from './slices/addressSlice';
 import { RatingsModel } from './slices/ratingSlice';
 import { Category, Type, Unit } from './models/common';
@@ -59,7 +55,7 @@ export {
   connect,
   useSelector,
   useDispatch,
-  ApplicationTypesEnum
+  ApplicationTypesEnum,
 };
 
 type UserModel = userSlice.UserModel;
@@ -78,6 +74,7 @@ export type {
   UserAddressModel,
   RatingsModel,
   FixesModel,
+  ImageModel,
   FixTagModel,
   SectionModel,
   SectionDetailsModel,

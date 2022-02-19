@@ -34,84 +34,85 @@ export interface MetadataModel {
   updatedTimeStampUTC: number;
 }
 
-export interface ImagesModel {
+export interface ImageModel {
+  id: string;
   name: string;
   url: string;
   metadata: MetadataModel;
 }
 
 export interface AssignedToCraftsmanModel {
-  id: string,
-  firstName: string,
-  lastName: string,
+  id: string;
+  firstName: string;
+  lastName: string;
 }
 
 export interface CraftsmanEstimatedCostModel {
-  cost: number,
-  comment: string
+  cost: number;
+  comment: string;
 }
 
 export interface FixTagModel {
-  id: string,
-  groupId: string,
-  name: string,
+  id: string;
+  groupId: string;
+  name: string;
   statistics: {
-    createdTimestampUtc: number,
-    updatedTimeStampUtc : number,
-    totalFixesCount : number,
-    completedFixesCount : number,
-    percentageUsage: number
-  }
+    createdTimestampUtc: number;
+    updatedTimeStampUtc: number;
+    totalFixesCount: number;
+    completedFixesCount: number;
+    percentageUsage: number;
+  };
 }
 
 export interface FixTagWithAction {
-  tags: Array<FixTagModel>,
-  isLoading : boolean,
-  error: any
+  tags: Array<FixTagModel>;
+  isLoading: boolean;
+  error: any;
 }
 
 export interface FixesModel {
-  id: string,
-  activityHistoryId: string,
-  assignedToCraftsman: AssignedToCraftsmanModel,
-  billingActivityId: string,
-  clientEstimatedCost: ClientEstimatedCostModel,
-  craftsmanEstimatedCost: CraftsmanEstimatedCostModel,
-  details: Details,
-  images: Array<ImagesModel>,
-  location?:AddressModel,
-  schedule: Array<Schedule>,
-  status: number,
-  systemCalculatedCost: number,
-  tags: Array<TagModel>,
-  createdByClient: UserSummaryModel,
-  updatedByUser: UserSummaryModel,
-  createdTimestampUtc: number,
-  updatedTimestampUtc: number,
+  id: string;
+  activityHistoryId: string;
+  assignedToCraftsman: AssignedToCraftsmanModel;
+  billingActivityId: string;
+  clientEstimatedCost: ClientEstimatedCostModel;
+  craftsmanEstimatedCost: CraftsmanEstimatedCostModel;
+  details: Details;
+  images: Array<ImageModel>;
+  location?: AddressModel;
+  schedule: Array<Schedule>;
+  status: number;
+  systemCalculatedCost: number;
+  tags: Array<TagModel>;
+  createdByClient: UserSummaryModel;
+  updatedByUser: UserSummaryModel;
+  createdTimestampUtc: number;
+  updatedTimestampUtc: number;
 }
 export interface FixesStateWithAction {
-  fixes: Array<FixesModel>,
-  isLoading : boolean,
-  error: any
+  fixes: Array<FixesModel>;
+  isLoading: boolean;
+  error: any;
 }
 
 export interface UpdateFixStateWithAction {
-  fix: FixesModel | undefined,
-  isLoading : boolean,
-  error: any
+  fix: FixesModel | undefined;
+  isLoading: boolean;
+  error: any;
 }
 
 export interface FixesStates {
-  readonly newFixesState: FixesStateWithAction,
-  readonly pendingFixesState: FixesStateWithAction,
-  readonly inProgressFixesState: FixesStateWithAction,
-  readonly inReviewFixesState: FixesStateWithAction,
-  readonly completedFixesState: FixesStateWithAction,
-  readonly terminatedFixesState: FixesStateWithAction,
-  readonly topFixTagsState: FixTagWithAction,
-  readonly updateFixState: UpdateFixStateWithAction,
-  readonly terminatedByCraftsmanFixesState: FixesStateWithAction
-  readonly terminatedByClientFixesState: FixesStateWithAction
+  readonly newFixesState: FixesStateWithAction;
+  readonly pendingFixesState: FixesStateWithAction;
+  readonly inProgressFixesState: FixesStateWithAction;
+  readonly inReviewFixesState: FixesStateWithAction;
+  readonly completedFixesState: FixesStateWithAction;
+  readonly terminatedFixesState: FixesStateWithAction;
+  readonly topFixTagsState: FixTagWithAction;
+  readonly updateFixState: UpdateFixStateWithAction;
+  readonly terminatedByCraftsmanFixesState: FixesStateWithAction;
+  readonly terminatedByClientFixesState: FixesStateWithAction;
 }
 
 const initialState: FixesStates = {
@@ -127,12 +128,18 @@ const initialState: FixesStates = {
   updateFixState: { fix: undefined, isLoading: false, error: null },
 };
 
-const prepareSuccess = <T> (payload: T) : FixitAction<T> => ({
-  payload, type: 'inherit', meta: 'empty', error: null,
+const prepareSuccess = <T>(payload: T): FixitAction<T> => ({
+  payload,
+  type: 'inherit',
+  meta: 'empty',
+  error: null,
 });
 
-const prepareFailure = <T> (error: any) : FixitAction<T> => ({
-  payload: {} as T, type: 'inherit', meta: 'empty', error,
+const prepareFailure = <T>(error: any): FixitAction<T> => ({
+  payload: {} as T,
+  type: 'inherit',
+  meta: 'empty',
+  error,
 });
 
 const fixesSlice = createSlice({
@@ -150,14 +157,14 @@ const fixesSlice = createSlice({
         state.newFixesState.isLoading = false;
         state.newFixesState.error = null;
       },
-      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
+      prepare: (payload: FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_NEWFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.newFixesState.isLoading = false;
         state.newFixesState.error = action.error;
       },
-      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
+      prepare: (error: any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_PENDINGFIXES_BEGIN: (state) => {
       state.pendingFixesState.error = null;
@@ -169,14 +176,14 @@ const fixesSlice = createSlice({
         state.pendingFixesState.isLoading = false;
         state.pendingFixesState.error = null;
       },
-      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
+      prepare: (payload: FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_PENDINGFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.pendingFixesState.isLoading = false;
         state.pendingFixesState.error = action.error;
       },
-      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
+      prepare: (error: any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_INPROGRESSFIXES_BEGIN: (state) => {
       state.inProgressFixesState.error = null;
@@ -188,14 +195,14 @@ const fixesSlice = createSlice({
         state.inProgressFixesState.isLoading = false;
         state.inProgressFixesState.error = null;
       },
-      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
+      prepare: (payload: FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_INPROGRESSFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.inProgressFixesState.isLoading = false;
         state.inProgressFixesState.error = action.error;
       },
-      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
+      prepare: (error: any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_INREVIEWFIXES_BEGIN: (state) => {
       state.inReviewFixesState.error = null;
@@ -207,14 +214,14 @@ const fixesSlice = createSlice({
         state.inReviewFixesState.isLoading = false;
         state.inReviewFixesState.error = null;
       },
-      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
+      prepare: (payload: FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_INREVIEWFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.inReviewFixesState.isLoading = false;
         state.inReviewFixesState.error = action.error;
       },
-      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
+      prepare: (error: any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_COMPLETEDFIXES_BEGIN: (state) => {
       state.completedFixesState.error = null;
@@ -226,14 +233,14 @@ const fixesSlice = createSlice({
         state.completedFixesState.isLoading = false;
         state.completedFixesState.error = null;
       },
-      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
+      prepare: (payload: FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_COMPLETEDFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.completedFixesState.isLoading = false;
         state.completedFixesState.error = action.error;
       },
-      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
+      prepare: (error: any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_TERMINATEDFIXES_BEGIN: (state) => {
       state.terminatedFixesState.error = null;
@@ -245,14 +252,14 @@ const fixesSlice = createSlice({
         state.terminatedFixesState.isLoading = false;
         state.terminatedFixesState.error = null;
       },
-      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
+      prepare: (payload: FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_TERMINATEDFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.terminatedFixesState.isLoading = false;
         state.terminatedFixesState.error = action.error;
       },
-      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
+      prepare: (error: any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_TERMINATEDBYCRAFTSMANFIXES_SUCCESS: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
@@ -260,14 +267,14 @@ const fixesSlice = createSlice({
         state.terminatedFixesState.isLoading = false;
         state.terminatedFixesState.error = null;
       },
-      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
+      prepare: (payload: FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_TERMINATEDBYCRAFTSMANFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.terminatedByCraftsmanFixesState.isLoading = false;
         state.terminatedByCraftsmanFixesState.error = action.error;
       },
-      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
+      prepare: (error: any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_TERMINATEDBYCLIENTFIXES_SUCCESS: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
@@ -275,14 +282,14 @@ const fixesSlice = createSlice({
         state.terminatedFixesState.isLoading = false;
         state.terminatedFixesState.error = null;
       },
-      prepare: (payload : FixesModel[]) => prepareSuccess(payload),
+      prepare: (payload: FixesModel[]) => prepareSuccess(payload),
     },
     FETCH_TERMINATEDBYCLIENTFIXES_FAILURE: {
       reducer: (state, action: FixitAction<FixesModel[]>) => {
         state.terminatedByClientFixesState.isLoading = false;
         state.terminatedByClientFixesState.error = action.error;
       },
-      prepare: (error : any) => prepareFailure<FixesModel[]>(error),
+      prepare: (error: any) => prepareFailure<FixesModel[]>(error),
     },
     FETCH_POPULARFIXTAGS_BEGIN: (state) => {
       state.topFixTagsState.error = null;
@@ -294,14 +301,14 @@ const fixesSlice = createSlice({
         state.topFixTagsState.isLoading = false;
         state.topFixTagsState.error = null;
       },
-      prepare: (payload : FixTagModel[]) => prepareSuccess(payload),
+      prepare: (payload: FixTagModel[]) => prepareSuccess(payload),
     },
     FETCH_POPULARFIXTAGS_FAILURE: {
       reducer: (state, action: FixitAction<FixTagModel[]>) => {
         state.topFixTagsState.isLoading = false;
         state.topFixTagsState.error = action.error;
       },
-      prepare: (error : any) => prepareFailure<FixTagModel[]>(error),
+      prepare: (error: any) => prepareFailure<FixTagModel[]>(error),
     },
     UPDATE_FIX_BEGIN: (state) => {
       state.updateFixState.error = null;
