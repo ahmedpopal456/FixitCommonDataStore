@@ -12,10 +12,11 @@ import { PersistentStateModel } from './models/persistentStore/persistentStateMo
 import { RootState, rootReducer, persistConfig } from './rootReducer';
 import ProfileService from './services/profileService';
 import RatingsService from './services/ratingsService';
+import NotificationsService from './services/notificationService';
 import AddressService from './services/addressService';
 import FixesService from './services/fixesService';
 import UserService from './services/userService';
-import * as notificationActions from './slices/notificationSlice';
+import * as notificationsActions from './slices/notificationsSlice';
 import * as userSlice from './slices/userSlice';
 import { FixRequestService, FixTemplateUpdateRequest, FixTemplateCreateRequest } from './services/fixRequestService';
 import * as fixRequestSlice from './slices/fixRequestSlice';
@@ -28,7 +29,20 @@ import { Category, Type, Unit } from './models/common';
 import Status from './models/common/fixTemplateStatus';
 import { Schedule } from './models/common/scheduleModel';
 import { UserAddressModel, UserAddressModelBase, UserSummaryModel } from './slices/userSlice';
-import { NotificationModel } from './models/notification/NotificationModel';
+import { NotificationPlatform, NotificationStatus, NotificationTypes } from './models/notification/enums';
+import {
+  DeviceInstallation,
+  DeviceInstallationUpsertRequestDto,
+  EnqueueNotificationRequestDto,
+  NotificationStatusUpdateRequestDto,
+  NotificationStatusUpdateResponseDto,
+  NotificationTagDto,
+  NotificationTemplateBaseDto,
+} from './models/notification';
+import { NotificationDocument } from './models/notification/notificationDocument';
+import { UserBaseModel } from './models/user';
+import { PagedDocumentCollection } from './models/common/pagedDocumentCollection';
+import { OperationStatus } from './models/common/operationStatus';
 
 const persistedRootReducer: Reducer<RootState & PersistPartial, any> = persistReducer(persistConfig, rootReducer);
 const store = createStore(persistedRootReducer, applyMiddleware(thunk));
@@ -41,7 +55,7 @@ export {
   store,
   persistor,
   persistentActions,
-  notificationActions,
+  notificationsActions,
   fixTemplateSlice as fixTemplateActions,
   fixRequestSlice as fixRequestActions,
   userSlice as userActions,
@@ -50,6 +64,7 @@ export {
   FixesService,
   AddressService,
   UserService,
+  NotificationsService,
   FixRequestService,
   Status as FixTemplateStatus,
   connect,
@@ -82,6 +97,7 @@ export type {
   FixTemplateModel,
   FixTemplateSection,
   UserSummaryModel,
+  UserBaseModel,
   AddressModel,
   AddressQueryItemModel,
   Category,
@@ -91,5 +107,17 @@ export type {
   FixTemplateUpdateRequest,
   FixTemplateCreateRequest,
   Schedule,
-  NotificationModel,
+  NotificationPlatform,
+  NotificationStatus,
+  NotificationTypes,
+  DeviceInstallation,
+  DeviceInstallationUpsertRequestDto,
+  EnqueueNotificationRequestDto,
+  NotificationDocument,
+  NotificationStatusUpdateRequestDto,
+  NotificationStatusUpdateResponseDto,
+  NotificationTagDto,
+  NotificationTemplateBaseDto,
+  PagedDocumentCollection,
+  OperationStatus,
 };

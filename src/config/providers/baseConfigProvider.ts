@@ -25,9 +25,13 @@ export default abstract class BaseConfigProvider {
 
   public get addressApiBaseUrl(): string {
     return this.config.addressApiBaseUrl;
-  };
+  }
 
   public get mdmBaseApiUrl(): string {
+    return this.config.mdmBaseApiUrl;
+  }
+
+  public get nmsBaseApiUrl(): string {
     return this.config.mdmBaseApiUrl;
   }
 
