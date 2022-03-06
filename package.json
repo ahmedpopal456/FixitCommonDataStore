@@ -1,6 +1,6 @@
 {
   "name": "fixit-common-data-store",
-  "version": "0.6.0-ahmed",
+  "version": "0.6.8-ahmed",
   "main": "src/index.ts",
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.13.4",

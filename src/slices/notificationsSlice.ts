@@ -9,10 +9,10 @@ import {
 } from '../models/notification';
 import { NotificationPlatform, NotificationStatus } from '../models/notification/enums';
 import { OperationStatus } from '../models/common/operationStatus';
-import { ReceivedNotification } from 'react-native-push-notification';
+import { FixesModel } from './fixesSlice';
 
 export interface NotificationsStateWithAction {
-  notifications: PagedDocumentCollection<NotificationDocument>;
+  notifications: NotificationDocument[];
   isLoading: boolean;
   error: any;
 }
@@ -26,20 +26,13 @@ export interface InstallationsStateWithAction {
 export interface NotificationsStates {
   readonly notifications: NotificationsStateWithAction;
   readonly installations: InstallationsStateWithAction;
-  readonly remoteMessages: ReceivedNotification[];
+  readonly currentDisplayedRemoteMessage: any | FixesModel;
 }
 
 const initialState: NotificationsStates = {
-  remoteMessages: [],
+  currentDisplayedRemoteMessage: {},
   notifications: {
-    notifications: {
-      isOperationSuccessful: false,
-      pageNumber: 1,
-      totalDocumentCount: 0,
-      pageCount: 0,
-      result: [],
-      operationException: '',
-    },
+    notifications: [],
     isLoading: false,
     error: null,
   },
@@ -69,10 +62,6 @@ export interface DeviceInstallationUpsertResponse {
   operationStatus: OperationStatus;
   request: DeviceInstallationUpsertRequestDto;
 }
-export interface RemoteMessagesModel {
-  readonly messages: ReceivedNotification[];
-}
-type displayNotificationPicked = Pick<NotificationsStates, 'remoteMessages'>;
 
 const prepareSuccess = <T>(payload: T): FixitAction<T> => ({
   payload,
@@ -151,16 +140,12 @@ const notificationsSlice = createSlice({
     },
     FETCH_NOTIFICATIONS_BYPAGE_SUCCESS: {
       reducer: (state, action: FixitAction<PagedDocumentCollection<NotificationDocument>>) => {
-        let distinctArray = state.notifications.notifications.result
-          ? state.notifications.notifications.result.concat(action.payload.result as NotificationDocument[])
-          : action.payload.result;
+        let distinctArray = state.notifications.notifications
+          ? state.notifications.notifications?.concat(action.payload.results as NotificationDocument[])
+          : action.payload.results;
 
         state.notifications.isLoading = false;
         state.notifications.error = null;
-        state.notifications.notifications = {
-          ...action.payload,
-          result: removeDuplicates(distinctArray, 'id'),
-        };
       },
       prepare: (payload: PagedDocumentCollection<NotificationDocument>) => prepareSuccess(payload),
     },
@@ -179,7 +164,7 @@ const notificationsSlice = createSlice({
       reducer: (state, action: FixitAction<OperationStatus<NotificationStatusUpdateResponseDto>>) => {
         state.notifications.isLoading = false;
         state.notifications.error = null;
-        const notificationToUpdate = state.notifications.notifications.result?.find(
+        const notificationToUpdate = state.notifications.notifications?.find(
           (item) => item.id === action.payload.result?.notificationId,
         );
 
@@ -196,8 +181,8 @@ const notificationsSlice = createSlice({
       },
       prepare: (error: any) => prepareFailure<OperationStatus<NotificationStatusUpdateResponseDto>>(error),
     },
-    DISPLAY_NOTIFICATION: (state, action: PayloadAction<displayNotificationPicked>) => {
-      state.remoteMessages = action.payload.remoteMessages;
+    DISPLAY_NOTIFICATION: (state, action: PayloadAction<any>) => {
+      state.currentDisplayedRemoteMessage = action.payload.currentDisplayedRemoteMessage;
     },
   },
 });

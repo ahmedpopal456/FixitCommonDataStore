@@ -35,7 +35,7 @@ export default class NotificationService {
 
   async installDevice(deviceInstallationUpsertRequest: DeviceInstallationUpsertRequestDto): Promise<OperationStatus> {
     this.store.dispatch(UPDATE_INSTALLATION_BEGIN());
-    const route = `${this.config.nmsBaseApiUrl}/Installations`;
+    const route = `${this.config.nmsBaseApiUrl}/Notifications/Installations`;
     const response = await fetch(route, {
       method: 'PUT',
       headers: {
@@ -58,7 +58,7 @@ export default class NotificationService {
 
   async enqueue(notificationBody: EnqueueNotificationRequestDto): Promise<OperationStatus> {
     this.store.dispatch(ENQUEUE_NOTIFICATION_BEGIN());
-    const response = await fetch(this.config.nmsBaseApiUrl, {
+    const response = await fetch(`${this.config.nmsBaseApiUrl}/Notifications`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -67,7 +67,7 @@ export default class NotificationService {
       body: JSON.stringify(notificationBody),
     }).catch((error) => this.store.dispatch(ENQUEUE_NOTIFICATION_FAILURE(error)));
 
-    const operation = response.json();
+    const operation = await response.json();
     this.store.dispatch(ENQUEUE_NOTIFICATION_SUCCESS(operation as OperationStatus));
 
     return operation;
@@ -84,7 +84,7 @@ export default class NotificationService {
       { method: 'GET' },
     ).catch((error) => this.store.dispatch(FETCH_NOTIFICATIONS_BYPAGE_FAILURE(error)));
 
-    const operation = response.json();
+    const operation = await response.json();
     this.store.dispatch(FETCH_NOTIFICATIONS_BYPAGE_SUCCESS(operation as PagedDocumentCollection<NotificationDocument>));
 
     return operation;
@@ -103,7 +103,7 @@ export default class NotificationService {
       body: JSON.stringify(body),
     }).catch((error) => this.store.dispatch(UPDATE_NOTIFICATION_STATUS_FAILURE(error)));
 
-    const operation = response.json();
+    const operation = await response.json();
     this.store.dispatch(
       UPDATE_NOTIFICATION_STATUS_SUCCESS(operation as OperationStatus<NotificationStatusUpdateResponseDto>),
     );

@@ -32,7 +32,7 @@ export default abstract class BaseConfigProvider {
   }
 
   public get nmsBaseApiUrl(): string {
-    return this.config.mdmBaseApiUrl;
+    return this.config.nmsBaseApiUrl;
   }
 
   public get rawConfig(): ConfigModel {

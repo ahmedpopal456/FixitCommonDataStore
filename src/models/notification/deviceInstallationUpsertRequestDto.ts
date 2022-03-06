@@ -8,5 +8,5 @@ export interface DeviceInstallationUpsertRequestDto {
   platform: NotificationPlatform;
   pushChannelToken: string;
   tags: NotificationTagDto[];
-  templates: NotificationTemplateBaseDto[];
+  templates?: NotificationTemplateBaseDto[];
 }

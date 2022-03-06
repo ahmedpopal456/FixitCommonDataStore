@@ -29,11 +29,11 @@ import { Category, Type, Unit } from './models/common';
 import Status from './models/common/fixTemplateStatus';
 import { Schedule } from './models/common/scheduleModel';
 import { UserAddressModel, UserAddressModelBase, UserSummaryModel } from './slices/userSlice';
-import { NotificationPlatform, NotificationStatus, NotificationTypes } from './models/notification/enums';
 import {
   DeviceInstallation,
   DeviceInstallationUpsertRequestDto,
   EnqueueNotificationRequestDto,
+  NotificationPayloadDto,
   NotificationStatusUpdateRequestDto,
   NotificationStatusUpdateResponseDto,
   NotificationTagDto,
@@ -43,6 +43,7 @@ import { NotificationDocument } from './models/notification/notificationDocument
 import { UserBaseModel } from './models/user';
 import { PagedDocumentCollection } from './models/common/pagedDocumentCollection';
 import { OperationStatus } from './models/common/operationStatus';
+import { NotificationPlatform, NotificationStatus, NotificationTypes } from './models/notification/enums';
 
 const persistedRootReducer: Reducer<RootState & PersistPartial, any> = persistReducer(persistConfig, rootReducer);
 const store = createStore(persistedRootReducer, applyMiddleware(thunk));
@@ -67,6 +68,9 @@ export {
   NotificationsService,
   FixRequestService,
   Status as FixTemplateStatus,
+  NotificationPlatform,
+  NotificationStatus,
+  NotificationTypes,
   connect,
   useSelector,
   useDispatch,
@@ -107,9 +111,6 @@ export type {
   FixTemplateUpdateRequest,
   FixTemplateCreateRequest,
   Schedule,
-  NotificationPlatform,
-  NotificationStatus,
-  NotificationTypes,
   DeviceInstallation,
   DeviceInstallationUpsertRequestDto,
   EnqueueNotificationRequestDto,
@@ -117,6 +118,7 @@ export type {
   NotificationStatusUpdateRequestDto,
   NotificationStatusUpdateResponseDto,
   NotificationTagDto,
+  NotificationPayloadDto,
   NotificationTemplateBaseDto,
   PagedDocumentCollection,
   OperationStatus,

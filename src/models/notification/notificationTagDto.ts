@@ -1,4 +1,4 @@
 export interface NotificationTagDto {
-	subject: string;
-	topic: string;
+  key: string;
+  value: string;
 }
