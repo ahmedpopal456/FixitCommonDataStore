@@ -5,7 +5,7 @@ import accountReducer, { AccountState } from './slices/accountSlice';
 import profileReducer, { ProfileState } from './slices/profileSlice';
 import ratingsReducer, { RatingsState } from './slices/ratingSlice';
 import userReducer, { UserState } from './slices/userSlice';
-import notificationsReducer, { RemoteMessagesState } from './slices/notificationSlice';
+import notificationsReducer from './slices/notificationsSlice';
 import fixesReducer, { FixesStates } from './slices/fixesSlice';
 import fixRequestReducer, { FixRequestState } from './slices/fixRequestSlice';
 import persistentReducer from './storage/persistentReducer';
@@ -13,6 +13,7 @@ import addressReducer, { AddressState } from './slices/addressSlice';
 
 import { PersistentStateModel } from './models/persistentStore/persistentStateModel';
 import fixTemplateReducer, { FixTemplateState } from './slices/fixTemplateSlice';
+import { NotificationsStates } from './slices/notificationsSlice';
 
 export const persistConfig = {
   key: 'root',
@@ -21,16 +22,16 @@ export const persistConfig = {
 };
 
 export interface RootState {
-  persist: PersistentStateModel,
-  user: UserState,
-  account: AccountState,
-  profile: ProfileState,
-  ratings: RatingsState,
-  fixRequest: FixRequestState,
-  fixTemplate: FixTemplateState,
-  fixes: FixesStates,
-  address: AddressState,
-  remoteMessages: RemoteMessagesState
+  persist: PersistentStateModel;
+  user: UserState;
+  account: AccountState;
+  profile: ProfileState;
+  ratings: RatingsState;
+  fixRequest: FixRequestState;
+  fixTemplate: FixTemplateState;
+  fixes: FixesStates;
+  address: AddressState;
+  notifications: NotificationsStates;
 }
 
 export const rootReducer: Reducer<CombinedState<RootState>> = combineReducers({
@@ -42,6 +43,6 @@ export const rootReducer: Reducer<CombinedState<RootState>> = combineReducers({
   fixRequest: fixRequestReducer,
   fixTemplate: fixTemplateReducer,
   fixes: fixesReducer,
-  remoteMessages: notificationsReducer,
   address: addressReducer,
+  notifications: notificationsReducer,
 });

@@ -3,6 +3,7 @@ export interface ConfigModel {
   userApiBaseUrl: string;
   fixApiBaseUrl: string;
   mdmBaseApiUrl: string;
+  nmsBaseApiUrl: string;
   notificationApiUrl: string;
   chatApiUrl: string;
   chatTriggerUrl: string;
